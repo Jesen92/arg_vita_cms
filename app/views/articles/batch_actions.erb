@@ -1,0 +1,29 @@
+<h3>Postavite Popust</h3>
+
+<% if @comp.nil? %>
+  <%= simple_form_for :article, url: set_discount_articles_path, method: :put, html: {class: 'form-horizontal'} do |f| %>
+        <%= f.label "Artikli" %>
+      <%= f.input :articles, label: false, collection: Article.all, :include_blank => false , :input_html => {class: 'chosen-select', multiple: true }, :selected => @art_ids %>
+
+        <%= f.label "Kodovi" %>
+      <%= f.input :codes , label: false, collection: @codes, :input_html => {class: 'chosen-select', multiple: true } %>
+
+      <%= f.input :discount, label: "Popust", input_html: {value: 0} %>
+        <%= f.input :start_date, :as => :datetime ,label: "Početak Popusta" %>
+        <%= f.input :end_date, :as => :datetime ,label: "Kraj Popusta" %>
+      <%= f.submit "Submit", class: "btn btn-success" %>
+      <%= link_to "Cancel", articles_index_path, class: "btn btn-default" %>
+
+  <% end %>
+<% else %>
+    <%= simple_form_for :complement, url: set_discount_articles_path, method: :put, html: {class: 'form-horizontal'} do |f| %>
+        <%= f.label "Kompleti" %>
+        <%= f.input :complements, label: false, collection: Complement.all, :include_blank => false , :input_html => {class: 'chosen-select', multiple: true }, :selected => @comp_ids %>
+        <%= f.input :start_date, :as => :datetime ,label: "Početak Popusta" %>
+        <%= f.input :end_date, :as => :datetime ,label: "Kraj Popusta" %>
+        <%= f.input :discount, label: "Popust", input_html: {value: 0} %>
+        <%= f.submit "Submit", class: "btn btn-success" %>
+        <%= link_to "Cancel", complements_path, class: "btn btn-default" %>
+
+    <% end %>
+<% end %>

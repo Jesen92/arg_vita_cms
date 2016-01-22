@@ -1,0 +1,39 @@
+<%= link_to "Uredi Materijal", materials_edit_path(@material.id), class: "btn btn-primary" %> <%= link_to 'Delete',  @material,  method: :delete, data: { confirm: 'Are you sure?' },class: "btn btn-danger" %><%= link_to "Svi Materijali", materials_path, class: "btn btn-default pull-right" %>
+<div class="page-header head-page">
+  <h1><%= @material.title %><% if @material.title_eng != nil %> <small><%= @material.title_eng %></small><% end %></h1>
+</div>
+
+<div style="margin-bottom: 15px;" >
+  <% if !@material.avatar_file_name.nil? %>
+      <%= image_tag(@material.avatar.url(:thumb)) %>
+  <% else %>
+      <%= image_tag('placeholder.png') %>
+  <% end %>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Kategorije</h3>
+  </div>
+
+  <ul class="list-group">
+    <% @material.categories.each do |cat| %>
+      <%= link_to cat.title, category_path(cat.id), class:'list-group-item' %>
+    <% end %>
+  </ul>
+</div>
+
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">Artikli</h3>
+  </div>
+
+
+  <ul class="list-group">
+    <% @material.articles.each do |art| %>
+        <%= link_to art.title, article_path(art.id), class:'list-group-item' %>
+    <% end %>
+  </ul>
+</div>
+
+

@@ -1,0 +1,23 @@
+<h3>Stavi Artikle na Aukciju</h3>
+
+
+  <%= simple_form_for :article, url: create_auction_articles_path, method: :put, html: {class: 'form-horizontal'} do |f| %>
+    <% if @comp.nil? %>
+        <%= f.label "Artikli" %>
+      <%= f.input :articles, label: false, collection: Article.all, :include_blank => false , :input_html => {class: 'chosen-select', multiple: true }, :selected => @art_ids %>
+
+        <%= f.label "Kodovi" %>
+      <%= f.input :codes, label: false, collection: @codes, :input_html => {class: 'chosen-select', multiple: true } %>
+
+    <% else %>
+        <%= f.label "Kompleti" %>
+      <%= f.input :complements, label: false, collection: Complement.all, :include_blank => false , :input_html => {class: 'chosen-select', multiple: true }, :selected => @comp_ids %>
+    <% end %>
+      <%= f.input :starting_price , label: "Početna cijena", input_html: {value: 0} %>
+      <%= f.input :start_date, :as => :datetime,label: "Početak Aukcije" %>
+      <%= f.input :end_date, :as => :datetime, label: "Kraj Aukcije" %>
+
+      <%= f.submit "Submit", class: "btn btn-success" %>
+      <%= link_to "Cancel", articles_index_path, class: "btn btn-default" %>
+
+  <% end %>

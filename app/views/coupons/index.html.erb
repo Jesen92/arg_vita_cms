@@ -1,0 +1,53 @@
+<%= link_to "Novi Kupon", coupons_new_path, class: "btn btn-success" %>
+<div class="page-header head-page">
+  <h1>Kuponi</h1>
+</div>
+
+<%= form_tag coupon_batch_actions_path, :method => :put do |f| %>
+
+    <div style="margin-bottom: 5px;" >
+      <%= submit_tag "Izbriši kupone",data: { confirm: 'Jeste li sigurni da želite obrisati odabrane kupone?' }, :class => "btn btn-danger" %>
+    </div>
+
+
+
+    <%= grid(@coupons_grid, show_filters: :always) do |g|
+      g.action_column do |t|
+        t.id
+      end
+
+      g.column name: "Id", attribute: 'id', filter: false do |t|
+        t.id
+      end
+
+      g.column name: "Artikl", attribute: 'title', assoc: :article  do |t|
+        if t.article != nil
+          t.article.title
+        else
+          "- Svi Artikli -"
+        end
+      end
+
+      g.column name: "Kod", attribute: 'code' do |t|
+        t.code
+      end
+
+      g.column name: "Popust", attribute: 'discount' do |t|
+        t.discount? ? t.discount.to_s+"%" : "---"
+      end
+
+      g.column name: "Iskorišten", attribute: 'used' do |t|
+        t.used? ? "Iskorišten" : "Nije Iskorišten"
+      end
+
+      g.column name: "Kreiran", attribute: 'created_at' do |t|
+        t.created_at.strftime("%d. %m. %Y.")
+      end
+
+      g.column do |t|
+        link_to("Pregled artikla", coupon_path(t.id))
+      end
+
+    end-%>
+
+<% end %>

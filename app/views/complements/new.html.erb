@@ -1,0 +1,43 @@
+<h3>Novi Komplet</h3>
+
+
+<%= simple_form_for @complement, html: {class: 'form-horizontal', multipart: true} do |f| %>
+    <%= f.input :title, label: "Naziv" %>
+    <%= f.input :title_eng, label:"Naziv na Engleskom" %>
+
+    <%= f.label "Artikli" %>
+    <%= f.association :single_articles, label: false, collection: SingleArticle.all, :include_blank => true, :input_html => {class: 'chosen-select', multiple: true} %>
+
+
+    <%= f.input :description, label: "Opis" %>
+
+    <%= f.input :description_eng, label: "Opis na Engleskom" %>
+
+    <div class="control-group">
+      <%= f.label :pictures, label: "Slike", :class => 'control-label' %>
+      <div class="controls">
+
+        <%= file_field_tag "images[]", type: :file, multiple: true %>
+
+        <p></p>
+      </div>
+    </div>
+
+    <%= f.input :cost, label: "Cijena" %>
+
+    <%= f.input :discount, label: "Popust(%)" %>
+
+    <%= f.input :start_date, :as => :datetime , label: "Početak popusta" %>
+    <%= f.input :end_date, :as => :datetime, label: "Kraj popusta" %>
+
+    <div class="input-group" style="margin-bottom: 10px; margin-top: 30px;">
+      <span class="input-group-addon">
+         <%= f.check_box :for_sale, label: "Postavi na prodaju", type: "checkbox" %>
+      </span>
+      <%= f.label "Postavi na prodaju", type: "text", class: "form-control" %>
+    </div>
+
+    <%= f.button :submit, "Izradi komplet", class: "btn btn-success" %>
+    <%= link_to "Cancel", complements_path, class: "btn btn-default" %>
+
+<% end %>

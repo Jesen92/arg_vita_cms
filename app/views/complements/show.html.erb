@@ -1,0 +1,165 @@
+
+<%= javascript_tag do %>
+    $(function(){
+
+    ts = new Date(gon.date);
+
+    if((new Date()) > ts){
+    // The new year is here! Count towards something else.
+    // Notice the *1000 at the end - time must be in milliseconds
+    ts = new Date(gon.date);
+    }
+
+    $('#countdown').countdown({
+    timestamp	: ts,
+    callback	: function(days, hours, minutes, seconds){
+
+    }
+    });
+
+    });
+<% end %>
+
+<%= link_to "Uredi Artikl", complements_edit_path(@complement.id), class: "btn btn-primary" %> <%= link_to 'Delete',  @complement,  method: :delete, data: { confirm: 'Jeste li sigurni?' },class: "btn btn-danger" %>  <%= link_to "Svi Artikli", complements_path, class: "btn btn-default pull-right" %>
+<div class="page-header head-page">
+  <h1><%= @complement.title %><% if !@complement.title_eng.blank? %> <small><%= @complement.title_eng %></small><% end %></h1>
+</div>
+
+<% if !@complement.for_sale? %>
+    <div class="alert alert-danger" role="alert">
+      <h4 style="margin-bottom: 0px;">Artikl nije stavljen na prodaju!</h4>
+    </div>
+<% end %>
+
+
+<!--<div id="clock"></div>-->
+
+<% if @complement.discount != nil && @complement.end_date != nil && @complement.end_date > DateTime.now && @complement.start_date <= DateTime.now %>
+    <div id="countdown" class="countdownHolder" style="width: 100%; text-align: left">
+    <span class="countDays">
+      <span class="position">
+        <span class="digit static"></span>
+      </span>
+      <span class="position">
+        <span class="digit static"></span>
+      </span>
+    </span>
+
+      <span class="countDiv countDiv0"></span>
+
+    <span class="countHours">
+      <span class="position">
+        <span class="digit static"></span>
+      </span>
+      <span class="position">
+        <span class="digit static"></span>
+      </span>
+    </span>
+
+      <span class="countDiv countDiv1"></span>
+
+    <span class="countMinutes">
+      <span class="position">
+        <span class="digit static"></span>
+      </span>
+      <span class="position">
+        <span class="digit static"></span>
+      </span>
+    </span>
+
+      <span class="countDiv countDiv2"></span>
+
+    <span class="countSeconds">
+      <span class="position">
+        <span class="digit static"></span>
+      </span>
+      <span class="position">
+        <span class="digit static"></span>
+      </span>
+    </span>
+
+    </div>
+<% end %>
+
+<% if !@complement.picture.nil? %>
+    <%= image_tag(@complement.picture.image.url(:gallery)) %>
+<% else %>
+    <%= image_tag('placeholder.png') %>
+<% end %>
+<br/>
+<div class="panel panel-info" style="margin-top: 10px">
+  <div class="panel-heading">
+    <h3 class="panel-title">Info</h3>
+  </div>
+  <div class="panel-body">
+    <div class="row" >
+      <div class="col-xs-6 col-md-2" >
+        <strong>Artikli:</strong> <% if @complement.single_articles != nil %> <% @complement.single_articles.each do |art| %>
+                <p><%= link_to art.title, single_article_path(art.id) %></p>
+            <% end %>
+            <p><% else %> Nije postavljen ni jedan Artikl <% end %></p>
+      </div>
+
+      <div class="col-xs-6 col-md-2" >
+        <strong>Cijena<% if @discount_prize %>(prije popusta) <% end %>:</strong> <p><%= number_to_currency(@complement.cost, :unit => 'Kn', :format => "%n %u") %></p>
+      </div>
+
+    </div>
+    <br/>
+    <div class="row">
+      <% if @discount_prize != nil%>
+          <div class="col-xs-6 col-md-2" >
+            <strong>Cijena(poslije popusta):</strong> <p><%= number_to_currency(@discount_prize, :unit => 'Kn', :format => "%n %u") %></p>
+          </div>
+
+          <div class="col-xs-6 col-md-2" >
+            <strong>Popust:</strong> <p><%= @complement.discount.to_s+"%" %></p>
+          </div>
+
+          <% if @complement.start_date != nil %>
+              <div class="col-xs-6 col-md-2" >
+                <strong>Pocetak-Kraj popusta:</strong> <p><%= @complement.start_date.strftime("%d.%m.%Y. %H:%M").to_s+" - "+@complement.end_date.strftime("%d.%m.%Y. %H:%M") %></p>
+              </div>
+          <% end %>
+      <% end %>
+    </div>
+
+
+
+  </div>
+</div>
+
+<div class="panel panel-warning">
+  <div class="panel-heading">
+    <h3 class="panel-title">Opis</h3>
+  </div>
+  <div class="panel-body">
+    <div class="page-header head-page">
+      <h5>HRV:</h5>
+    </div>
+    <% if !@complement.description.blank? %>
+        <%= @complement.description %>
+    <% else %>
+        Nema opisa!
+    <% end %>
+
+    <div class="page-header">
+      <h5>ENG:</h5>
+    </div>
+    <% if !@complement.description_eng.blank? %>
+        <%= @complement.description_eng %>
+    <% else %>
+        No description!
+    <% end %>
+  </div>
+</div>
+
+
+
+<p><strong>Slike:</strong></p>
+
+<div class="row" >
+
+  <%= render_gallery_for @complement.pictures, list_tag: :div, item_tag: :p, item_class: "col-xs-6 col-md-3"  %>
+
+</div>

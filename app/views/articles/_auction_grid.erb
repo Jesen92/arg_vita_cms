@@ -1,0 +1,53 @@
+<%= grid(@auction_grid, show_filters: :always) do |g|
+
+  g.action_column do |t|
+    t.id
+  end
+
+  g.column name: "Naziv artikla", attribute: 'title', assoc: :article do |t|
+    if !t.article.nil?
+      link_to(t.article.title, article_path(t.article.id), :method => :get)
+    else
+      "- - - -"
+    end
+  end
+
+  g.column name: "Naziv kompleta", attribute: 'title', assoc: :complement do |t|
+    if !t.complement.nil?
+      link_to(t.complement.title, complement_path(t.complement.id), :method => :get)
+    else
+      "- - - -"
+    end
+  end
+
+  g.column name: "Početak aukcije", attribute: 'start_date' do |t|
+    t.start_date.strftime("%d. %m. %Y.")
+  end
+
+  g.column name: "Kraj aukcije", attribute: 'end_date' do |t|
+    t.end_date.strftime("%d. %m. %Y.")
+  end
+
+
+  g.column name: "Početna cijena", attribute: 'starting_price' do |t|
+    t.starting_price
+  end
+
+  g.column name: "Najveća Ponuda", attribute: 'highest_bid' do |t|
+    t.highest_bid
+  end
+
+  g.column name: "Korisnik", attribute: 'name', assoc: :user do |t|
+    if t.user != nil
+      t.user.name
+    else
+      "----"
+    end
+  end
+
+  g.column name: "Kreirana Aukcija", attribute: 'created_at' do |t|
+    t.created_at.strftime("%d. %m. %Y.")
+  end
+
+
+end-%>

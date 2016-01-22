@@ -1,0 +1,234 @@
+
+<%= javascript_tag do %>
+    $(function(){
+
+    ts = new Date(gon.date);
+
+    if((new Date()) > ts){
+    // The new year is here! Count towards something else.
+    // Notice the *1000 at the end - time must be in milliseconds
+    ts = new Date(gon.date);
+    }
+
+    $('#countdown').countdown({
+    timestamp	: ts,
+    callback	: function(days, hours, minutes, seconds){
+
+    }
+    });
+
+    });
+<% end %>
+
+<%= link_to "Uredi Artikl", articles_edit_path(@article.id), class: "btn btn-primary" %> <%= link_to 'Delete',  @article,  method: :delete, data: { confirm: 'Jeste li sigurni?' },class: "btn btn-danger" %> <% if @article.raw? %> <%= link_to "Svi Repromaterijali", raw_index_articles_path, class: "btn btn-default pull-right" %> <% else %> <%= link_to "Svi Artikli", articles_path, class: "btn btn-default pull-right" %> <% end %>
+<div class="page-header head-page">
+  <h1><%= @article.title %><% if !@article.title_eng.blank? %> <small><%= @article.title_eng %></small><% end %></h1>
+</div>
+
+<% if !@article.for_sale? %>
+  <div class="alert alert-danger" role="alert">
+    <h4 style="margin-bottom: 0px;">Artikl nije stavljen na prodaju!</h4>
+  </div>
+<% end %>
+
+<% if @article.raw? %>
+    <div class="alert alert-warning" role="alert">
+      <h4 style="margin-bottom: 0px;">Repromaterijal</h4>
+    </div>
+<% end %>
+
+<!--<div id="clock"></div>-->
+
+<% if @article.discount != nil && @article.end_date != nil && @article.end_date > DateTime.now && @article.start_date <= DateTime.now %>
+  <div id="countdown" class="countdownHolder" style="width: 100%; text-align: left">
+    <span class="countDays">
+      <span class="position">
+        <span class="digit static"></span>
+      </span>
+      <span class="position">
+        <span class="digit static"></span>
+      </span>
+    </span>
+
+    <span class="countDiv countDiv0"></span>
+
+    <span class="countHours">
+      <span class="position">
+        <span class="digit static"></span>
+      </span>
+      <span class="position">
+        <span class="digit static"></span>
+      </span>
+    </span>
+
+    <span class="countDiv countDiv1"></span>
+
+    <span class="countMinutes">
+      <span class="position">
+        <span class="digit static"></span>
+      </span>
+      <span class="position">
+        <span class="digit static"></span>
+      </span>
+    </span>
+
+    <span class="countDiv countDiv2"></span>
+
+    <span class="countSeconds">
+      <span class="position">
+        <span class="digit static"></span>
+      </span>
+      <span class="position">
+        <span class="digit static"></span>
+      </span>
+    </span>
+
+  </div>
+<% end %>
+
+  <% if !@article.picture.nil? %>
+    <%= image_tag(@article.picture.image.url(:gallery)) %>
+  <% else %>
+    <%= image_tag('placeholder.png') %>
+  <% end %>
+<br/>
+<div class="panel panel-info" style="margin-top: 10px">
+  <div class="panel-heading">
+    <h3 class="panel-title">Info</h3>
+  </div>
+  <div class="panel-body">
+    <div class="row" >
+      <% if !@article.raw? %>
+        <div class="col-xs-6 col-md-2" >
+        <strong>Materijal:</strong>  <% if @article.material != nil %> <p><%= link_to @article.material.title, material_path(@article.material.id) %> <% else %> Nije postavljen materijal <% end %></p>
+        </div>
+
+        <div class="col-xs-6 col-md-2" >
+        <strong>Kategorije:</strong> <% if @article.categories != nil %> <% @article.categories.each do |cat| %>
+              <p><%= link_to cat.title, category_path(cat.id) %></p>
+              <% end %>
+                <p><% else %> Nije postavljena kategorija <% end %></p>
+        </div>
+      <% else %>
+          <div class="col-xs-6 col-md-2" >
+            <strong>Kategorija:</strong>  <% if @article.subcategory != nil %> <p><%= link_to @article.subcategory.title, raw_categories_show_path(@article.subcategory.id) %> <% else %> Nije postavljen materijal <% end %></p>
+          </div>
+
+          <div class="col-xs-6 col-md-2" >
+            <strong>Podkategorija:</strong> <% if @article.ssubcategory != nil %> <p><%= link_to @article.ssubcategory.title, raw_subcategories_show_path(@article.ssubcategory.id) %> <% else %> Nije postavljena kategorija <% end %></p>
+          </div>
+      <% end %>
+    <div class="col-xs-6 col-md-2" >
+    <strong>Kod:</strong> <p><%= @article.code %></p>
+    </div>
+
+
+    <div class="col-xs-6 col-md-2" >
+    <strong>Cijena<% if @discount_prize %>(prije popusta) <% end %>:</strong> <p><%= number_to_currency(@article.cost, :unit => 'Kn', :format => "%n %u") %></p>
+    </div>
+
+      </div>
+<br/>
+    <div class="row">
+      <div class="col-xs-6 col-md-2" >
+        <strong>Količina:</strong> <p><%= @article.amount %></p>
+      </div>
+
+      <div class="col-xs-6 col-md-2" >
+        <strong>Upozorenje(količina):</strong> <p><%= @article.warning %></p>
+      </div>
+
+      <div class="col-xs-6 col-md-2" >
+        <strong>Kod Dobavljača:</strong> <p><%= @article.suppliers_code %></p>
+      </div>
+
+      <% if @discount_prize != nil%>
+          <div class="col-xs-6 col-md-2" >
+            <strong>Cijena(poslije popusta):</strong> <p><%= number_to_currency(@discount_prize, :unit => 'Kn', :format => "%n %u") %></p>
+          </div>
+
+          <div class="col-xs-6 col-md-2" >
+            <strong>Popust:</strong> <p><%= @article.discount.to_s+"%" %></p>
+          </div>
+
+          <% if @article.start_date != nil %>
+          <div class="col-xs-6 col-md-2" >
+            <strong>Pocetak-Kraj popusta:</strong> <p><%= @article.start_date.strftime("%d.%m.%Y. %H:%M").to_s+" - "+@article.end_date.strftime("%d.%m.%Y. %H:%M") %></p>
+          </div>
+          <% end %>
+      <% end %>
+    </div>
+
+
+
+  </div>
+</div>
+
+<div class="panel panel-warning">
+  <div class="panel-heading">
+    <h3 class="panel-title">Opis</h3>
+  </div>
+  <div class="panel-body">
+    <div class="page-header head-page">
+      <h5>HRV:</h5>
+    </div>
+    <% if !@article.description.blank? %>
+      <%= @article.description %>
+    <% else %>
+      Nema opisa!
+    <% end %>
+
+    <div class="page-header">
+      <h5>ENG:</h5>
+    </div>
+    <% if !@article.description_eng.blank? %>
+        <%= @article.description_eng %>
+    <% else %>
+        No description!
+    <% end %>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Kuponi</h3>
+  </div>
+
+  <ul class="list-group">
+    <% @article.coupons.each do |c| %>
+<%= link_to c.discount.to_s+"%"+"- - -"+(c.used  ? "Iskorišten" : "Nije Iskorišten"), coupon_path(c.id), class: "list-group-item" %>
+    <% end %>
+  </ul>
+</div>
+
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">Pojedinačni Artikli</h3>
+  </div>
+  <ul class="list-group">
+    <% @article.single_articles.each do |art| %>
+        <%= link_to art.title, single_article_path(art.id), class:"list-group-item" %>
+    <% end %>
+  </ul>
+
+</div>
+
+
+
+<p><strong>Slike:</strong></p>
+
+<div class="row" >
+
+<%= render_gallery_for @article.pictures, list_tag: :div, item_tag: :p, item_class: "col-xs-6 col-md-3"  %>
+
+</div>
+
+<% @article.single_articles.each do |sa| %>
+    <div class="row" >
+        <% if sa.pictures.first != nil %>
+          <p><strong><%= sa.title %></strong></p>
+          <%= render_gallery_for sa.pictures, list_tag: :div, item_tag: :p, item_class: "col-xs-6 col-md-3"  %>
+        <% end %>
+    </div>
+<% end %>
+

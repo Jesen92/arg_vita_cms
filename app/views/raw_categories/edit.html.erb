@@ -1,0 +1,16 @@
+<h3>Uredi Kategoriju za Repromaterijal</h3>
+
+<%= simple_form_for @raw_category , url: raw_category_path(@raw_category.id),html: {class: 'form-horizontal'} do |f| %>
+    <%= f.input :title, label: "Naziv" %>
+
+    <%= f.input :title_eng, label: "Naziv na Engleskom" %>
+
+    <%= f.input :avatar, label: "Slika" , as: :file %>
+
+    <%= f.label "Podkategorija" %>
+    <%= f.association :ssubcategories, label: false, collection: Ssubcategory.all, multiple: true, :include_blank => true, :input_html => {class: 'chosen-select'} %>
+
+    <%= f.button :submit, "Izradi kategoriju", class: "btn btn-success" %>
+    <%= link_to "Cancel", raw_categories_index_path, class: "btn btn-default" %>
+
+<% end %>

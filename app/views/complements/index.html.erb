@@ -1,0 +1,40 @@
+
+  <%= link_to "Novi Komplet", complements_new_path, class: "btn btn-success" %>
+
+
+<%= link_to "Svi Artikli", articles_path, class: "btn btn-default pull-right RbtnMargin" %> <%= link_to "Aukcije", index_auction_path, class: "btn btn-default pull-right" %>
+  <div class="page-header head-page">
+  <h1>Kompleti</h1>
+</div>
+
+
+<%= form_tag batch_actions_path, :method => :put do |f| %>
+
+    <div style="margin-bottom: 5px;" >
+
+      <div class="dropdown" >
+        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="width: 105px;">
+          Opcije
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+
+          <li><a><%= submit_tag "Postavi popust", style: "background: white;" %></a></li>
+          <li><a><%= submit_tag "Makni sa popusta", style: "background: white;" %></a></li>
+          <li role="separator" class="divider"></li>
+          <li><a><%= submit_tag "Stavi na Aukciju", style: "background: white;" %></a></li>
+          <li role="separator" class="divider"></li>
+          <li><a><%= submit_tag "Stavi na prodaju", style: "background: white;"  %></a></li>
+          <li><a><%= submit_tag "Makni sa prodaje", style: "background: white;"  %></a></li>
+
+
+        </ul>
+
+        <%= submit_tag "Izbriši komplete",data: { confirm: 'Jeste li sigurni da želite obrisati odabrane komplete?' }, class: "btn btn-danger"%>
+      </div>
+
+    </div>
+
+    <%= render partial: 'complements/complements_grid' %>
+
+<% end %>

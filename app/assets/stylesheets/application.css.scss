@@ -1,0 +1,95 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require simple-sidebar
+ *= require jquery.ui.datepicker
+ *= require jquery.countdown
+ *= require_tree .
+
+
+ */
+
+@import 'ionicons.scss';
+
+@import "wice_grid";
+@import "font-awesome-sprockets";
+@import "font-awesome";
+
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "chosen";
+@import "bootstrap-chosen";
+
+html {
+  overflow: visible;
+  height: 100%;
+}
+
+.menu-slide-left i{
+    color: #c3c3c3;
+    margin: 7px 0  0 75px;
+    display: inline-block;
+    float: left;
+    font-size: 170%;
+    height: 0px;
+    margin-left: 0px;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+.menu-slide-right i:hover {
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.menu-slide-left i:hover {
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.menu-slide-right i{
+    color: #c3c3c3;
+    margin: 7px 0  0 75px;
+    display: inline-block;
+    float: left;
+    font-size: 170%;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+.head-page {
+  margin-top: 5px !important;
+}
+
+.selected-menu {
+  text-decoration: none;
+  color: #ffffff !important;
+  background: rgba(255, 255, 255, 0.36);
+}
+
+.selected-menu a {
+  color: #ffffff !important;
+}
+
+.selected-menu a:hover {
+  color: #000000 !important;
+}
+
+.my-brand {
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+
+.RbtnMargin { margin-left: 5px; }

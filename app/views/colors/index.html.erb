@@ -1,0 +1,15 @@
+<%= link_to "Nova Boja", colors_new_path, class: "btn btn-success" %>
+<div class="page-header head-page">
+  <h1>Boje</h1>
+</div>
+
+<div class="list-group">
+  <% @colors.each do |col| %>
+      <%= link_to color_path(col.id), class: 'list-group-item' do %>
+          <% if !col.avatar_file_name.nil? %>
+            <%= image_tag col.avatar.url(:table), style: "margin-right: 5px;" %><% end %><%= col.title %>
+<% end %>
+  <% end %>
+</div>
+
+

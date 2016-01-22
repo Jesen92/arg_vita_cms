@@ -1,0 +1,97 @@
+
+<h3>Uredi Artikle</h3>
+
+<%= form_tag update_multiple_path, method: :post, multipart: true do %>
+    <% $art.each do |article| %>
+
+        <div class="page-header head-page" >
+          <h1><%= article.title %></h1>
+        </div>
+
+        <%= simple_fields_for "articles"+article.id.to_s,  article, html: {class: 'form-horizontal'} do |f| %>
+
+            <%= f.input :raw, :as => :hidden %>
+
+            <%= f.input :title, label: "Naziv" %>
+
+            <%= f.input :title_eng, label: "Naziv na Engleskom" %>
+
+            <% if !f.object.raw? %>
+                <%= f.input :material_id, label: "Materijal", :collection => Material.all %>
+                <%= f.input :category_ids , label: "Kategorije" ,collection: Material.all, as: :grouped_select, group_method: :categories, :input_html => { multiple: true } %>
+            <% else %>
+                <%= f.input :subcategory_id, label: "Kategorija", :collection => Subcategory.all %>
+                <%= f.input :ssubcategory_id , label: "Podkategorija" , :collection => Subcategory.all, as: :grouped_select, group_method: :ssubcategories %>
+            <% end %>
+            <div class="control-group">
+              <%= f.label :pictures, label: "Slike", :class => 'control-label' %>
+              <div class="controls">
+
+
+                <%= file_field_tag "images"+f.object.id.to_s+"[]", type: :file, multiple: true %>
+                <br/>
+                <% article.pictures.each do |p| %>
+                    <div style="margin-top: 15px;">
+                      <%= link_to "Postavi kao Avatar", set_picture_path(p.id), class: "btn btn-default"%>
+                      <%= link_to 'Delete',  picture_path(p.id),  method: :delete, data: { confirm: 'Are you sure?' },class: "btn btn-default" %>
+                      <%= image_tag p.image.url(:thumb) %>
+                    </div>
+                <% end %>
+
+                <p></p>
+              </div>
+            </div>
+
+            <div style="margin-top: 20px; margin-bottom: 20px;">
+              <%= f.simple_fields_for :single_articles do |single_article| %>
+            <%= render 'single_article_fields', :f => single_article  %>
+        <% end %>
+
+        <div class="links">
+          <%= link_to_add_association 'Dodaj Boju/Veličinu', f, :single_articles, class: "btn btn-info" %>
+        </div>
+        </div>
+
+            <%= f.input :description, label: "Opis" %>
+
+            <%= f.input :description_eng, label: "Opis na Engleskom" %>
+
+            <%= f.input :weight, label: "Težina" %>
+
+            <%= f.input :code, label: "Kod" %>
+
+            <%= f.input :suppliers_code, label: "Kod Dobavljača" %>
+
+            <%= f.input :amount, label: "Količina" %>
+
+            <%= f.input :warning, label: "Limit za upozorenje" %>
+
+            <%= f.input :cost, label: "Cijena" %>
+
+            <%= f.input :discount, label: "Popust" %>
+
+            <div class="input-group" style="margin-bottom: 10px; margin-top: 30px;">
+              <span class="input-group-addon">
+                 <%= f.check_box :for_sale, label: "Postavi na prodaju", type: "checkbox" %>
+              </span>
+              <%= f.label "Postavi na prodaju", type: "text", class: "form-control" %>
+            </div>
+
+                  <div class="input-group" style="margin-bottom: 10px; margin-top: 30px;">
+            <span class="input-group-addon">
+               <%= f.check_box :feature_product, label: "Postavi na prodaju", type: "checkbox" %>
+            </span>
+                    <%= f.label "Postavi kao izdvojeni artikl", type: "text", class: "form-control" %>
+                  </div>
+
+            <div style="height: 50px;">        <div class="page-header head-page" >
+              <h1></h1>
+            </div></div>
+
+        <% end %>
+
+    <% end %>
+        <%= submit_tag "Izmijeni artikle", class: "btn btn-success" %>
+        <%= link_to "Cancel", articles_path, class: "btn btn-default", method: :get %>
+<% end %>
+

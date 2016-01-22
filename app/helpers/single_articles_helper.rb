@@ -1,0 +1,2 @@
+module SingleArticlesHelper
+end

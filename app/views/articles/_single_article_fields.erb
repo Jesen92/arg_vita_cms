@@ -1,0 +1,33 @@
+<div class="nested-fields" %>
+  <div class="well">
+    <div class="page-header head-page">
+      <h3>Pojedinačni Artikl</h3>
+    </div>
+    <%= f.input :color_id, label: 'Boja', collection: Color.all  %>
+    <%= f.input :size, label: 'Veličina' %>
+    <%= f.input :amount, label: 'Količina' %>
+    <%= f.input :warning, label: 'Limit za upozorenje' %>
+
+    <div class="control-group">
+      <%= f.label :pictures, label: "Slike", :class => 'control-label' %>
+      <div class="controls">
+
+        <%= f.file_field :pictures, multiple: true%>
+            <br/>
+            <% f.object.pictures.each do |p| %>
+                <div style="margin-top: 15px;">
+                  <%= link_to "Postavi kao Avatar", set_picture_path(p.id), class: "btn btn-default"%>
+                  <%= link_to 'Delete',  picture_path(p.id),  method: :delete, data: { confirm: 'Jeste li sigurni?' },class: "btn btn-default" %>
+                  <%= image_tag p.image.url(:thumb) %>
+                </div>
+            <% end %>
+            <p></p>
+          </div>
+        </div>
+        <p></p>
+
+
+
+    <%= link_to_remove_association "Remove", f, class: "btn btn-danger" %>
+  </div>
+</div>

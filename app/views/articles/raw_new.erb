@@ -1,0 +1,73 @@
+<div class="page-header head-page">
+  <h1>Novi Repromaterijal</h1>
+</div>
+
+<%= simple_form_for @raw, html: {class: 'form-horizontal', multipart: true} do |f| %>
+
+    <%= f.input :raw, :as => :hidden , input_html: { :value => true } %>
+
+    <%= f.input :title, label: "Naziv" %>
+
+    <%= f.input :title_eng, label: "Naziv na Engleskom" %>
+
+    <%= f.input :subcategory_id, label: "Kategorija", :collection => Subcategory.all %>
+
+    <%= f.input :ssubcategory_id , label: "Podkategorija" , :collection => Subcategory.all, as: :grouped_select, group_method: :ssubcategories %>
+
+    <!--<%= f.label "Boje" %>-->
+    <!--<%= f.input :colors, label: false, collection: Color.all {|c| c.title}, :input_html => {class: 'chosen-select', multiple: true} %>-->
+
+    <div class="control-group">
+      <%= f.label :pictures, label: "Slike", :class => 'control-label' %>
+      <div class="controls">
+
+        <%= file_field_tag "images[]", type: :file, multiple: true %>
+        <p></p>
+      </div>
+    </div>
+
+    <div id="single_articles" style="margin-top: 20px">
+      <%= f.simple_fields_for :single_articles, html: {multipart: true} do |single_article| %>
+          <%= render 'single_article_fields', :f => single_article  %>
+      <% end %>
+
+      <div class="links">
+        <%= link_to_add_association 'Dodaj Boju/Veličinu', f, :single_articles, class: "btn btn-info" %>
+      </div>
+    </div>
+
+    <%= f.input :description,label: "Opis" %>
+
+    <%= f.input :description_eng, label: "Opis na Engleskom" %>
+
+    <%= f.input :weight, label: "Težina" %>
+
+    <%= f.input :code, label: "Kod" %>
+
+    <%= f.input :suppliers_code, label: "Kod Dobavljača" %>
+
+    <%= f.input :amount, label: "Količina" %>
+
+    <%= f.input :warning, label: "Limit za upozorenje" %>
+
+    <%= f.input :cost, label: "Cijena" %>
+
+    <%= f.input :discount,label: "Popust" %>
+
+    <%= f.input :start_date, :as => :date, label: "Datum i vrijeme početka popusta" %>
+
+    <%= f.input :end_date, :as => :date, label: "Datum i vrijeme kraja popusta" %>
+
+    <div class="input-group" style="margin-bottom: 10px; margin-top: 30px;">
+      <span class="input-group-addon">
+         <%= f.check_box :for_sale, label: "Postavi na prodaju", type: "checkbox" %>
+      </span>
+      <%= f.label "Postavi na prodaju", type: "text", class: "form-control" %>
+    </div>
+
+    <%= f.button :submit, "Izradi artikl", class: "btn btn-success" %>
+    <%= link_to "Cancel", raw_index_articles_path, class: "btn btn-default", data: { confirm: 'Jeste li sigurni da želite prekinuti izradu artikla?' } %>
+
+
+    <%= f.button :submit, name:"subaction" , value: "Izradi repromaterijal i pokreni novu formu", class: "btn btn-primary pull-right" %>
+<% end %>

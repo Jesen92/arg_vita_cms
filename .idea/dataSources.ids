@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="Rails ArgentumVita_cms: production" uuid="c28a3795-8851-47b8-8560-54d940120506">
+    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
+  </data-source>
+  <data-source name="Rails ArgentumVita_cms: development" uuid="4475007a-5d1a-4874-b7aa-15159d4f57e1">
+    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
+  </data-source>
+</component>

@@ -1,0 +1,13 @@
+<%= link_to "Novi Materijal", materials_new_path, class: "btn btn-success" %>
+<div class="page-header head-page">
+  <h1>Materijali</h1>
+</div>
+
+<div class="list-group">
+  <% @materials.each do |mat| %>
+    <%= link_to mat.id.to_s+". "+mat.title, material_path(mat.id), class: 'list-group-item' %>
+  <% end %>
+</div>
+
+
+

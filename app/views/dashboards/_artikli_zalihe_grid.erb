@@ -1,0 +1,90 @@
+<%= grid(@articles_limit_grid, show_filters: :always) do |g|
+
+  g.column name: "Id", attribute: 'id', filter: false do |t|
+    t.id
+  end
+
+  g.column name: "", attribute: 'image_file_name', filter: false, assoc: :picture, in_csv: false do |t|
+    if t.picture != nil
+      image_tag t.picture.image.url(:table)
+    else
+      image_tag 'placeholder2.png'
+    end
+  end
+
+  g.column name: "Naziv", attribute: 'title' do |t|
+    t.title
+  end
+
+  g.column name: "Materijal", attribute: 'title', custom_filter: :auto, assoc: :material, in_html: false do |t|
+    if t.material != nil
+      t.material.title
+    else
+      "---"
+    end
+  end
+
+  g.column name: "Kategorija", attribute: 'title', custom_filter: :auto, assoc: :categories, in_html: false do |t|
+
+    if t.categories != nil
+      t.categories.collect{|cat| cat.title}.to_sentence(last_word_connector: ", ")
+    else
+      "---"
+    end
+  end
+
+  g.column name: "Repromaterijal Kategorija", attribute: 'title', custom_filter: :auto, assoc: :subcategory, in_html: false do |t|
+
+    if t.subcategory != nil
+      t.subcategory.title
+    else
+      "---"
+    end
+  end
+
+  g.column name: "Repromaterijal Podkategorija", attribute: 'title', custom_filter: :auto, assoc: :ssubcategory, in_html: false do |t|
+
+    if t.subcategory != nil
+      t.ssubcategory.title
+    else
+      "---"
+    end
+  end
+
+  g.column name: "Popust", attribute: 'discount', in_html: false do |t|
+    t.discount? ? t.discount.to_s+"%" : "---"
+  end
+
+  g.column name: "Kod", attribute: 'code'  do |t|
+    t.code
+  end
+
+  g.column name: "Kod dobavljača", attribute: 'suppliers_code'  do |t|
+    t.suppliers_code
+  end
+
+  g.column name: "Datum kreiranja", attribute: 'created_at' do |t|
+    t.created_at.strftime("%d. %m. %Y.")
+  end
+
+  g.column name: "Količina", attribute: 'amount' do |t|
+    t.amount
+  end
+
+  g.column name: "Cijena(bez popusta)", attribute: 'cost', in_html: false do |t|
+    number_to_currency(t.cost, :unit => 'Kn', :format => "%n %u")
+  end
+
+  g.column name: "Cijena(sa popustom)", attribute: 'cost', in_html: false do |t|
+    if t.discount != nil && t.discount != 0
+      number_to_currency((t.cost-(t.cost*t.discount/100)), :unit => 'Kn', :format => "%n %u")
+    else
+      "-----"
+    end
+  end
+
+  g.column in_csv: false do |t|
+    link_to("Pregled artikla", article_path(t.id))
+  end
+
+end-%>

@@ -1,0 +1,13 @@
+<h3>Nova Boja</h3>
+
+<%= simple_form_for @color, html: {class: 'form-horizontal', multipart: true} do |f| %>
+    <%= f.input :title, label: "Naziv" %>
+
+    <%= f.input :title_eng, label: "Naziv na Engleskom" %>
+
+    <%= f.input :avatar, label: "Slika" , as: :file %>
+
+    <%= f.button :submit, "Izradi Boju", class: "btn btn-success" %>
+    <%= link_to "Cancel", colors_path, class: "btn btn-default" %>
+
+<% end %>

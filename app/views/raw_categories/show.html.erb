@@ -1,0 +1,35 @@
+<%= link_to "Uredi Kategoriju za Repromaterijal", raw_categories_edit_path(@subcategory.id), class: "btn btn-primary" %> <%= link_to 'Delete', raw_categories_destroy_path(@subcategory.id),  method: :delete, data: { confirm: 'Are you sure?' },class: "btn btn-danger" %> <%= link_to "Sve (Pod)Kategorije za Repromaterijal", raw_categories_path, class: "btn btn-default pull-right" %>
+<div class="page-header head-page">
+  <h1><%= @subcategory.title %><% if @subcategory.title_eng != nil %> <small><%= @subcategory.title_eng %></small><% end %></h1>
+</div>
+
+<div style="margin-bottom: 15px;" >
+  <% if !@subcategory.avatar_file_name.nil? %>
+      <%= image_tag(@subcategory.avatar.url(:thumb)) %>
+  <% else %>
+      <%= image_tag('placeholder.png') %>
+  <% end %>
+</div>
+
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Podkaterije</h3>
+  </div>
+  <ul class="list-group">
+    <% @subcategory.ssubcategories.each do |cat| %>
+        <%= link_to cat.title, raw_subcategories_show_path(cat.id), class:"list-group-item" %>
+    <% end %>
+  </ul>
+</div>
+
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">Artikli</h3>
+  </div>
+  <ul class="list-group">
+    <% @subcategory.articles.each do |art| %>
+        <%= link_to art.title, article_path(art.id), method: :get ,class:"list-group-item"  %>
+    <% end %>
+  </ul>
+</div>

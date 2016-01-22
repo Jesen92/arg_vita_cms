@@ -1,0 +1,76 @@
+<%= link_to "Uredi Artikl", articles_edit_path(@single_article.article.id), class: "btn btn-primary" %> <%= link_to 'Delete',  @single_article,  method: :delete, data: { confirm: 'Jeste li sigurni?' },class: "btn btn-danger" %>  <%= link_to "Svi Artikli", articles_path, class: "btn btn-default pull-right RbtnMargin" %> <%= link_to @single_article.article.title , article_path(@single_article.article.id), class: "btn btn-default pull-right" %>
+<div class="page-header head-page">
+  <h1><%= @single_article.title %></h1>
+</div>
+
+<% if !@single_article.article.for_sale? %>
+    <div class="alert alert-danger" role="alert">
+      <h4 style="margin-bottom: 0px;">Artikl nije stavljen na prodaju!</h4>
+    </div>
+<% end %>
+<p><strong>Slike:</strong></p>
+
+<div class="row" >
+
+  <%= render_gallery_for @single_article.pictures, list_tag: :div, item_tag: :p, item_class: "col-xs-6 col-md-3"  %>
+
+</div>
+
+<br/>
+<div class="panel panel-info" style="margin-top: 10px">
+  <div class="panel-heading">
+    <h3 class="panel-title">Info</h3>
+  </div>
+  <div class="panel-body">
+    <div class="row" >
+      <div class="col-xs-6 col-md-2" >
+        <strong>Materijal:</strong>  <% if @single_article.article.material != nil %> <p><%= link_to @single_article.article.material.title, material_path(@single_article.article.material.id) %> <% else %> Nije postavljen materijal <% end %></p>
+      </div>
+
+      <div class="col-xs-6 col-md-2" >
+        <strong>Kategorije:</strong> <% if @single_article.article.categories != nil %> <% @single_article.article.categories.each do |cat| %>
+                <p><%= link_to cat.title, category_path(cat.id) %></p>
+            <% end %>
+            <p><% else %> Nije postavljena kategorija <% end %></p>  </div>
+
+      <div class="col-xs-6 col-md-2" >
+        <strong>Kod:</strong> <p><%= @single_article.code %></p>
+      </div>
+
+
+      <div class="col-xs-6 col-md-2" >
+        <strong>Cijena<% if @discount_prize %>(prije popusta) <% end %>:</strong> <p><%= number_to_currency(@single_article.article.cost, :unit => 'Kn', :format => "%n %u") %></p>
+      </div>
+
+    </div>
+    <br/>
+    <div class="row">
+      <div class="col-xs-6 col-md-2" >
+        <strong>Količina:</strong> <p><%= @single_article.amount %></p>
+      </div>
+
+      <div class="col-xs-6 col-md-2" >
+        <strong>Upozorenje(količina):</strong> <p><%= @single_article.warning %></p>
+      </div>
+
+      <div class="col-xs-6 col-md-2" >
+        <strong>Kod Dobavljača:</strong> <p><%= @single_article.article.suppliers_code %></p>
+      </div>
+
+      <% if @discount_prize != nil%>
+          <div class="col-xs-6 col-md-2" >
+            <strong>Cijena(poslije popusta):</strong> <p><%= number_to_currency(@discount_prize, :unit => 'Kn', :format => "%n %u") %></p>
+          </div>
+
+          <div class="col-xs-6 col-md-2" >
+            <strong>Popust:</strong> <p><%= @single_article.article.discount.to_s+"%" %></p>
+          </div>
+      <% end %>
+    </div>
+
+
+
+  </div>
+</div>
+
+

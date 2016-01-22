@@ -1,0 +1,2 @@
+
+  $("#filterrific_results").html("<%= js %>");

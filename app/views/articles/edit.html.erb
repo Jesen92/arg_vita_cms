@@ -1,0 +1,86 @@
+<h3>Uredi Artikl</h3>
+
+<%= simple_form_for @article, html: {class: 'form-horizontal', multipart: true} do |f| %>
+    <%= f.input :title, label: "Naziv" %>
+
+    <%= f.input :title_eng, label: "Naziv na Engleskom" %>
+
+    <% if !f.object.raw? %>
+        <%= f.input :material_id, label: "Materijal", :collection => Material.all %>
+        <%= f.label "Kategorije" %>
+        <%= f.input :category_ids , label: false ,collection: Material.all, as: :grouped_select, group_method: :categories,:input_html => {class: 'chosen-select', multiple: true } %>
+    <% else %>
+        <%= f.input :subcategory_id, label: "Kategorija", :collection => Subcategory.all %>
+        <%= f.input :ssubcategory_id , label: "Podkategorija" ,collection: Subcategory.all, as: :grouped_select, group_method: :ssubcategories %>
+    <% end %>
+
+    <div class="control-group">
+      <%= f.label :pictures, label: "Slike", :class => 'control-label' %>
+      <div class="controls">
+
+        <%= file_field_tag "images[]", type: :file, multiple: true %>
+        <br/>
+        <% @article.pictures.each do |p| %>
+            <div style="margin-top: 15px;">
+            <%= link_to "Postavi kao Avatar", set_picture_path(p.id), class: "btn btn-default"%>
+            <%= link_to 'Delete',  picture_path(p.id),  method: :delete, data: { confirm: 'Jeste li sigurni?' },class: "btn btn-default" %>
+            <%= image_tag p.image.url(:thumb) %>
+            </div>
+        <% end %>
+        <p></p>
+      </div>
+    </div>
+
+
+    <div id="single_articles" style="margin-top: 20px">
+      <%= f.simple_fields_for :single_articles do |single_article| %>
+          <%= render 'single_article_fields', :f => single_article  %>
+      <% end %>
+
+      <div class="links">
+        <%= link_to_add_association 'Dodaj Boju/Veličinu', f, :single_articles, class: "btn btn-info" %>
+      </div>
+    </div>
+
+
+    <%= f.input :description, label: "Opis" %>
+
+    <%= f.input :description_eng, label: "Opis na Engleskom" %>
+
+    <%= f.input :weight, label: "Težina" %>
+
+    <%= f.input :code, label: "Kod" %>
+
+    <%= f.input :suppliers_code, label: "Kod Dobavljača" %>
+
+    <%= f.input :amount, label: "Količina" %>
+
+    <%= f.input :warning, label: "Limit za upozorenje" %>
+
+    <%= f.input :cost, label: "Cijena" %>
+
+    <%= f.input :discount, label: "Popust" %>
+
+    <%= f.input :start_date, label: "Datum i vrijeme početka popusta" %>
+
+    <%= f.input :end_date, label: "Datum i vrijeme kraja popusta" %>
+
+    <div class="input-group" style="margin-bottom: 10px; margin-top: 30px;">
+      <span class="input-group-addon">
+         <%= f.check_box :for_sale, label: "Postavi na prodaju", type: "checkbox" %>
+      </span>
+         <%= f.label "Postavi na prodaju", type: "text", class: "form-control" %>
+    </div>
+
+    <div class="input-group" style="margin-bottom: 10px; margin-top: 30px;">
+      <span class="input-group-addon">
+         <%= f.check_box :feature_product, label: "Postavi na prodaju", type: "checkbox" %>
+      </span>
+      <%= f.label "Postavi kao izdvojeni artikl", type: "text", class: "form-control" %>
+    </div>
+
+
+    <%= f.button :submit, "Izmijeni Artikl", class: "btn btn-success" %>
+    <%= link_to "Cancel", article_path(f.object.id), method: :get , class: "btn btn-default" %>
+
+<% end %>

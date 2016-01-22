@@ -1,0 +1,9 @@
+<div class="page-header head-page">
+  <h1>Uvezite CSV tablicu</h1>
+</div>
+
+    <%= form_tag import_articles_path, multipart: true do %>
+      <%= file_field_tag :file %>
+    <br/>
+      <%= submit_tag "Uvezi CSV", class:"btn btn-success" %>
+    <% end %>

@@ -1,0 +1,39 @@
+<%= link_to "Uredi Kategoriju", categories_edit_path(@category.id), class: "btn btn-primary" %> <%= link_to 'Delete',  @category,  method: :delete, data: { confirm: 'Are you sure?' },class: "btn btn-danger" %> <%= link_to "Sve Kategorije", categories_path, class: "btn btn-default pull-right" %>
+<div class="page-header head-page">
+  <h1><%= @category.title %><% if @category.title_eng != nil %> <small><%= @category.title_eng %></small><% end %></h1>
+</div>
+<div style="margin-bottom: 15px;" >
+  <% if !@category.avatar_file_name.nil? %>
+      <%= image_tag(@category.avatar.url(:thumb)) %>
+  <% else %>
+      <%= image_tag('placeholder.png') %>
+  <% end %>
+</div>
+
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Materijali</h3>
+  </div>
+  <ul class="list-group">
+    <% @category.materials.each do |mat| %>
+          <%= link_to mat.title, material_path(mat.id), class:"list-group-item" %>
+    <% end %>
+  </ul>
+
+</div>
+
+
+
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">Artikli</h3>
+  </div>
+  <ul class="list-group">
+    <% @category.articles.each do |art| %>
+          <%= link_to art.title, article_path(art.id), method: :get ,class:"list-group-item"  %>
+    <% end %>
+  </ul>
+</div>
+
+

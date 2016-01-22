@@ -1,0 +1,22 @@
+<%= link_to "Nova Kategorija", raw_categories_new_path, class: "btn btn-success" %> <%= link_to "Nova Podkategorija", raw_subcategories_new_path, class: "btn btn-info" %> <%= link_to "Repromaterijal", raw_index_path, class: "btn btn-default pull-right" %>
+<div class="page-header head-page">
+  <h1>Kategorije <small>Repromaterijal</small></h1>
+</div>
+
+<div class="list-group">
+  <% @subcategories.each do |cat| %>
+      <%= link_to cat.id.to_s+". "+cat.title, raw_categories_show_path(cat.id), class: 'list-group-item' %>
+  <% end %>
+</div>
+
+<div class="page-header head-page">
+</div>
+<div class="page-header head-page">
+  <h2>Podkategorije <small>Repromaterijal</small></h2>
+</div>
+
+<div class="list-group">
+  <% @ssubcategories.each do |cat| %>
+      <%= link_to cat.id.to_s+". "+cat.title, raw_subcategories_show_path(cat.id), class: 'list-group-item' %>
+  <% end %>
+</div>

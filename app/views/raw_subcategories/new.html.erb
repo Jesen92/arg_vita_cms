@@ -1,0 +1,14 @@
+<h3>Nova Podkategorija za Repromaterijal</h3>
+
+<%= simple_form_for @ssubcategory, url: raw_subcategories_path,  html: {class: 'form-horizontal'} do |f| %>
+    <%= f.input :title, label: "Naziv" %>
+
+    <%= f.input :title_eng, label: "Naziv na Engleskom" %>
+
+    <%= f.label "Kategorija" %>
+    <%= f.association :subcategories, label: false, collection: Subcategory.all, multiple: true, :include_blank => true, :input_html => {class: 'chosen-select'} %>
+
+    <%= f.button :submit, "Izradi kategoriju", class: "btn btn-success" %>
+    <%= link_to "Cancel", raw_categories_index_path, class: "btn btn-default" %>
+
+<% end %>

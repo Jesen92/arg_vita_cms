@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  article_id: 1
+  start_date: 2016-01-11 11:36:48
+  end_date: 2016-01-11 11:36:48
+  starting_price: 9.99
+  highest_bid: 9.99
+  user_id: 1
+
+two:
+  article_id: 1
+  start_date: 2016-01-11 11:36:48
+  end_date: 2016-01-11 11:36:48
+  starting_price: 9.99
+  highest_bid: 9.99
+  user_id: 1

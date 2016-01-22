@@ -1,0 +1,19 @@
+<h3>Novi Kupon</h3>
+
+<%= simple_form_for @coupon, html: {class: 'form-horizontal'} do |f| %>
+    <%= f.input :code, label: "Kod kupona" %>
+
+    <%= f.label "Artikli" %>
+    <p>Ako se ne odabere artikl, kupon će služiti za cijelu narudžbu.</p>
+
+    <%= f.association :article, label: false, collection: Article.all, multiple: true, :include_blank => true, :input_html => {class: 'chosen-select'} %>
+
+
+
+    <%= f.input :discount, label: "Popust(%)" %>
+
+
+    <%= f.button :submit, "Izradi kupon", class: "btn btn-success" %>
+    <%= link_to "Cancel", coupons_path, class: "btn btn-default" %>
+
+<% end %>
