@@ -28,8 +28,8 @@ class CouponsController < ApplicationController
   end
 
   def edit
-    @coupon = Coupon.find(params[:format])
-    @page_title = "Kuponi | " + @coupon.title
+    @coupon = Coupon.find(params[:id])
+    @page_title = "Kuponi | Uredi"
   end
 
   def update

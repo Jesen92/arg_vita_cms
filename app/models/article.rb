@@ -4,6 +4,9 @@ class Article < ActiveRecord::Base
   has_many :article_categories
   has_many :categories, :through => :article_categories
 
+  has_many :carts_articles
+  has_many :shopping_carts, :through => :carts_articles
+
   has_many :auctions
 
   belongs_to :material

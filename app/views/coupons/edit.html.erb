@@ -5,10 +5,11 @@
 
     <%= f.input :discount, label: "Popust(%)" %>
 
-    <%= f.input :article, label: "Artikl" %>
+    <%= f.label "Artikl" %>
+    <%= f.input :article_id, label: false ,collection: Article.all , input_html: {class: 'chosen-select'} %>
     <p>Ako se ne odabere artikl, kupon će služiti za cijelu narudžbu.</p>
 
     <%= f.button :submit, "Izradi kupon" %>
-    <%= link_to "Cancel", color_path(f.object.id), class: "btn btn-default" %>
+    <%= link_to "Cancel", coupon_path(f.object.id), class: "btn btn-default" %>
 
 <% end %>
