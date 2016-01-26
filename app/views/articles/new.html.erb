@@ -9,9 +9,14 @@
 
     <%= f.input :material_id, label: "Materijal", :collection => Material.all %>
 
-    <%= f.label "Kategorije" %>
+    <p><%= f.label "Kategorije" %></p>
     <%= f.input :category_ids , label: false ,collection: Material.all, as: :grouped_select, group_method: :categories,:input_html => {class: 'chosen-select', multiple: true } %>
 
+
+    <%= f.simple_fields_for :related_articles do |r| %>
+        <%= f.label "Srodni artikli" %>
+        <%= r.input :related_article_ids, required: false, label: false  ,collection: Article.all, selected: RelatedArticle.where(article_id: f.object.id).pluck(:related_article_id), :input_html => {class: 'chosen-select', multiple: true} %>
+    <% end %>
 
     <!--<%= f.label "Boje" %>-->
     <!--<%= f.input :colors, label: false, collection: Color.all {|c| c.title}, :input_html => {class: 'chosen-select', multiple: true} %>-->

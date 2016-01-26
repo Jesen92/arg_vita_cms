@@ -164,6 +164,19 @@
   </div>
 </div>
 
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">Srodni Artikli</h3>
+  </div>
+  <ul class="list-group">
+    <% if !@rel_arts.nil? %>
+        <% @rel_arts.each do |art| %>
+            <%= link_to art.title, article_path(art.id), class:'list-group-item', method: :get %>
+        <% end %>
+    <% end %>
+  </ul>
+</div>
+
 <div class="panel panel-warning">
   <div class="panel-heading">
     <h3 class="panel-title">Opis</h3>

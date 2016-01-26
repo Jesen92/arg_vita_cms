@@ -2,6 +2,7 @@ class ArticlesController < ApplicationController
   require 'csv'
 
   #TODO napravi da svugdje gdje se biraju artikli, da se mogu birati po kodu
+  #TODO napravi da se mogu birati srodni artikli unutar edit_multiple
 
   before_filter :authenticate_admin_user!
 
@@ -22,6 +23,7 @@ class ArticlesController < ApplicationController
   #####################  #####################  #####################  #####################
 
   def index
+
     @page_title = "Artikli"
     @articles = Article.where(raw: false)
     @articles_grid = initialize_grid(@articles, name: 'articles', include: [ :categories ,:material, :pictures] ,order: 'articles.created_at', order_direction: 'desc', enable_export_to_csv: true, csv_file_name: 'artikli', csv_field_separator: ';' )
@@ -31,6 +33,13 @@ class ArticlesController < ApplicationController
 
   def show
     @article = Article.find(params[:id])
+
+    rel_art_ids = []
+    @rel_arts = []
+
+    rel_art_ids = RelatedArticle.where(article_id: @article.id).pluck(:related_article_id)
+
+    @rel_arts = Article.where(id: rel_art_ids)
 
     if @article.end_date != nil
       gon.date = @article.end_date.strftime("%Y/%m/%d %H:%M")
@@ -87,6 +96,19 @@ class ArticlesController < ApplicationController
 
         @index = 0
 
+        if params[:article][:related_articles][:related_article_ids]
+
+          RelatedArticle.where(article_id: @article.id).destroy_all
+          RelatedArticle.where(related_article_id: @article.id).destroy_all
+
+          params[:article][:related_articles][:related_article_ids].each do |art_id|
+
+            if !art_id.empty?
+              RelatedArticle.create(article_id: @article.id, related_article_id: art_id)
+              RelatedArticle.create(article_id: art_id, related_article_id: @article.id)
+            end
+          end
+        end
 
         @article.single_articles.each do |sa|
 
@@ -154,6 +176,20 @@ class ArticlesController < ApplicationController
         end
 
     @index = 0
+
+    if params[:article][:related_articles][:related_article_ids]
+
+      RelatedArticle.where(article_id: @article.id).destroy_all
+      RelatedArticle.where(related_article_id: @article.id).destroy_all
+
+      params[:article][:related_articles][:related_article_ids].each do |art_id|
+
+        if !art_id.empty?
+            RelatedArticle.create(article_id: @article.id, related_article_id: art_id)
+            RelatedArticle.create(article_id: art_id, related_article_id: @article.id)
+        end
+      end
+    end
 
     @article.single_articles.each do |sa|
 
@@ -627,7 +663,7 @@ class ArticlesController < ApplicationController
 
   protected
     def article_params
-      params.require(:article).permit(:title, :raw, :subcategory_id, :ssubcategory_id, :title_eng, :start_date, :end_date, :description_eng, :discount,  :material_id , {category_ids:[]} , :code, :type_id,  :weight, :cost, :description, :amount, :suppliers_code, :warning, :for_sale , :color, single_articles_attributes: [:id, :color_id, :size, :title, :article_id, :_destroy])
+      params.require(:article).permit(:title, :raw, :subcategory_id, :ssubcategory_id, {related_article_ids:[]} ,:title_eng, :start_date, :end_date, :description_eng, :discount,  :material_id , {category_ids:[]} , :code, :type_id,  :weight, :cost, :description, :amount, :suppliers_code, :warning, :for_sale , :color, single_articles_attributes: [:id, :color_id, :size, :title, :article_id, :_destroy])
     end
 
 end

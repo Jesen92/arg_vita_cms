@@ -1,6 +1,9 @@
 class Article < ActiveRecord::Base
   require 'csv'
 
+  has_many :related_articles
+  has_many :related_articles, :through => :related_articles
+
   has_many :article_categories
   has_many :categories, :through => :article_categories
 
