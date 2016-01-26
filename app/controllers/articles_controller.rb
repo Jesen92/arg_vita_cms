@@ -80,6 +80,7 @@ class ArticlesController < ApplicationController
   def new
     @article = Article.new
     @page_title = "Artikl | New"
+    @codes = Article.pluck(:code)
   end
 
   def create
@@ -98,9 +99,6 @@ class ArticlesController < ApplicationController
 
         if params[:article][:related_articles][:related_article_ids]
 
-          RelatedArticle.where(article_id: @article.id).destroy_all
-          RelatedArticle.where(related_article_id: @article.id).destroy_all
-
           params[:article][:related_articles][:related_article_ids].each do |art_id|
 
             if !art_id.empty?
@@ -108,6 +106,20 @@ class ArticlesController < ApplicationController
               RelatedArticle.create(article_id: art_id, related_article_id: @article.id)
             end
           end
+        end
+
+        if params[:article][:related_articles][:related_article_codes]
+
+          arts = Article.where(code: params[:article][:related_articles][:related_article_codes])
+
+          arts.each do |art|
+
+            if !art.code.blank?
+              RelatedArticle.create(article_id: @article.id, related_article_id: art.id)
+              RelatedArticle.create(article_id: art.id, related_article_id: @article.id)
+            end
+          end
+
         end
 
         @article.single_articles.each do |sa|
@@ -152,6 +164,8 @@ class ArticlesController < ApplicationController
 
     @page_title = "Edit | "+@article.title
 
+    @codes = Article.pluck(:code)
+
     @colors = []
 
     @article.single_articles.each do |s|
@@ -177,10 +191,10 @@ class ArticlesController < ApplicationController
 
     @index = 0
 
-    if params[:article][:related_articles][:related_article_ids]
+    RelatedArticle.where(article_id: @article.id).destroy_all
+    RelatedArticle.where(related_article_id: @article.id).destroy_all
 
-      RelatedArticle.where(article_id: @article.id).destroy_all
-      RelatedArticle.where(related_article_id: @article.id).destroy_all
+    if params[:article][:related_articles][:related_article_ids]
 
       params[:article][:related_articles][:related_article_ids].each do |art_id|
 
@@ -190,6 +204,21 @@ class ArticlesController < ApplicationController
         end
       end
     end
+
+    if params[:article][:related_articles][:related_article_codes]
+
+      arts = Article.where(code: params[:article][:related_articles][:related_article_codes])
+
+        arts.each do |art|
+
+          if !art.code.blank?
+            RelatedArticle.create(article_id: @article.id, related_article_id: art.id)
+            RelatedArticle.create(article_id: art.id, related_article_id: @article.id)
+          end
+        end
+
+    end
+
 
     @article.single_articles.each do |sa|
 
