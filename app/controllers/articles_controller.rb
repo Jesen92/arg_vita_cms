@@ -2,7 +2,7 @@ class ArticlesController < ApplicationController
   require 'csv'
 
   #TODO napravi da svugdje gdje se biraju artikli, da se mogu birati po kodu
-  #TODO napravi da se mogu birati srodni artikli unutar edit_multiple
+
 
   before_filter :authenticate_admin_user!
 
@@ -80,7 +80,6 @@ class ArticlesController < ApplicationController
   def new
     @article = Article.new
     @page_title = "Artikl | New"
-    @codes = Article.pluck(:code)
   end
 
   def create
@@ -163,8 +162,6 @@ class ArticlesController < ApplicationController
     @article = Article.find(params[:format])
 
     @page_title = "Edit | "+@article.title
-
-    @codes = Article.pluck(:code)
 
     @colors = []
 
@@ -504,10 +501,12 @@ class ArticlesController < ApplicationController
 
     if params[:articles]
       $art = Article.where(id: params[:articles][:selected])
+      @codes = Article.where()
     else
       $art = Article.where(id: params[:raw][:selected])
     end
   end
+
 
   def update_multiple #kada sam ovo pisao samo Bog i ja smo znali kako to funkcionira...sada samo Bog zna...
 
@@ -552,7 +551,7 @@ class ArticlesController < ApplicationController
 
         art.save
 
-
+#################################################################### postavljanje kategorija
         ArticleCategory.destroy_all(article_id: article.id)
 
         if @param[:category_ids] != nil
@@ -562,6 +561,39 @@ class ArticlesController < ApplicationController
             end
           end
         end
+
+####################################################################
+
+#################################################################### postavljanje srodnih artikla
+
+        RelatedArticle.where(article_id: art.id).destroy_all
+        RelatedArticle.where(related_article_id: art.id).destroy_all
+
+        if @param[:related_articles][:related_article_ids]
+
+          @param[:related_articles][:related_article_ids].each do |art_rel|
+
+            if !art_rel.empty?
+              RelatedArticle.create(article_id: art.id, related_article_id: art_rel)
+              RelatedArticle.create(article_id: art_rel, related_article_id: art.id)
+            end
+          end
+        end
+
+        if @param[:related_articles][:related_article_codes]
+
+          arts = Article.where(code: @param[:related_articles][:related_article_codes])
+
+          arts.each do |art_rel|
+
+            if !art_rel.code.blank?
+              RelatedArticle.create(article_id: art.id, related_article_id: art_rel.id)
+              RelatedArticle.create(article_id: art_rel.id, related_article_id: art.id)
+            end
+          end
+
+        end
+####################################################################
 
       end
 

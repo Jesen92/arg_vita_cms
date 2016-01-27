@@ -19,6 +19,12 @@
             <% if !f.object.raw? %>
                 <%= f.input :material_id, label: "Materijal", :collection => Material.all %>
                 <%= f.input :category_ids , label: "Kategorije" ,collection: Material.all, as: :grouped_select, group_method: :categories, :input_html => { multiple: true } %>
+
+                <%= f.simple_fields_for :related_articles do |r| %>
+                    <%= f.label "Srodni artikli" %>
+                    <%= r.input :related_article_ids, required: false, label: false  ,collection: Article.all, selected: RelatedArticle.where(article_id: f.object.id).pluck(:related_article_id), :input_html => {class: 'chosen-select', multiple: true} %>
+                    <%= r.input :related_article_codes, required: false, label: false, collection: Article.pluck(:code), input_html: {class: 'chosen-select', multiple: true} %>
+                <% end %>
             <% else %>
                 <%= f.input :subcategory_id, label: "Kategorija", :collection => Subcategory.all %>
                 <%= f.input :ssubcategory_id , label: "Podkategorija" , :collection => Subcategory.all, as: :grouped_select, group_method: :ssubcategories %>

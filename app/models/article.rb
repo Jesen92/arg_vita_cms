@@ -147,7 +147,6 @@ class Article < ActiveRecord::Base
 
                        return nil  if query.blank?
 
-
                        terms = query.downcase
 
                        # replace "*" with "%" for wildcard searches,
