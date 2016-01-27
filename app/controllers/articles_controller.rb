@@ -452,7 +452,6 @@ class ArticlesController < ApplicationController
   end
 
   def create_auction
-    #FIXME u nekim slucajevima se dogodi pogreska da stavi vise artikla na aukciju umjesto samo jednog
 
       start_date = DateTime.new(params[:article]['start_date(1i)'].to_i, params[:article]['start_date(2i)'].to_i, params[:article]['start_date(3i)'].to_i, params[:article]['start_date(4i)'].to_i ,params[:article]['start_date(5i)'].to_i  )
 
@@ -566,16 +565,16 @@ class ArticlesController < ApplicationController
 
 #################################################################### postavljanje srodnih artikla
 
-        RelatedArticle.where(article_id: art.id).destroy_all
-        RelatedArticle.where(related_article_id: art.id).destroy_all
+        RelatedArticle.where(article_id: article.id).destroy_all
+        RelatedArticle.where(related_article_id: article.id).destroy_all
 
         if @param[:related_articles][:related_article_ids]
 
           @param[:related_articles][:related_article_ids].each do |art_rel|
 
             if !art_rel.empty?
-              RelatedArticle.create(article_id: art.id, related_article_id: art_rel)
-              RelatedArticle.create(article_id: art_rel, related_article_id: art.id)
+              RelatedArticle.create(article_id: article.id, related_article_id: art_rel)
+              RelatedArticle.create(article_id: art_rel, related_article_id: article.id)
             end
           end
         end
@@ -587,8 +586,8 @@ class ArticlesController < ApplicationController
           arts.each do |art_rel|
 
             if !art_rel.code.blank?
-              RelatedArticle.create(article_id: art.id, related_article_id: art_rel.id)
-              RelatedArticle.create(article_id: art_rel.id, related_article_id: art.id)
+              RelatedArticle.create(article_id: article.id, related_article_id: art_rel.id)
+              RelatedArticle.create(article_id: art_rel.id, related_article_id: article.id)
             end
           end
 
@@ -602,18 +601,52 @@ class ArticlesController < ApplicationController
       if @single != nil
         @single.each do |s|
 
-        if !s["color_id"].blank?
-          col =  Color.find(s["color_id"])
-        end
+          if !s["color_id"].blank?
+            col =  Color.find(s["color_id"])
+          end
+
 
         if s["id"] == nil
 
          sa = SingleArticle.new
 
-         sa.title = article.title+ "/" +col.title+ "/" +s["size"].to_s
+############################################################### postavljanje naziva pojedinacnog artikla
+         sa.title = article.title
+         sa.code = article.code
+
+         if s["type_name"] != nil && s["type_name"] != ""
+           sa.title += "/"+s["type_name"].to_s
+           sa.code += "-"+s["type_name"][0,2].upcase
+         end
+
+         if sa.color != nil && sa.color != ""
+           sa.title += "/"+col.title
+           sa.code += "-"+col.title[0,2].upcase
+         end
+
+         if sa.size != nil && sa.size != ""
+           sa.title += "/"+s["size"].to_s
+           sa.code += "-"+s["size"].to_s
+         end
+
+         if s["amont"] == nil || s["amont"] == ""
+           sa.amount = article.amount
+         else
+           sa.amount = s["amont"]
+         end
+
+         if s["warning"] == nil || s["warning"] == ""
+           sa.warning = article.warning
+         else
+           sa.warning = s["warning"]
+         end
+###############################################################
+
+
          sa.article_id = article.id
          sa.color_id = col != nil ? col.id : nil
          sa.size = s["size"]
+         sa.type_name = s["type_name"]
          sa.save
 
         else
@@ -623,9 +656,42 @@ class ArticlesController < ApplicationController
          if s["_destroy"] == "1"
            sa.destroy
          else
-           sa.title = article.title+ "/" +col.title+ "/" +s["size"].to_s
+
+############################################################### postavljanje naziva artikla
+             sa.title = article.title
+             sa.code = article.code
+
+         if s["type_name"] != nil && s["type_name"] != ""
+           sa.title += "/"+s["type_name"].to_s
+           sa.code += "-"+s["type_name"][0,2].upcase
+         end
+
+           if sa.color != nil && sa.color != ""
+             sa.title += "/"+col.title
+             sa.code += "-"+col.title[0,2].upcase
+           end
+
+           if sa.size != nil && sa.size != ""
+             sa.title += "/"+s["size"].to_s
+             sa.code += "-"+s["size"].to_s
+           end
+
+             if s["amont"] == nil || s["amont"] == ""
+               sa.amount = article.amount
+             else
+               sa.amount = s["amount"]
+             end
+
+             if s["warning"] == nil || s["warning"] == ""
+               sa.warning = article.warning
+             else
+               sa.warning = s["warning"]
+             end
+###############################################################
+
            sa.color_id = col != nil ? col.id : nil
            sa.size = s["size"]
+           sa.type_name = s["type_name"]
            sa.save
          end
           end
@@ -690,17 +756,6 @@ class ArticlesController < ApplicationController
     @raw = Article.new
   end
 
-  def raw_edit
-
-  end
-
-  def raw_category
-
-  end
-
-  def raw_subcategory
-
-  end
 
   #####################  #####################  #####################  #####################
 
@@ -724,7 +779,7 @@ class ArticlesController < ApplicationController
 
   protected
     def article_params
-      params.require(:article).permit(:title, :raw, :subcategory_id, :ssubcategory_id, {related_article_ids:[]} ,:title_eng, :start_date, :end_date, :description_eng, :discount,  :material_id , {category_ids:[]} , :code, :type_id,  :weight, :cost, :description, :amount, :suppliers_code, :warning, :for_sale , :color, single_articles_attributes: [:id, :color_id, :size, :title, :article_id, :_destroy])
+      params.require(:article).permit(:title, :raw, :subcategory_id, :ssubcategory_id, {related_article_ids:[]} ,:title_eng, :start_date, :end_date, :description_eng, :discount,  :material_id , {category_ids:[]} , :code, :type_id,  :weight, :cost, :description, :amount, :suppliers_code, :warning, :for_sale , :color, single_articles_attributes: [:id, :type_name, :color_id, :size, :title, :article_id, :_destroy])
     end
 
 end

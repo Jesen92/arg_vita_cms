@@ -53,9 +53,14 @@ class Article < ActiveRecord::Base
       sa.title = article.title
       sa.code = article.code
 
+      if sa.type_name != nil && sa.type_name != ""
+        sa.title += "/"+sa.type_name.to_s
+        sa.code += "-"+sa.type_name[0,2].upcase
+      end
+
       if sa.color != nil && sa.color != ""
         sa.title += "/"+sa.color.title
-        sa.code += "-"+sa.color.title[0,1].upcase
+        sa.code += "-"+sa.color.title[0,2].upcase
       end
 
       if sa.size != nil && sa.size != ""

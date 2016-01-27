@@ -3,6 +3,7 @@
     <div class="page-header head-page">
       <h3>Pojedinačni Artikl</h3>
     </div>
+    <%= f.input :type_name, label: 'Tip' %>
     <%= f.input :color_id, label: 'Boja', collection: Color.all  %>
     <%= f.input :size, label: 'Veličina' %>
     <%= f.input :amount, label: 'Količina' %>

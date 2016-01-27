@@ -142,15 +142,13 @@ Rails.application.routes.draw do
 
   get 'articles/raw_show' => "articles#raw_show", :as => 'raw_show'
 
-  get 'articles/raw_edit' => "articles#raw_edit", :as => 'raw_edit'
-
   get 'articles/set_auction' => "articles#set_auction", :as => 'set_auction'
 
   get 'articles/create_auction' => "articles#create_auction", :as => 'create_auction'
 
   get 'articles/index_auction' => "articles#index_auction", :as => 'index_auction'
 
-  get 'complements/complement_set_picure' => "complements#complement_set_picture", :as => 'complement_set_picture'
+  get 'complements/complement_set_picture' => "complements#complement_set_picture", :as => 'complement_set_picture'
 
   root :to => 'dashboards#index'
 
