@@ -4,5 +4,10 @@
 
 <% if @articles != nil %>
 <div class="alert alert-warning" role="alert"><h4 style="margin-bottom: 0px;">Artikli koji su pred istekom zaliha</h4></div>
- <%= render partial: 'dashboards/artikli_zalihe_grid' %>
+ <%= render partial: 'dashboards/artiklizalihe_grid' %>
+<% end %>
+
+<% if @single_articles != nil %>
+    <div class="alert alert-warning" role="alert"><h4 style="margin-bottom: 0px;">Pojedinacni Artikli koji su pred istekom zaliha</h4></div>
+    <%= render partial: 'dashboards/pojedinacniartiklizalihe_grid' %>
 <% end %>

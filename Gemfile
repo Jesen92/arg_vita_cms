@@ -33,6 +33,8 @@ gem 'cancancan'
 
 gem 'simple_form'
 
+gem 'thin'
+
 gem "cocoon"
 
 gem 'jquery-ui-rails', '~> 4.2.1'

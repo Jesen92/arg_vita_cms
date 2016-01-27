@@ -1,0 +1,45 @@
+<%= grid(@single_articles_limit_grid, show_filters: :always) do |g|
+
+  g.column name: "Id", attribute: 'id', filter: false do |t|
+    t.id
+  end
+
+  g.column name: "", attribute: 'image_file_name', filter: false, assoc: :pictures, in_csv: false do |t|
+    if t.pictures.first != nil
+      image_tag t.pictures.first.image.url(:table)
+    else
+      image_tag 'placeholder2.png'
+    end
+  end
+
+  g.column name: "Naziv", attribute: 'title' do |t|
+    t.title
+  end
+
+  g.column name: "Kod", attribute: 'code'  do |t|
+    t.code
+  end
+
+  g.column name: "Kod dobavljača", attribute: 'suppliers_code', assoc: :article  do |t|
+    t.article.suppliers_code
+  end
+
+  g.column name: "Datum kreiranja", attribute: 'created_at' do |t|
+    t.created_at.strftime("%d. %m. %Y.")
+  end
+
+  g.column name: "Količina", attribute: 'amount' do |t|
+    if t.amount != nil
+      t.amount
+    end
+  end
+
+  g.column name: "Cijena(bez popusta)", attribute: 'cost', assoc: :article , in_html: false do |t|
+    number_to_currency(t.article.cost, :unit => 'Kn', :format => "%n %u")
+  end
+
+  g.column in_csv: false do |t|
+    link_to("Pregled artikla", single_article_path(t.id))
+  end
+
+end-%>
