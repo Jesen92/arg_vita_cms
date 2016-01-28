@@ -96,7 +96,7 @@ class Article < ActiveRecord::Base
 
   def self.import(file)
     # runs through a loop in our CSV data
-    CSV.foreach(file.path, headers: true) do |row|
+    CSV.foreach(file, headers: true) do |row|
       # creates a user for each row in the CSV file
       Article.create! row.to_hash
     end

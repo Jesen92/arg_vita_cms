@@ -11,7 +11,7 @@ class ArticlesController < ApplicationController
   #####################  #####################  #####################  ##################### za import CSV file-a(sa artiklima) koji se upisuju u bazu
   def import
 
-    Article.import(params[:file].tempfile)
+    Article.import(File.join(Rails.root, params[:file].path))
 
     flash[:notice] = "Dodani su artikli iz CSV datoteke"
 
