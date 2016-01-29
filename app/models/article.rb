@@ -95,7 +95,7 @@ class Article < ActiveRecord::Base
   )
 
 
-  def self.import(file)
+  def self.import(file) #import csv-a u bazu
 
     articles = CSV.new(open(file), {:headers => :first_row, :col_sep => ";" })
 
