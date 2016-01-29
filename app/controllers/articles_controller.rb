@@ -13,7 +13,7 @@ class ArticlesController < ApplicationController
 
     @csv = CsvUpload.create(csv_params)
 
-    sleep 3
+    puts "Unutar import-a putanja csv-a je: #{@csv.document.url}"
 
     Article.import(@csv.document.url)
 
