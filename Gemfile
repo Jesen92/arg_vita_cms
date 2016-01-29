@@ -55,6 +55,8 @@ gem "gibbon"
 
 gem 'gon'
 
+ruby '2.2.3'
+
 gem 'aws-sdk', '< 2.0'
 
 gem 'whenever', :require => false
