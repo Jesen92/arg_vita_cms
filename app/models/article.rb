@@ -99,7 +99,7 @@ class Article < ActiveRecord::Base
 
     puts "usao je u import"
     # runs through a loop in our CSV data
-    CSV.new(open(file), headers: true).each do |row|
+    CSV.parse(open(file), headers: true).each do |row|
       # creates a user for each row in the CSV file
       puts "usao je u csv.new loop"
       Article.create! row.to_hash
