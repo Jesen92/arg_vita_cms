@@ -101,8 +101,10 @@ class Article < ActiveRecord::Base
     # runs through a loop in our CSV data
     CSV.parse(open(file), headers: true).each do |row|
       # creates a user for each row in the CSV file
+      hash = row.to_hash
+
       puts "usao je u csv.new loop"
-      Article.create(row)
+      Article.create(hash)
       puts "izradio je artikl"
     end
   end
