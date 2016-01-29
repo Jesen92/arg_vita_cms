@@ -1,6 +1,6 @@
 class Article < ActiveRecord::Base
+  require 'open-uri'
   require 'csv'
-  require 'net/http'
 
   has_many :related_articles
   has_many :related_articles, :through => :related_articles
@@ -97,16 +97,22 @@ class Article < ActiveRecord::Base
 
   def self.import(file)
 
+    articles = CSV.new(open(file), :headers => :first_row)
+
+    articles.each do |art|
+      Article.create(art.to_hash)
+    end
+
+=begin
     puts "usao je u import"
     # runs through a loop in our CSV data
-    CSV.parse(open(file), headers: true).each do |row|
+    CSV.foreach(open(file), {:headers => true, :header_converters => :symbol}).each do |row|
       # creates a user for each row in the CSV file
-      hash = row.to_hash
-
       puts "usao je u csv.new loop"
-      Article.create(hash)
+      Article.create(row.to_hash)
       puts "izradio je artikl"
     end
+=end
   end
 
   # define ActiveRecord scopes for
