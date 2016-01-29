@@ -13,6 +13,8 @@ class ArticlesController < ApplicationController
 
     @csv = CsvUpload.create(csv_params)
 
+    sleep 3
+
     Article.import(@csv.document.url)
 
     flash[:notice] = "Dodani su artikli iz CSV datoteke"
