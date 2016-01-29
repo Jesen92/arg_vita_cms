@@ -97,7 +97,7 @@ class Article < ActiveRecord::Base
 
   def self.import(file)
 
-    articles = CSV.new(open(file), :headers => :first_row)
+    articles = CSV.new(open(file), {:headers => :first_row, :col_sep => ";" })
 
     articles.each do |art|
       Article.create(art.to_hash)
