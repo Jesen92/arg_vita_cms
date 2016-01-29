@@ -11,7 +11,9 @@ class ArticlesController < ApplicationController
   #####################  #####################  #####################  ##################### za import CSV file-a(sa artiklima) koji se upisuju u bazu
   def import
 
-    Article.import(params[:file])
+    @csv = CsvUpload.create(csv_params)
+
+    Article.import(@csv.document.url)
 
     flash[:notice] = "Dodani su artikli iz CSV datoteke"
 
@@ -19,7 +21,7 @@ class ArticlesController < ApplicationController
   end
 
   def import_view
-    @articles = Article.all
+    @csv = CsvUpload.new
   end
   #####################  #####################  #####################  #####################
 
@@ -781,6 +783,10 @@ class ArticlesController < ApplicationController
   protected
     def article_params
       params.require(:article).permit(:title, :raw, :subcategory_id, :ssubcategory_id, {related_article_ids:[]} ,:title_eng, :start_date, :end_date, :description_eng, :discount,  :material_id , {category_ids:[]} , :code, :type_id,  :weight, :cost, :description, :amount, :suppliers_code, :warning, :for_sale , :color, single_articles_attributes: [:id, :type_name, :color_id, :size, :title, :article_id, :_destroy])
+    end
+
+    def csv_params
+      params.require(:csv_upload).permit(:document)
     end
 
 end
