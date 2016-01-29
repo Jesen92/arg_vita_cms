@@ -12,8 +12,12 @@
     end
   end
 
-  g.column name: "Naziv", attribute: 'title' do |t|
+  g.column name: "Naziv", attribute: 'title', in_csv: false do |t|
     link_to(t.title, article_path(t.id), :method => :get)
+  end
+
+  g.column name: "Naziv", attribute: 'title', in_html: false do |t|
+    t.title
   end
 
   g.column name: "Materijal", attribute: 'title', custom_filter: :auto, assoc: :material do |t|

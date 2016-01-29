@@ -747,7 +747,6 @@ class ArticlesController < ApplicationController
 
   #####################  #####################  #####################  ##################### repromaterijal
 
-  #FIXME makni raw_edit,raw_category i raw_subcategory
 
   def raw_index
     @page_title = "Repromaterijal"
