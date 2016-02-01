@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Article < ActiveRecord::Base
   require 'open-uri'
   require 'csv'
@@ -110,7 +111,7 @@ end
 
 puts "usao je u import"
 # runs through a loop in our CSV data
-    CSV.new(open(file), {:headers => true, :col_sep => ";"}).each do |row|
+    CSV.new(open(file), {:headers => true, :col_sep => ";", :encoding => 'utf-8'}).each do |row|
         # creates a user for each row in the CSV file
         puts "usao je u csv.new loop"
         Article.create(row.to_hash)
