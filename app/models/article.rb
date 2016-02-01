@@ -111,10 +111,10 @@ end
 
 puts "usao je u import"
 # runs through a loop in our CSV data
-    CSV.new(open(file), {:headers => true, :col_sep => ";",     external_encoding: "ISO8859-1",
-                         internal_encoding: "utf-8"}).each do |row|
+    CSV.new(open(file), {:headers => true, :col_sep => ";", encoding: "iso-8859-1:UTF-8"}).each do |row|
         # creates a user for each row in the CSV file
-        puts "usao je u csv.new loop"
+
+        puts "#{row.to_hash}"
         Article.create(row.to_hash)
         puts "izradio je artikl"
       end
