@@ -1,5 +1,6 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
+  Paperclip.options[:content_type_mappings] = {:csv => "text/plain"}
 
   config.paperclip_defaults = {
       :storage => :s3,
