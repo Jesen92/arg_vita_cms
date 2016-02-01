@@ -17,7 +17,7 @@
   </div>
   <ul class="list-group">
     <% @category.materials.each do |mat| %>
-          <%= link_to mat.title, material_path(mat.id), class:"list-group-item" %>
+          <%= link_to mat.id.to_s+". "+mat.title, material_path(mat.id), class:"list-group-item" %>
     <% end %>
   </ul>
 

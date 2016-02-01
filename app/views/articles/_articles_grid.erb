@@ -49,6 +49,10 @@
     t.code
   end
 
+  g.column name: "Kod dobavljaca", attribute: 'suppliers_code', in_html: false do |t|
+    t.suppliers_code
+  end
+
   g.column name: "Kreiran", attribute: 'created_at' do |t|
     t.created_at.strftime("%d. %m. %Y.")
   end

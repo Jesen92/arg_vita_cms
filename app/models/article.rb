@@ -11,6 +11,9 @@ class Article < ActiveRecord::Base
   has_many :carts_articles
   has_many :shopping_carts, :through => :carts_articles
 
+  has_many :past_purchases
+  has_many :users, :through => :past_purchases
+
   has_many :auctions
 
   belongs_to :material

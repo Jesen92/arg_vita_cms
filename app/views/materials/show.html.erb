@@ -18,7 +18,7 @@
 
   <ul class="list-group">
     <% @material.categories.each do |cat| %>
-      <%= link_to cat.title, category_path(cat.id), class:'list-group-item' %>
+      <%= link_to cat.id.to_s+". "+cat.title, category_path(cat.id), class:'list-group-item' %>
     <% end %>
   </ul>
 </div>

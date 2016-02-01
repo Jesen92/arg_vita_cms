@@ -8,7 +8,7 @@
     if !t.article.nil?
       link_to(t.article.title, article_path(t.article.id), :method => :get)
     else
-      "- - - -"
+      "- - -"
     end
   end
 
@@ -16,7 +16,7 @@
     if !t.complement.nil?
       link_to(t.complement.title, complement_path(t.complement.id), :method => :get)
     else
-      "- - - -"
+      "- - -"
     end
   end
 
