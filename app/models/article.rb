@@ -100,22 +100,23 @@ class Article < ActiveRecord::Base
 
   def self.import(file) #import csv-a u bazu
 
-    articles = CSV.new(open(file), {:headers => :first_row, :col_sep => ";" })
-
-    articles.each do |art|
-      Article.create(art.to_hash)
-    end
-
 =begin
-    puts "usao je u import"
-    # runs through a loop in our CSV data
-    CSV.foreach(open(file), {:headers => true, :header_converters => :symbol}).each do |row|
-      # creates a user for each row in the CSV file
-      puts "usao je u csv.new loop"
-      Article.create(row.to_hash)
-      puts "izradio je artikl"
-    end
+articles = CSV.new(open(file), {:headers => :first_row, :col_sep => ";" })
+
+articles.each do |art|
+  Article.create(art.to_hash)
+end
 =end
+
+puts "usao je u import"
+# runs through a loop in our CSV data
+    CSV.new(open(file), {:headers => true, :col_sep => ";"}).each do |row|
+        # creates a user for each row in the CSV file
+        puts "usao je u csv.new loop"
+        Article.create(row.to_hash)
+        puts "izradio je artikl"
+      end
+
   end
 
   # define ActiveRecord scopes for
