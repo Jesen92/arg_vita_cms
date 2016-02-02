@@ -5,6 +5,9 @@
 
     <%= f.input :title_eng, label: "Naziv na Engleskom" %>
 
+    <%= f.input :raw, label: "Repromaterijal?" %>
+    <small>Izmjena će se tek izvršiti nakon potvrđivanja na "Izmijeni Arikl", do tada mogu biti prikazane krive kategorije</small>
+
     <% if !f.object.raw? %>
         <%= f.input :material_id, label: "Materijal", :collection => Material.all %>
         <p><%= f.label "Kategorije" %></p>

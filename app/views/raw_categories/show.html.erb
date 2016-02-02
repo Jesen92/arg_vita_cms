@@ -18,7 +18,7 @@
   </div>
   <ul class="list-group">
     <% @subcategory.ssubcategories.each do |cat| %>
-        <%= link_to cat.title, raw_subcategories_show_path(cat.id), class:"list-group-item" %>
+        <%= link_to cat.id.to_s+". "+cat.title, raw_subcategories_show_path(cat.id), class:"list-group-item" %>
     <% end %>
   </ul>
 </div>

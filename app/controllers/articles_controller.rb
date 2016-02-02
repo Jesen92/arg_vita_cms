@@ -19,7 +19,7 @@ class ArticlesController < ApplicationController
 
     flash[:notice] = "Dodani su artikli iz CSV datoteke"
 
-    redirect_to articles_path
+    redirect_to(:back)
   end
 
   def import_view
@@ -196,6 +196,7 @@ class ArticlesController < ApplicationController
     RelatedArticle.where(article_id: @article.id).destroy_all
     RelatedArticle.where(related_article_id: @article.id).destroy_all
 
+    if params[:raw] == '0'
     if params[:article][:related_articles][:related_article_ids]
 
       params[:article][:related_articles][:related_article_ids].each do |art_id|
@@ -206,6 +207,7 @@ class ArticlesController < ApplicationController
         end
       end
     end
+
 
     if params[:article][:related_articles][:related_article_codes]
 
@@ -220,7 +222,7 @@ class ArticlesController < ApplicationController
         end
 
     end
-
+    end
 
     @article.single_articles.each do |sa|
 
