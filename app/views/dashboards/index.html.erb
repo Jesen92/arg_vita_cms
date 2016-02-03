@@ -2,9 +2,32 @@
   <h1>Dashboard</h1>
 </div>
 
+<% if @purchases != nil || @single_article_purchases != nil %>
+
+    <div class="alert alert-success" role="alert"><h4 style="margin-bottom: 0px;">Nove prodaje</h4></div>
+
+<%= form_tag batch_options_path, :method => :put do |f| %>
+
+    <div style="margin-bottom: 5px;" >
+
+    <%= submit_tag "Artikli poslani!", data: {confirm: 'Jeste li sigurni da su artikli poslani?'}, class: "btn btn-success" %>  <%= submit_tag "Izbriši prodaje",data: { confirm: 'Jeste li sigurni da želite obrisati odabrane prodaje?' }, class: "btn btn-danger"%>
+
+    </div>
+
+  <% if @purchases != nil%>
+    <%= render partial: 'dashboards/kupnje_grid' %>
+  <% end %>
+
+  <% if @single_article_purchases != nil %>
+    <%= render partial: 'dashboards/pakupnje_grid' %>
+  <% end %>
+
+<% end %>
+<% end %>
+
 <% if @articles != nil %>
-<div class="alert alert-warning" role="alert"><h4 style="margin-bottom: 0px;">Artikli koji su pred istekom zaliha</h4></div>
- <%= render partial: 'dashboards/artiklizalihe_grid' %>
+    <div class="alert alert-warning" role="alert"><h4 style="margin-bottom: 0px;">Artikli koji su pred istekom zaliha</h4></div>
+     <%= render partial: 'dashboards/artiklizalihe_grid' %>
 <% end %>
 
 <% if @single_articles != nil %>

@@ -1,5 +1,19 @@
 Rails.application.routes.draw do
 
+  get 'purchases/index'
+
+  get 'purchases/show'
+
+  get 'purchases/new'
+
+  get 'purchases/create'
+
+  get 'purchases/edit'
+
+  get 'purchases/update'
+
+  get 'purchases/destroy'
+
   get 'complements/index'
 
   get 'complements/show'
@@ -150,6 +164,8 @@ Rails.application.routes.draw do
 
   get 'complements/complement_set_picture' => "complements#complement_set_picture", :as => 'complement_set_picture'
 
+  get 'dashboards/batch_options' => "dashboards#batch_options", :as => 'batch_options'
+
   root :to => 'dashboards#index'
 
   devise_for :admin_users, controllers: {sessions: "admin_users/sessions", registrations: "admin_users/registrations"}
@@ -168,10 +184,13 @@ Rails.application.routes.draw do
     get "admin_users/sign_out" => redirect("devise/sessions#new")
 
 
+    resources :purchases
     resources :complements do
       put :complement_set_picture, on: :collection
     end
-    resources :dashboards
+    resources :dashboards do
+      put :batch_options, on: :collection
+    end
     resources :categories
     resources :articles do
       get :index_auction, on: :collection

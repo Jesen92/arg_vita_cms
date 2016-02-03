@@ -4,10 +4,10 @@
     t.id
   end
 
-  g.column name: "Naziv artikla", attribute: 'title', assoc: :article do |t|
+  g.column name: "Naziv artikla", attribute: 'title', assoc: [:article, :complement] do |t|
     if !t.article.nil?
       link_to(t.article.title, article_path(t.article.id), :method => :get)
-    else
+    elsif !t.complement.nil?
       "- - -"
     end
   end

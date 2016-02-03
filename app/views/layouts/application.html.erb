@@ -75,6 +75,9 @@
       <li class="<%= params[:controller] == 'dashboards' ? 'selected-menu' : '' %>">
         <%= link_to "Dashboard", dashboards_path %>
       </li>
+      <li class="<%= params[:controller] == 'purchases' ? 'selected-menu' : '' %>">
+        <%= link_to "Prodaje", purchases_path %>
+      </li>
       <li class="<%= params[:controller] == 'articles' && params[:action] == 'index' ? 'selected-menu' : '' %>">
         <%= link_to "Artikli", articles_index_path %>
       </li>

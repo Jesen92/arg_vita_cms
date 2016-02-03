@@ -327,11 +327,14 @@ class ArticlesController < ApplicationController
 
          @art.update_all(for_sale: true)
 
+         flash[:notice] = "Artikli su stavljeni na prodaju!"
+
 
        elsif params[:commit] == 'Makni sa prodaje'
 
          @art.update_all(for_sale: false)
 
+         flash[:notice] = "Artikli su maknuti prodaju!"
 
        elsif params[:commit] == 'Uredi odabrane artikle'
 
@@ -351,8 +354,13 @@ class ArticlesController < ApplicationController
           redirect_to set_auction_path(params)
           @indicator = true
 
+         flash[:notice] = "Artikli su stavljeni na Aukciju!"
+
        elsif params[:commit] == 'Izbriši aukcije'
          @art.destroy_all
+
+         flash[:notice] = "Aukcije su izbrisane!"
+
          redirect_to index_auction_path
 
        elsif params[:commit] == 'Makni sa popusta'
@@ -383,7 +391,6 @@ class ArticlesController < ApplicationController
       if params[:article][:codes].length > 1
         articles_codes = Article.where(code: params[:article][:codes])
       end
-
 
 
       @page_title = "Popust"
@@ -451,12 +458,14 @@ class ArticlesController < ApplicationController
 
   end
 
+
   def index_auction
     @auction_articles = Auction.all
 
     @auction_grid = initialize_grid(@auction_articles, name: 'auction', include: [ {article: :picture}, :complement, :user ] ,order: 'auctions.created_at', order_direction: 'desc', enable_export_to_csv: true, csv_file_name: 'artikli na aukciji', csv_field_separator: ';' )
 
   end
+
 
   def create_auction
 
@@ -499,7 +508,6 @@ class ArticlesController < ApplicationController
 
 
   #####################  #####################  #####################  #####################
-
 
 
   #####################  #####################  #####################  ##################### funkcije za editiranje i update-anje vise artikla
