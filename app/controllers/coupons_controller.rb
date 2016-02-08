@@ -37,7 +37,7 @@ class CouponsController < ApplicationController
 
     @coupon.update(coupon_params)
 
-    flash[:notice] = "Materijal je izmijenjen!"
+    flash[:notice] = "Kupon je izmijenjen!"
 
     redirect_to coupons_index_path
   end
@@ -47,7 +47,7 @@ class CouponsController < ApplicationController
 
     @coupon.destroy
 
-    flash[:notice] = "Materijal je izbrisan!"
+    flash[:notice] = "Kupon je izbrisan!"
 
     redirect_to coupons_index_path
   end

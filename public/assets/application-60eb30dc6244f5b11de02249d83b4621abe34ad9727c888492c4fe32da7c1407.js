@@ -17128,7 +17128,6 @@ Copyright (c) 2012-2013 Sasha Koss & Rico Sta. Cruz
 
 
 
-
 ;
 /**
  * Created by Jesenovic on 20/11/15.
@@ -21870,6 +21869,10 @@ var e=c.find(".active:last a"),f=a.Event("hide.bs.tab",{relatedTarget:b[0]}),g=a
       }
     });
   });
+
+}).call(this);
+(function() {
+
 
 }).call(this);
 (function() {

@@ -21,7 +21,6 @@
   border: 1px solid #ccc;
   border-bottom-right-radius: 4px;
   border-bottom-left-radius: 4px;
-  -webkit-box-shadow: 0 8px 8px rgba(0, 0, 0, 0.25);
   box-shadow: 0 8px 8px rgba(0, 0, 0, 0.25);
   margin-top: -1px;
   position: absolute;
@@ -126,15 +125,12 @@
 /* line 132, /Users/Jesenovic/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/bootstrap-chosen-rails-0.0.4/vendor/assets/stylesheets/bootstrap-chosen.scss */
 .chosen-container-single .chosen-single {
   background-color: #fff;
-  -webkit-background-clip: padding-box;
-  -moz-background-clip: padding;
   background-clip: padding-box;
   border: 1px solid #ccc;
   border-top-right-radius: 4px;
   border-top-left-radius: 4px;
   border-bottom-right-radius: 4px;
   border-bottom-left-radius: 4px;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   color: #555555;
   display: block;
@@ -209,7 +205,6 @@
   border-top-left-radius: 4px;
   border-bottom-right-radius: 4px;
   border-bottom-left-radius: 4px;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   margin: 1px 0;
   padding: 4px 20px 4px 4px;
@@ -220,8 +215,6 @@
   margin-top: -1px;
   border-bottom-right-radius: 4px;
   border-bottom-left-radius: 4px;
-  -webkit-background-clip: padding-box;
-  -moz-background-clip: padding;
   background-clip: padding-box;
 }
 
@@ -239,7 +232,6 @@
   border-top-left-radius: 4px;
   border-bottom-right-radius: 4px;
   border-bottom-left-radius: 4px;
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   cursor: text;
   height: auto !important;
@@ -264,7 +256,6 @@
 .chosen-container-multi .chosen-choices .search-field input[type="text"] {
   background: transparent !important;
   border: 0 !important;
-  -webkit-box-shadow: none;
   box-shadow: none;
   color: #555555;
   height: 32px;
@@ -278,8 +269,6 @@
 }
 /* line 275, /Users/Jesenovic/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/bootstrap-chosen-rails-0.0.4/vendor/assets/stylesheets/bootstrap-chosen.scss */
 .chosen-container-multi .chosen-choices .search-choice {
-  -webkit-background-clip: padding-box;
-  -moz-background-clip: padding;
   background-clip: padding-box;
   background-color: #eeeeee;
   border: 1px solid #ccc;
@@ -288,11 +277,9 @@
   border-bottom-right-radius: 4px;
   border-bottom-left-radius: 4px;
   background-image: -webkit-linear-gradient(top, white 0%, #eeeeee 100%);
-  background-image: -o-linear-gradient(top, white 0%, #eeeeee 100%);
   background-image: linear-gradient(to bottom, white 0%, #eeeeee 100%);
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFFFFFFF', endColorstr='#FFEEEEEE', GradientType=0);
-  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   color: #333333;
   cursor: default;
@@ -338,10 +325,8 @@
 /* line 331, /Users/Jesenovic/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/bootstrap-chosen-rails-0.0.4/vendor/assets/stylesheets/bootstrap-chosen.scss */
 .chosen-container-active .chosen-single {
   border: 1px solid #66afe9;
-  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px #66afe9;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px #66afe9;
   -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
-  -o-transition: border linear 0.2s, box-shadow linear 0.2s;
   transition: border linear 0.2s, box-shadow linear 0.2s;
 }
 /* line 337, /Users/Jesenovic/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/bootstrap-chosen-rails-0.0.4/vendor/assets/stylesheets/bootstrap-chosen.scss */
@@ -350,10 +335,8 @@
   border: 1px solid #66afe9;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
-  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px #66afe9;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px #66afe9;
   -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
-  -o-transition: border linear 0.2s, box-shadow linear 0.2s;
   transition: border linear 0.2s, box-shadow linear 0.2s;
 }
 /* line 344, /Users/Jesenovic/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/bootstrap-chosen-rails-0.0.4/vendor/assets/stylesheets/bootstrap-chosen.scss */
@@ -370,10 +353,8 @@
   border: 1px solid #66afe9;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
-  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px #66afe9;
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px #66afe9;
   -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
-  -o-transition: border linear 0.2s, box-shadow linear 0.2s;
   transition: border linear 0.2s, box-shadow linear 0.2s;
 }
 /* line 360, /Users/Jesenovic/.rbenv/versions/2.2.3/lib/ruby/gems/2.2.0/gems/bootstrap-chosen-rails-0.0.4/vendor/assets/stylesheets/bootstrap-chosen.scss */

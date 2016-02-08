@@ -23,7 +23,6 @@
 //= require chosen-jquery
 //= require scaffold
 //= require wice_grid
-//= require jquery.ui.datepicker
 //= require filterrific/filterrific-jquery
 //= require filter
 //= require jquery.countdown.js

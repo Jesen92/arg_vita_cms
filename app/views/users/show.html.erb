@@ -1,0 +1,89 @@
+<div class="page-header head-page">
+  <h1><%= @user.name %></h1>
+</div>
+
+<div class="panel panel-info" style="margin-top: 10px">
+  <div class="panel-heading">
+    <h3 class="panel-title">Info</h3>
+  </div>
+  <div class="panel-body">
+    <div class="row" >
+
+          <div class="col-xs-6 col-md-2" >
+            <strong>Država:</strong> <p><%= @user.state %></p>
+          </div>
+
+          <div class="col-xs-6 col-md-2" >
+            <strong>Grad:</strong> <p><%= @user.city %></p>
+          </div>
+
+          <div class="col-xs-6 col-md-2" >
+            <strong>Poštanski broj:</strong> <p><%= @user.postcode %></p>
+          </div>
+
+          <div class="col-xs-6 col-md-2" >
+            <strong>Adresa:</strong> <p><%= @user.address %></p>
+          </div>
+
+          <div class="col-xs-6 col-md-2" >
+            <strong>Datum Rođenja:</strong> <p><% if !@user.date_of_birth.nil? %><%= @user.date_of_birth.strftime("%d. %m. %Y.") %><% end %></p>
+          </div>
+
+          <div class="col-xs-6 col-md-2" >
+            <strong>e-mail: </strong> <p><%= @user.email %></p>
+          </div>
+
+    </div>
+    <br/>
+    <div class="row">
+          <div class="col-xs-6 col-md-2" >
+            <strong>Tel broj:</strong> <p> <% if @user.phone.nil? %> <%= @user.phone %> <% end %></p>
+          </div>
+
+          <div class="col-xs-6 col-md-2" >
+            <strong>Datum/Vrijeme zadnjeg logiranja:</strong> <p><%= @user.last_sign_in_at.strftime("%d. %m. %Y. %H:%M") %></p>
+          </div>
+
+          <div class="col-xs-6 col-md-2" >
+            <strong>Suma kupnje:</strong> <p><% if @user.purchase_sum %> <%= @user.purchase_sum %> <% end %></p>
+          </div>
+
+    </div>
+
+  </div>
+</div>
+
+<% if @purchases != nil || @single_article_purchases != nil %>
+
+    <%= form_tag batch_options_path, :method => :put do |f| %>
+
+        <div style="margin-bottom: 5px;" >
+
+          <div class="dropdown" >
+            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="width: 105px;">
+              Opcije
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu">
+
+              <li><a><%= submit_tag "Artikli poslani!", data: {confirm: 'Jeste li sigurni da su artikli poslani?'},style: "background: white;" %></a></li>
+              <li><a><%= submit_tag "Artikli nisu poslani!", data: {confirm: 'Jeste li sigurni da artikli nisu poslani?'},style: "background: white;" %></a></li>
+
+
+            </ul>
+
+            <%= submit_tag "Izbriši artikle",data: { confirm: 'Jeste li sigurni da želite obrisati odabrane artikle?' }, class: "btn btn-danger"%>
+          </div>
+        </div>
+
+        <% if @purchases != nil%>
+            <%= render partial: 'users/kupnje_grid' %>
+        <% end %>
+
+        <% if @single_article_purchases != nil %>
+            <%= render partial: 'users/pakupnje_grid' %>
+        <% end %>
+
+    <% end %>
+<% end %>
+

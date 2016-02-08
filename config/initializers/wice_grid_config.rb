@@ -26,7 +26,7 @@ if defined?(Wice::Defaults)
   Wice::Defaults::ALLOW_MULTIPLE_SELECTION = true
 
   # Show the upper pagination panel by default or not
-  Wice::Defaults::SHOW_UPPER_PAGINATION_PANEL = true
+  Wice::Defaults::SHOW_UPPER_PAGINATION_PANEL = false
 
   # Disabling CSV export by default
   Wice::Defaults::ENABLE_EXPORT_TO_CSV = false
@@ -131,11 +131,11 @@ if defined?(Wice::Defaults)
 
   # Format of the date displayed.
   # If you change the format, make sure to check if +DATE_PARSER+ can still parse this string.
-  Wice::Defaults::DATE_FORMAT     =  '%d.%m.%Y.'
+  Wice::Defaults::DATE_FORMAT     =  '%Y-%m-%d'
 
   # Format of the date displayed in jQuery's Datepicker
   # If you change the format, make sure to check if +DATE_PARSER+ can still parse this string.
-  Wice::Defaults::DATE_FORMAT_JQUERY     =  'dd.mm.yy.'
+  Wice::Defaults::DATE_FORMAT_JQUERY     =  'yy-mm-dd'
 
   # Format of the date displayed in Bootstrap's Datepicker
   # If you change the format, make sure to check if +DATE_PARSER+ can still parse this string.

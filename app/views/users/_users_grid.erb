@@ -1,0 +1,43 @@
+<%= grid(@users_grid, show_filters: :always) do |g|
+  g.column name: "Id", attribute: 'id', filter: false do |t|
+    t.id
+  end
+
+  g.column name: "Name", attribute: 'name'  do |t|
+    t.name
+  end
+
+  g.column name: "e-mail", attribute: 'email' do |t|
+    t.email
+  end
+
+  g.column name: "Država", attribute: 'state' do |t|
+    t.state
+  end
+
+  g.column name: "City", attribute: 'city' do |t|
+    t.city
+  end
+
+  g.column name: "Adresa", attribute: 'address' do |t|
+    t.address
+  end
+
+  g.column name: "Poštanski broj", attribute: 'postcode' do |t|
+    t.postcode
+  end
+
+  g.column name: "Suma kupnje", attribute: 'purchase_sum' do |t|
+    number_to_currency(t.purchase_sum, :unit => 'Kn', :format => "%n %u")
+  end
+
+  g.column name: "Kreiran", attribute: 'created_at' do |t|
+    t.created_at.strftime("%d. %m. %Y.")
+  end
+
+  g.column in_csv: false do |t|
+    link_to("Pregled", users_show_path(t.id), :method => :get)
+  end
+
+
+end-%>

@@ -91,7 +91,10 @@
         <%= link_to "Kategorije", categories_index_path %>
       </li>
       <li class="<%= params[:controller] == 'colors' ? 'selected-menu' : '' %>">
-        <%= link_to "Boje", colors_index_path %>
+      <%= link_to "Boje", colors_index_path %>
+      </li>
+      <li class="<%= params[:controller] == 'users' ? 'selected-menu' : '' %>">
+      <%= link_to "Korisnici", users_index_path %>
       </li>
       <li class="<%= params[:controller] == 'coupons' ? 'selected-menu' : '' %>">
         <%= link_to "Kuponi", coupons_path %>
@@ -107,9 +110,6 @@
       <div class="row">
         <div class="col-lg-12">
 
-          <% if flash[:notice] %>
-              <div class="alert alert-success"><%= flash[:notice] %></div>
-          <% end %>
 
           <%= yield %>
 

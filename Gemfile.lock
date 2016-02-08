@@ -269,6 +269,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  autoprefixer-rails
   awesome_nested_set
   aws-sdk (< 2.0)
   better_errors (~> 2.1, >= 2.1.1)
