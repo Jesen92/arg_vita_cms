@@ -45,7 +45,7 @@
           </div>
 
           <div class="col-xs-6 col-md-2" >
-            <strong>Suma kupnje:</strong> <p><% if @user.purchase_sum %> <%= @user.purchase_sum %> <% end %></p>
+            <strong>Suma kupnje:</strong> <p><% if @user.purchase_sum %> <%= number_to_currency(@user.purchase_sum, :unit => 'Kn', :format => "%n %u") %> <% end %></p>
           </div>
 
     </div>

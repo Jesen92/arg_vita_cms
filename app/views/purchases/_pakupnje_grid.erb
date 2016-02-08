@@ -39,12 +39,13 @@
   end
 
   g.column name: "Cijena(pojedinačno)", attribute: 'cost' do |t|
-    t.cost
+    number_to_currency(t.cost, :unit => 'Kn', :format => "%n %u")
   end
 
   g.column name: "Cijena(ukupno)", attribute: 'cost' do |t|
-    t.cost*t.amount
+    number_to_currency(t.cost*t.amount, :unit => 'Kn', :format => "%n %u")
   end
+
 
   g.column name: "Korisnik", attribute: 'name', assoc: :user do |t|
     t.user.name
