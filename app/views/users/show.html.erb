@@ -84,6 +84,10 @@
             <%= render partial: 'users/pakupnje_grid' %>
         <% end %>
 
+        <% if @complement_purchases != nil %>
+            <%= render partial: 'users/kompkupnje_grid' %>
+        <% end %>
+
     <% end %>
 <% end %>
 

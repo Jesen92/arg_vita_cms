@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151228132602) do
+ActiveRecord::Schema.define(version: 20160208110545) do
 
   create_table "admin_users", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "", null: false
@@ -31,7 +31,22 @@ ActiveRecord::Schema.define(version: 20151228132602) do
   add_index "admin_users", ["email"], name: "index_admin_users_on_email", unique: true, using: :btree
   add_index "admin_users", ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true, using: :btree
 
+  create_table "article_categories", force: :cascade do |t|
+    t.integer  "article_id",  limit: 4
+    t.integer  "category_id", limit: 4
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
+
+  create_table "article_complements", force: :cascade do |t|
+    t.integer  "complement_id",     limit: 4
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.integer  "single_article_id", limit: 4
+  end
+
   create_table "articles", force: :cascade do |t|
+    t.boolean  "raw",                                                    default: false
     t.string   "title",           limit: 255
     t.string   "title_eng",       limit: 255
     t.text     "description",     limit: 65535
@@ -39,38 +54,58 @@ ActiveRecord::Schema.define(version: 20151228132602) do
     t.integer  "picture_id",      limit: 4
     t.integer  "category_id",     limit: 4
     t.integer  "material_id",     limit: 4
-    t.integer  "suppliers_code",  limit: 4
+    t.integer  "subcategory_id",  limit: 4
+    t.integer  "ssubcategory_id", limit: 4
+    t.string   "suppliers_code",  limit: 255
     t.string   "code",            limit: 255,                            default: " "
     t.decimal  "weight",                        precision: 10, scale: 2
     t.integer  "amount",          limit: 4
     t.integer  "warning",         limit: 4
     t.decimal  "cost",                          precision: 10, scale: 2, default: 0.0
     t.integer  "discount",        limit: 4,                              default: 0
-    t.date     "start_date"
-    t.date     "end_date"
+    t.datetime "start_date"
+    t.datetime "end_date"
     t.boolean  "for_sale",                                               default: false
     t.datetime "created_at",                                                             null: false
     t.datetime "updated_at",                                                             null: false
-    t.integer  "subcategory_id",  limit: 4
-    t.integer  "ssubcategory_id", limit: 4
-    t.boolean  "raw"
+    t.boolean  "feature_product"
+    t.boolean  "on_discount"
+    t.integer  "counter",         limit: 4,                              default: 0
+  end
+
+  create_table "auctions", force: :cascade do |t|
+    t.integer  "article_id",     limit: 4
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.decimal  "starting_price",           precision: 10
+    t.decimal  "highest_bid",              precision: 10
+    t.integer  "user_id",        limit: 4
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+    t.integer  "complement_id",  limit: 4
   end
 
   create_table "carts_articles", force: :cascade do |t|
     t.integer  "shopping_cart_id",  limit: 4
     t.integer  "single_article_id", limit: 4
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
+    t.datetime "created_at",                              null: false
+    t.datetime "updated_at",                              null: false
+    t.integer  "article_id",        limit: 4
+    t.integer  "amount",            limit: 4, default: 0
   end
 
   create_table "categories", force: :cascade do |t|
-    t.string   "title",      limit: 255
-    t.string   "title_eng",  limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.integer  "parent_id",  limit: 4
-    t.integer  "lft",        limit: 4
-    t.integer  "rgt",        limit: 4
+    t.string   "title",               limit: 255
+    t.string   "title_eng",           limit: 255
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.integer  "parent_id",           limit: 4
+    t.integer  "lft",                 limit: 4
+    t.integer  "rgt",                 limit: 4
+    t.string   "avatar_file_name",    limit: 255
+    t.string   "avatar_content_type", limit: 255
+    t.integer  "avatar_file_size",    limit: 4
+    t.datetime "avatar_updated_at"
   end
 
   create_table "category_materials", force: :cascade do |t|
@@ -88,10 +123,30 @@ ActiveRecord::Schema.define(version: 20151228132602) do
   end
 
   create_table "colors", force: :cascade do |t|
-    t.string   "title",      limit: 255
-    t.string   "title_eng",  limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.string   "title",               limit: 255
+    t.string   "title_eng",           limit: 255
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.string   "avatar_file_name",    limit: 255
+    t.string   "avatar_content_type", limit: 255
+    t.integer  "avatar_file_size",    limit: 4
+    t.datetime "avatar_updated_at"
+  end
+
+  create_table "complements", force: :cascade do |t|
+    t.string   "title",           limit: 255
+    t.string   "title_eng",       limit: 255
+    t.text     "description",     limit: 65535
+    t.text     "description_eng", limit: 65535
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
+    t.integer  "discount",        limit: 4
+    t.boolean  "on_discount"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.boolean  "for_sale"
+    t.decimal  "cost",                          precision: 10
+    t.integer  "picture_id",      limit: 4
   end
 
   create_table "coupons", force: :cascade do |t|
@@ -103,105 +158,3 @@ ActiveRecord::Schema.define(version: 20151228132602) do
     t.datetime "updated_at",             null: false
   end
 
-  create_table "materials", force: :cascade do |t|
-    t.string   "title",      limit: 255
-    t.string   "title_eng",  limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-  end
-
-  create_table "past_purchases", force: :cascade do |t|
-    t.integer  "user_id",           limit: 4
-    t.integer  "single_article_id", limit: 4
-    t.datetime "created_at",                  null: false
-    t.datetime "updated_at",                  null: false
-  end
-
-  create_table "pictures", force: :cascade do |t|
-    t.integer  "article_id",         limit: 4
-    t.integer  "single_article_id",  limit: 4
-    t.string   "image_file_name",    limit: 255
-    t.string   "image_content_type", limit: 255
-    t.integer  "image_file_size",    limit: 4
-    t.datetime "image_updated_at"
-    t.datetime "created_at",                     null: false
-    t.datetime "updated_at",                     null: false
-  end
-
-  create_table "raws", force: :cascade do |t|
-    t.string   "title",              limit: 255
-    t.string   "title_eng",          limit: 255
-    t.text     "description",        limit: 65535
-    t.text     "description_eng",    limit: 65535
-    t.integer  "picture_id",         limit: 4
-    t.integer  "raw_category_id",    limit: 4
-    t.integer  "raw_subcategory_id", limit: 4
-    t.string   "suppliers_code",     limit: 255
-    t.string   "code",               limit: 255
-    t.decimal  "weight",                           precision: 10
-    t.integer  "amount",             limit: 4
-    t.integer  "warning",            limit: 4
-    t.decimal  "cost",                             precision: 10
-    t.integer  "discount",           limit: 4
-    t.date     "start_date"
-    t.date     "end_date"
-    t.boolean  "for_sale"
-    t.datetime "created_at",                                      null: false
-    t.datetime "updated_at",                                      null: false
-  end
-
-  create_table "shopping_carts", force: :cascade do |t|
-    t.decimal  "current_cost",           precision: 10
-    t.integer  "user_id",      limit: 4
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
-  end
-
-  create_table "single_articles", force: :cascade do |t|
-    t.integer  "article_id", limit: 4
-    t.string   "title",      limit: 255
-    t.string   "size",       limit: 255
-    t.string   "code",       limit: 255
-    t.integer  "color_id",   limit: 4
-    t.integer  "amount",     limit: 4
-    t.integer  "warning",    limit: 4
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-  end
-
-  create_table "ssubcategories", force: :cascade do |t|
-    t.string   "title",      limit: 255
-    t.string   "title_eng",  limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-  end
-
-  create_table "ssubcategory_subcategories", force: :cascade do |t|
-    t.integer  "ssubcategory_id", limit: 4
-    t.integer  "subcategory_id",  limit: 4
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-  end
-
-  create_table "subcategories", force: :cascade do |t|
-    t.string   "title",      limit: 255
-    t.string   "title_eng",  limit: 255
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-  end
-
-  create_table "users", force: :cascade do |t|
-    t.string   "name",          limit: 255
-    t.string   "email",         limit: 255
-    t.string   "country",       limit: 255
-    t.string   "city",          limit: 255
-    t.string   "street",        limit: 255
-    t.date     "date_of_birth"
-    t.string   "username",      limit: 255
-    t.string   "password",      limit: 255
-    t.integer  "purchase_sum",  limit: 4
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-  end
-
-end

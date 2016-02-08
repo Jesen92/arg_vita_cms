@@ -35,5 +35,9 @@
             <%= render partial: 'purchases/pakupnje_grid' %>
         <% end %>
 
+        <% if @complement_purchases != nil %>
+            <%= render partial: 'purchases/kompkupnje_grid' %>
+        <% end %>
+
     <% end %>
 <% end %>
