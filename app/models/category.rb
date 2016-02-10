@@ -10,7 +10,7 @@ class Category < ActiveRecord::Base
   has_many :materials, :through => :category_materials
 
   has_attached_file :avatar,
-                    :styles => {thumb: "300x300#", table: "26x26#"}
+                    :styles => {thumb: "350x250#", table: "26x26#"}
 
   do_not_validate_attachment_file_type :avatar
 

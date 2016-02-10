@@ -1,7 +1,29 @@
 ---
+:Category:
+  :avatar:
+  - :table
+  - :thumb
+:Color:
+  :avatar:
+  - :table
+  - :thumb
+:Material:
+  :avatar:
+  - :table
+  - :thumb
 :Picture:
   :image:
   - :gallery
+  - :index
   - :original
+  - :show
+  - :table
+  - :thumb
+:Ssubcategory:
+  :avatar:
+  - :table
+  - :thumb
+:Subcategory:
+  :avatar:
   - :table
   - :thumb
