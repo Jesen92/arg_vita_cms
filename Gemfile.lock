@@ -309,5 +309,8 @@ DEPENDENCIES
   whenever
   wice_grid (= 3.6.0.pre4)
 
+RUBY VERSION
+   ruby 2.2.3p173
+
 BUNDLED WITH
-   1.10.6
+   1.12.0.pre.1
