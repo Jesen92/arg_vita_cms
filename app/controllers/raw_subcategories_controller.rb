@@ -53,6 +53,6 @@ class RawSubcategoriesController < ApplicationController
 
   protected
   def ssubcategory_params
-    params.require(:ssubcategory).permit(:title,:title_eng,  subcategory_ids:[])
+    params.require(:ssubcategory).permit(:title,:title_eng, :avatar ,subcategory_ids:[])
   end
 end
