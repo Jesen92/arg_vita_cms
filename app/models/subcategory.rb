@@ -8,7 +8,7 @@ class Subcategory < ActiveRecord::Base
   has_many :ssubcategories, :through => :ssubcategory_subcategories
 
   has_attached_file :avatar,
-                    :styles => {thumb: "300x300#", table: "26x26#"}
+                    :styles => {thumb: "300x300#", table: "26x26#", index: "350x250#"}
 
   do_not_validate_attachment_file_type :avatar
 end
