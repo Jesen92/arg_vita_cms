@@ -148,6 +148,8 @@ class ArticlesController < ApplicationController
 
         #single_articles_create
 
+
+
       end
 
 
@@ -196,8 +198,9 @@ class ArticlesController < ApplicationController
     RelatedArticle.where(article_id: @article.id).destroy_all
     RelatedArticle.where(related_article_id: @article.id).destroy_all
 
-    if params[:raw] == '0'
     if params[:article][:related_articles][:related_article_ids]
+
+        puts "IMA RELATED ARTICLES!!! "
 
       params[:article][:related_articles][:related_article_ids].each do |art_id|
 
@@ -222,7 +225,7 @@ class ArticlesController < ApplicationController
         end
 
     end
-    end
+
 
     @article.single_articles.each do |sa|
 
@@ -795,7 +798,7 @@ class ArticlesController < ApplicationController
 
   protected
     def article_params
-      params.require(:article).permit(:title, :raw, :dimension, :subcategory_id, :ssubcategory_id, {related_article_ids:[]} ,:title_eng, :start_date, :end_date, :description_eng, :discount,  :material_id , {category_ids:[]} , :code, :type_id,  :weight, :cost, :description, :amount, :suppliers_code, :warning, :for_sale , :color, single_articles_attributes: [:id, :type_name, :color_id, :size, :title, :article_id, :_destroy])
+      params.require(:article).permit(:title, :raw, :related_articles, :feature_product ,:dimension, :subcategory_id, :ssubcategory_id, {related_article_ids:[]} ,:title_eng, :start_date, :end_date, :description_eng, :discount,  :material_id , {category_ids:[]} , :code, :type_id,  :weight, :cost, :description, :amount, :suppliers_code, :warning, :for_sale , :color, single_articles_attributes: [:id, :type_name, :color_id, :size, :title, :article_id, :_destroy])
     end
 
     def csv_params
