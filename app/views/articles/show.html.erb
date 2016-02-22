@@ -127,6 +127,10 @@
     <strong>Cijena<% if @discount_prize %>(prije popusta) <% end %>:</strong> <p><%= number_to_currency(@article.cost, :unit => 'Kn', :format => "%n %u") %></p>
     </div>
 
+    <div class="col-xs-6 col-md-2">
+      <strong>Dimenzije:</strong><p><%= @article.dimension %></p>
+    </div>
+
       </div>
 <br/>
     <div class="row">

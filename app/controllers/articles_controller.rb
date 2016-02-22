@@ -549,6 +549,8 @@ class ArticlesController < ApplicationController
 
         art.weight = @param[:weight]
 
+        art.dimension = @param[:dimension]
+
         art.code = @param[:code]
 
         art.suppliers_code = @param[:suppliers_code]
@@ -793,7 +795,7 @@ class ArticlesController < ApplicationController
 
   protected
     def article_params
-      params.require(:article).permit(:title, :raw, :subcategory_id, :ssubcategory_id, {related_article_ids:[]} ,:title_eng, :start_date, :end_date, :description_eng, :discount,  :material_id , {category_ids:[]} , :code, :type_id,  :weight, :cost, :description, :amount, :suppliers_code, :warning, :for_sale , :color, single_articles_attributes: [:id, :type_name, :color_id, :size, :title, :article_id, :_destroy])
+      params.require(:article).permit(:title, :raw, :dimension, :subcategory_id, :ssubcategory_id, {related_article_ids:[]} ,:title_eng, :start_date, :end_date, :description_eng, :discount,  :material_id , {category_ids:[]} , :code, :type_id,  :weight, :cost, :description, :amount, :suppliers_code, :warning, :for_sale , :color, single_articles_attributes: [:id, :type_name, :color_id, :size, :title, :article_id, :_destroy])
     end
 
     def csv_params
