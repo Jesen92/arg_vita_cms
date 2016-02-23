@@ -99,7 +99,9 @@
       <li class="<%= params[:controller] == 'coupons' ? 'selected-menu' : '' %>">
         <%= link_to "Kuponi", coupons_path %>
       </li>
-
+      <li class="<%= params[:controller] == 'home_banners' || params[:controller] == 'shop_banners' ? 'selected-menu' : '' %>">
+        <%= link_to "Banners", home_banners_path %>
+      </li>
     </ul>
   </div>
   <!-- /#sidebar-wrapper -->

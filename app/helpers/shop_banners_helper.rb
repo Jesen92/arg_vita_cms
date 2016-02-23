@@ -1,0 +1,2 @@
+module ShopBannersHelper
+end

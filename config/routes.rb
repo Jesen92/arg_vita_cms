@@ -1,5 +1,47 @@
 Rails.application.routes.draw do
 
+  get 'home_banners/index'
+
+  get 'home_banners/show'
+
+  get 'home_banners/new'
+
+  get 'home_banners/create'
+
+  get 'home_banners/edit'
+
+  get 'home_banners/update'
+
+  get 'home_banners/destroy'
+
+  get 'shop_banners/index'
+
+  get 'shop_banners/show'
+
+  get 'shop_banners/new'
+
+  get 'shop_banners/create'
+
+  get 'shop_banners/edit'
+
+  get 'shop_banners/update'
+
+  get 'shop_banners/destroy'
+
+  get 'banners/index'
+
+  get 'banners/show'
+
+  get 'banners/new'
+
+  get 'banners/create'
+
+  get 'banners/edit'
+
+  get 'banners/update'
+
+  get 'banners/destroy'
+
   get 'users/index'
 
   get 'users/show'
@@ -198,6 +240,8 @@ Rails.application.routes.draw do
     get "admin_users/sign_out" => redirect("devise/sessions#new")
 
 
+    resources :home_banners
+    resources :shop_banners
     resources :purchases
     resources :complements do
       put :complement_set_picture, on: :collection

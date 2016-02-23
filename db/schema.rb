@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160222111130) do
+ActiveRecord::Schema.define(version: 20160223103018) do
 
   create_table "admin_users", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "", null: false
@@ -172,6 +172,18 @@ ActiveRecord::Schema.define(version: 20160222111130) do
     t.datetime "document_updated_at"
   end
 
+  create_table "home_banners", force: :cascade do |t|
+    t.string   "title",              limit: 255
+    t.integer  "order",              limit: 4
+    t.boolean  "active"
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.string   "image_file_name",    limit: 255
+    t.string   "image_content_type", limit: 255
+    t.integer  "image_file_size",    limit: 4
+    t.datetime "image_updated_at"
+  end
+
   create_table "impressions", force: :cascade do |t|
     t.string   "impressionable_type", limit: 255
     t.integer  "impressionable_id",   limit: 4
@@ -246,6 +258,18 @@ ActiveRecord::Schema.define(version: 20160222111130) do
     t.integer  "related_article_id", limit: 4
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
+  end
+
+  create_table "shop_banners", force: :cascade do |t|
+    t.string   "title",              limit: 255
+    t.integer  "order",              limit: 4
+    t.boolean  "active"
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
+    t.string   "image_file_name",    limit: 255
+    t.string   "image_content_type", limit: 255
+    t.integer  "image_file_size",    limit: 4
+    t.datetime "image_updated_at"
   end
 
   create_table "shopping_carts", force: :cascade do |t|

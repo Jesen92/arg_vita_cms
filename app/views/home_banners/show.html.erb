@@ -1,0 +1,15 @@
+<%= link_to "Uredi Banner", home_banners_edit_path(@banner.id) ,class: "btn btn-success" %>  <%= link_to 'Delete',  @banner,  method: :delete, data: { confirm: 'Jeste li sigurni?' },class: "btn btn-danger" %>  <%= link_to "Home Banners", home_banners_index_path, class: "btn btn-default pull-right" %>
+<div class="page-header head-page">
+  <h1><%= @banner.title %></h1>
+</div>
+
+<h4>Redoslijed:</h4> <%= @banner.order != nil ? @banner.order : "Nije postavljen!" %>
+<h4>Aktivan?:</h4> <%= @banner.active? ? "Aktivan" : "neaktivan" %>
+
+<div class="row"  style="margin-top: 15px;">
+  <div class="col-xs-6 col-md-12 js--msr-gall">
+    <div class="thumbnail" %>
+      <%= image_tag(@banner.image.url(:bann)) %>
+    </div>
+  </div>
+</div>

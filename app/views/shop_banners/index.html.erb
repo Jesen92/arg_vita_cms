@@ -1,0 +1,19 @@
+<%= link_to "Novi Banner", shop_banners_new_path ,class: "btn btn-success" %> <%= link_to "Home Banners", home_banners_index_path, class: "btn btn-default pull-right" %>
+<div class="page-header head-page">
+  <h1>Shop Banners</h1>
+</div>
+
+<div class="row" >
+
+  <% @banners.order(order: :desc).each do |ban| %>
+      <% if ban.image_file_name != nil %>
+          <div class="col-xs-6 col-md-12 js--msr-gall">
+            <div class="container-fluid gallery" >
+              <strong><%= ban.title %></strong>
+            </div>
+            <%= link_to image_tag(ban.image.url(:bann)) ,shop_banners_show_path(id: ban.id), method: :get , class: 'thumbnail' %>
+          </div>
+      <% end %>
+
+  <% end %>
+</div>
