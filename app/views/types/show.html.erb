@@ -1,0 +1,18 @@
+<%= link_to "Uredi Boju", types_edit_path(@type.id), class: "btn btn-primary" %> <%= link_to 'Delete',  @type,  method: :delete, data: { confirm: 'Are you sure?' },class: "btn btn-danger" %> <%= link_to "Svi Tipovi", types_path, class: "btn btn-default pull-right" %>
+<div class="page-header head-page">
+  <h1><%= @type.title %><% if @type.title_eng != nil %> <small><%= @type.title_eng %></small><% end %></h1>
+</div>
+
+
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">Artikli</h3>
+  </div>
+  <ul class="list-group">
+    <% if !@type.articles.empty? %>
+      <% @type.articles.each do |art| %>
+          <%= link_to art.title, article_path(art.id), class:'list-group-item', method: :get %>
+      <% end %>
+    <% end %>
+  </ul>
+</div>

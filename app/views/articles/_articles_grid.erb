@@ -61,9 +61,23 @@
     t.for_sale? ? "Da" : "Ne"
   end
 
-  g.column name: "Izdvojeno", attribute: 'feature_product' do |t|
-    t.feature_product? ? "Da" : "Ne"
+=begin
+  g.column name: "Boja", attribute: 'title', assoc: :color do |t|
+    if t.color != nil
+      t.color.title
+    else
+      "- - -"
+    end
   end
+
+  g.column name: "Tip", attribute: 'title', assoc: :type do |t|
+    if t.type != nil
+      t.type.title
+    else
+      "- - -"
+    end
+  end
+=end
 
   g.column name: "Cijena(bez popusta)", attribute: 'cost' do |t|
     number_to_currency(t.cost, :unit => 'Kn', :format => "%n %u")

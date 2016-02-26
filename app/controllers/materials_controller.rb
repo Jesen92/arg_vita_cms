@@ -53,6 +53,6 @@ class MaterialsController < ApplicationController
 
   protected
   def material_params
-    params.require(:material).permit(:title,:title_eng, {category_ids:[]}, :avatar)
+    params.require(:material).permit(:title,:title_eng, {category_ids:[]}, :avatar, :has_colors, :has_types)
   end
 end

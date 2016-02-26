@@ -93,6 +93,9 @@
       <li class="<%= params[:controller] == 'colors' ? 'selected-menu' : '' %>">
       <%= link_to "Boje", colors_index_path %>
       </li>
+      <li class="<%= params[:controller] == 'types' ? 'selected-menu' : '' %>">
+      <%= link_to "Tipovi", types_index_path %>
+      </li>
       <li class="<%= params[:controller] == 'users' ? 'selected-menu' : '' %>">
       <%= link_to "Korisnici", users_index_path %>
       </li>
@@ -100,7 +103,7 @@
         <%= link_to "Kuponi", coupons_path %>
       </li>
       <li class="<%= params[:controller] == 'home_banners' || params[:controller] == 'shop_banners' ? 'selected-menu' : '' %>">
-        <%= link_to "Banners", home_banners_path %>
+        <%= link_to "Banners", home_banners_path, :method => :get %>
       </li>
     </ul>
   </div>

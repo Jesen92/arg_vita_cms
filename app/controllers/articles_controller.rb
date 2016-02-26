@@ -31,7 +31,7 @@ class ArticlesController < ApplicationController
 
     @page_title = "Artikli"
     @articles = Article.where(raw: false)
-    @articles_grid = initialize_grid(@articles, name: 'articles', include: [ :categories ,:material, :pictures] ,order: 'articles.created_at', order_direction: 'desc', enable_export_to_csv: true, csv_file_name: 'artikli', csv_field_separator: ';' )
+    @articles_grid = initialize_grid(@articles, name: 'articles', include: [ :categories ,:material, :pictures, :color, :type] ,order: 'articles.created_at', order_direction: 'desc', enable_export_to_csv: true, csv_file_name: 'artikli', csv_field_separator: ';' )
 
     export_grid_if_requested
   end
@@ -538,6 +538,10 @@ class ArticlesController < ApplicationController
 
         art.title_eng = @param[:title_eng]
 
+        art.color_id = @param[:color_id]
+
+        art.type_id = @param[:type_id]
+
         if @param[:raw] == false
           art.material_id = @param[:material_id]
         else
@@ -681,16 +685,6 @@ class ArticlesController < ApplicationController
              sa.title = article.title
              sa.code = article.code
 
-         if s["type_name"] != nil && s["type_name"] != ""
-           sa.title += "/"+s["type_name"].to_s
-           sa.code += "-"+s["type_name"][0,2].upcase
-         end
-
-           if sa.color != nil && sa.color != ""
-             sa.title += "/"+col.title
-             sa.code += "-"+col.title[0,2].upcase
-           end
-
            if sa.size != nil && sa.size != ""
              sa.title += "/"+s["size"].to_s
              sa.code += "-"+s["size"].to_s
@@ -798,7 +792,7 @@ class ArticlesController < ApplicationController
 
   protected
     def article_params
-      params.require(:article).permit(:title, :raw, :related_articles, :feature_product ,:dimension, :subcategory_id, :ssubcategory_id, {related_article_ids:[]} ,:title_eng, :start_date, :end_date, :description_eng, :discount,  :material_id , {category_ids:[]} , :code, :type_id,  :weight, :cost, :description, :amount, :suppliers_code, :warning, :for_sale , :color, single_articles_attributes: [:id, :type_name, :color_id, :size, :title, :article_id, :_destroy])
+      params.require(:article).permit(:title, :raw, :related_articles, :feature_product ,:dimension, :subcategory_id, :ssubcategory_id, {related_article_ids:[]} ,:title_eng, :start_date, :end_date, :description_eng, :discount,  :material_id , {category_ids:[]} , :code,  :weight, :cost, :description, :amount, :suppliers_code, :warning, :for_sale , :color_id, :type_id, single_articles_attributes: [:id, :type_name, :color_id, :size, :title, :article_id, :_destroy])
     end
 
     def csv_params

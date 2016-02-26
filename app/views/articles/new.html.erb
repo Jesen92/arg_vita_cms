@@ -18,9 +18,12 @@
         <%= r.input :related_article_ids, required: false, label: false  ,collection: Article.all, selected: RelatedArticle.where(article_id: f.object.id).pluck(:related_article_id), :input_html => {class: 'chosen-select', multiple: true} %>
         <%= r.input :related_article_codes, required: false, label: false, collection: Article.pluck(:code), input_html: {class: 'chosen-select', multiple: true} %>
     <% end %>
+<p></p>
+    <%= f.label "Boja" %>
+    <%= f.input :color_id, collection: Color.all , label: false %>
 
-    <!--<%= f.label "Boje" %>-->
-    <!--<%= f.input :colors, label: false, collection: Color.all {|c| c.title}, :input_html => {class: 'chosen-select', multiple: true} %>-->
+    <%= f.label "Tip" %>
+    <%= f.input :type_id, collection: Type.all , label: false %>
 
     <div class="control-group">
       <%= f.label :pictures, label: "Slike", :class => 'control-label' %>
@@ -37,7 +40,7 @@
       <% end %>
 
       <div class="links">
-        <%= link_to_add_association 'Dodaj Tip/Boju/Veličinu', f, :single_articles, class: "btn btn-info" %>
+        <%= link_to_add_association 'Dodaj Veličinu', f, :single_articles, class: "btn btn-info" %>
       </div>
     </div>
 

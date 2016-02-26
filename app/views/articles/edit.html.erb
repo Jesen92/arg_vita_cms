@@ -24,6 +24,12 @@
     <% end %>
 
 
+    <%= f.label "Boja" %>
+    <%= f.input :color_id, collection: Color.all , label: false %>
+
+    <%= f.label "Tip" %>
+    <%= f.input :type_id, collection: Type.all , label: false %>
+
     <div class="control-group">
       <%= f.label :pictures, label: "Slike", :class => 'control-label' %>
       <div class="controls">
@@ -47,7 +53,7 @@
       <% end %>
 
       <div class="links">
-        <%= link_to_add_association 'Dodaj Tip/Boju/Veličinu', f, :single_articles, class: "btn btn-info" %>
+        <%= link_to_add_association 'Dodaj Veličinu', f, :single_articles, class: "btn btn-info" %>
       </div>
     </div>
 

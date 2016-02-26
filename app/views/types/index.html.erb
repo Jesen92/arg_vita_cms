@@ -1,0 +1,12 @@
+<%= link_to "Novi Tip", types_new_path, class: "btn btn-success" %>
+<div class="page-header head-page">
+  <h1>Tip</h1>
+</div>
+
+<div class="list-group">
+  <% @types.each do |col| %>
+      <%= link_to col.id.to_s+". "+col.title ,type_path(col.id), class: 'list-group-item' %>
+  <% end %>
+</div>
+
+

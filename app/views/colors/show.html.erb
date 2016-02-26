@@ -3,22 +3,22 @@
   <h1><%= @color.title %><% if @color.title_eng != nil %> <small><%= @color.title_eng %></small><% end %></h1>
 </div>
 
-<div style="margin-bottom: 15px;" >
+<!--<div style="margin-bottom: 15px;" >
 <% if !@color.avatar_file_name.nil? %>
     <%= image_tag(@color.avatar.url(:thumb)) %>
 <% else %>
     <%= image_tag('placeholder.png') %>
 <% end %>
-</div>
+</div>-->
 
 <div class="panel panel-primary">
   <div class="panel-heading">
     <h3 class="panel-title">Artikli</h3>
   </div>
   <ul class="list-group">
-    <% if !@color.single_articles.empty? %>
-      <% @color.single_articles.each do |art| %>
-          <%= link_to art.title, article_path(art.article.id), class:'list-group-item', method: :get %>
+    <% if !@color.articles.empty? %>
+      <% @color.articles.each do |art| %>
+          <%= link_to art.title, article_path(art.id), class:'list-group-item', method: :get %>
       <% end %>
     <% end %>
   </ul>

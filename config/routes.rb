@@ -1,5 +1,19 @@
 Rails.application.routes.draw do
 
+  get 'types/index'
+
+  get 'types/show'
+
+  get 'types/new'
+
+  get 'types/create'
+
+  get 'types/edit'
+
+  get 'types/update'
+
+  get 'types/destroy'
+
   get 'home_banners/index'
 
   get 'home_banners/show'
@@ -268,6 +282,7 @@ Rails.application.routes.draw do
     resources :materials
     resources :single_articles
     resources :colors
+    resources :types
     resources :pictures
     resources :raw_categories
     resources :raw_subcategories

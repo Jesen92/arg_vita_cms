@@ -1,0 +1,11 @@
+<h3>Uredi Tip</h3>
+
+<%= simple_form_for @type, html: {class: 'form-horizontal', multipart: true} do |f| %>
+    <%= f.input :title, label: "Naziv" %>
+
+    <%= f.input :title_eng, label: "Naziv na Engleskom" %>
+
+    <%= f.button :submit, "Izmijeni Tip" %>
+    <%= link_to "Cancel", type_path(f.object.id), class: "btn btn-default" %>
+
+<% end %>

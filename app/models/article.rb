@@ -3,6 +3,9 @@ class Article < ActiveRecord::Base
   require 'open-uri'
   require 'csv'
 
+  belongs_to :color
+  belongs_to :type
+
   has_many :related_articles
   has_many :related_articles, :through => :related_articles
 
@@ -57,16 +60,6 @@ class Article < ActiveRecord::Base
 
       sa.title = article.title
       sa.code = article.code
-
-      if sa.type_name != nil && sa.type_name != ""
-        sa.title += "/"+sa.type_name.to_s
-        sa.code += "-"+sa.type_name[0,2].upcase
-      end
-
-      if sa.color != nil && sa.color != ""
-        sa.title += "/"+sa.color.title
-        sa.code += "-"+sa.color.title[0,2].upcase
-      end
 
       if sa.size != nil && sa.size != ""
         sa.title += "/"+sa.size.to_s

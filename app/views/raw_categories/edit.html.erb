@@ -7,6 +7,20 @@
 
     <%= f.input :avatar, label: "Slika" , as: :file %>
 
+    <div class="input-group" style="margin-bottom: 10px; margin-top: 30px;">
+      <span class="input-group-addon">
+         <%= f.check_box :has_colors, label: false, type: "checkbox" %>
+      </span>
+      <%= f.label "Filter za boju?", type: "text", class: "form-control" %>
+    </div>
+
+    <div class="input-group" style="margin-bottom: 10px; margin-top: 30px;">
+      <span class="input-group-addon">
+         <%= f.check_box :has_types, label: false, type: "checkbox" %>
+      </span>
+      <%= f.label "Filter za tip?", type: "text", class: "form-control" %>
+    </div>
+
     <%= f.label "Podkategorija" %>
     <%= f.association :ssubcategories, label: false, collection: Ssubcategory.all, multiple: true, :include_blank => true, :input_html => {class: 'chosen-select'} %>
 

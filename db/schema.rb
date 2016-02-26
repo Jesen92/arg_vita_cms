@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160223103018) do
+ActiveRecord::Schema.define(version: 20160225133112) do
 
   create_table "admin_users", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "", null: false
@@ -75,17 +75,19 @@ ActiveRecord::Schema.define(version: 20160223103018) do
     t.string   "size",            limit: 255
     t.string   "type_name",       limit: 255
     t.string   "dimension",       limit: 255
+    t.integer  "color_id",        limit: 4
+    t.integer  "type_id",         limit: 4
   end
 
   create_table "auctions", force: :cascade do |t|
     t.integer  "article_id",     limit: 4
     t.datetime "start_date"
     t.datetime "end_date"
-    t.decimal  "starting_price",           precision: 10
-    t.decimal  "highest_bid",              precision: 10
+    t.decimal  "starting_price",           precision: 10, scale: 2
+    t.decimal  "highest_bid",              precision: 10, scale: 2
     t.integer  "user_id",        limit: 4
-    t.datetime "created_at",                              null: false
-    t.datetime "updated_at",                              null: false
+    t.datetime "created_at",                                        null: false
+    t.datetime "updated_at",                                        null: false
     t.integer  "complement_id",  limit: 4
   end
 
@@ -218,6 +220,8 @@ ActiveRecord::Schema.define(version: 20160223103018) do
     t.string   "avatar_content_type", limit: 255
     t.integer  "avatar_file_size",    limit: 4
     t.datetime "avatar_updated_at"
+    t.boolean  "has_types"
+    t.boolean  "has_colors"
   end
 
   create_table "orders", force: :cascade do |t|
@@ -319,6 +323,15 @@ ActiveRecord::Schema.define(version: 20160223103018) do
     t.string   "avatar_content_type", limit: 255
     t.integer  "avatar_file_size",    limit: 4
     t.datetime "avatar_updated_at"
+    t.boolean  "has_types"
+    t.boolean  "has_colors"
+  end
+
+  create_table "types", force: :cascade do |t|
+    t.string   "title",      limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.string   "title_eng",  limit: 255
   end
 
   create_table "users", force: :cascade do |t|
