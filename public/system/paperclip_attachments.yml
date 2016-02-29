@@ -7,8 +7,12 @@
   :avatar:
   - :table
   - :thumb
+:HomeBanner:
+  :image:
+  - :bann
 :Material:
   :avatar:
+  - :index
   - :table
   - :thumb
 :Picture:
@@ -20,11 +24,17 @@
   - :show
   - :table
   - :thumb
+  - :thumbgal
+:ShopBanner:
+  :image:
+  - :bann
+  - :bannsm
 :Ssubcategory:
   :avatar:
   - :table
   - :thumb
 :Subcategory:
   :avatar:
+  - :index
   - :table
   - :thumb
