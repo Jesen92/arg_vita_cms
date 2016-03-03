@@ -14,8 +14,17 @@
 
     <%= f.input :ssubcategory_id , label: "Podkategorija" , :collection => Subcategory.all, as: :grouped_select, group_method: :ssubcategories %>
 
-    <!--<%= f.label "Boje" %>-->
-    <!--<%= f.input :colors, label: false, collection: Color.all {|c| c.title}, :input_html => {class: 'chosen-select', multiple: true} %>-->
+    <%= f.simple_fields_for :related_articles do |r| %>
+        <%= f.label "Srodni artikli" %>
+        <%= r.input :related_article_ids, required: false, label: false  ,collection: Article.where(raw: true), selected: RelatedArticle.where(article_id: f.object.id).pluck(:related_article_id), :input_html => {class: 'chosen-select', multiple: true} %>
+        <%= r.input :related_article_codes, required: false, label: false, collection: Article.where(raw: true).pluck(:code), input_html: {class: 'chosen-select', multiple: true} %>
+    <% end %>
+
+    <%= f.label "Boja" %>
+    <%= f.input :color_id, collection: Color.all , label: false %>
+
+    <%= f.label "Tip" %>
+    <%= f.input :type_id, collection: Type.all , label: false %>
 
     <div class="control-group">
       <%= f.label :pictures, label: "Slike", :class => 'control-label' %>

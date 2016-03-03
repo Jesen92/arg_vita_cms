@@ -277,7 +277,7 @@ class ArticlesController < ApplicationController
         flash[:notice] = "Kompleti su izbrisani!"
 
       elsif params[:commit] == 'Stavi na Aukciju'
-        redirect_to set_auction_path(params)
+      return  redirect_to set_auction_path(params)
 
       elsif params[:commit] == 'Stavi na prodaju'
         @comp.update_all(for_sale: true)
@@ -296,7 +296,7 @@ class ArticlesController < ApplicationController
       end
 
       if params[:commit] != 'Postavi popust' && params[:commit] != 'Stavi na Aukciju'
-        redirect_to complements_path
+       return redirect_to complements_path
       end
     else
 
@@ -344,7 +344,7 @@ class ArticlesController < ApplicationController
 
        elsif params[:commit] == 'Uredi odabrane artikle'
 
-         redirect_to edit_multiple_path(params)
+         return redirect_to edit_multiple_path(params)
          @indicator = true
 
        elsif params[:commit] == 'Stavi u Izdvojene artikle'
@@ -357,7 +357,7 @@ class ArticlesController < ApplicationController
 
        elsif params[:commit] == 'Stavi na Aukciju'
 
-          redirect_to set_auction_path(params)
+          return redirect_to set_auction_path(params)
           @indicator = true
 
          flash[:notice] = "Artikli su stavljeni na Aukciju!"
@@ -367,7 +367,7 @@ class ArticlesController < ApplicationController
 
          flash[:notice] = "Aukcije su izbrisane!"
 
-         redirect_to index_auction_path
+        return redirect_to index_auction_path
 
        elsif params[:commit] == 'Makni sa popusta'
 
@@ -377,11 +377,11 @@ class ArticlesController < ApplicationController
 
       if params[:commit] != 'Postavi popust'
         if params[:articles] && @indicator == false
-          redirect_to articles_path
-        elsif params[:raw]
-          redirect_to raw_index_path
+         return redirect_to articles_path
+        elsif params[:raw] && @indicator == false
+         return redirect_to raw_index_path
         elsif params[:article]
-          redirect_to index_auction_path
+          return redirect_to index_auction_path
         end
       end
     #############################      #############################
