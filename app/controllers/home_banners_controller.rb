@@ -13,6 +13,9 @@ class HomeBannersController < ApplicationController
 
   def new
     @banner = HomeBanner.new
+
+    @max_order = ShopBanner.maximum("order").to_i+1
+
     @page_title = "HomeBanner | New"
   end
 

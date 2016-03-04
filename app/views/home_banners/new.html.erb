@@ -8,6 +8,8 @@
 
     <%= f.input :image, as: :file %>
 
+    <%= f.input :order, as: :hidden, input_html: { :value => @max_order }%>
+
     <div class="input-group" style="margin-bottom: 10px; margin-top: 30px;">
       <span class="input-group-addon">
          <%= f.check_box :active, label: "Postavi na prodaju", type: "checkbox" %>
