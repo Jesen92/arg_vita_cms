@@ -6,7 +6,7 @@
 
   g.column name: "Naziv", attribute: 'title', in_html: false ,assoc: :single_article do |t|
     if !t.single_article.nil?
-      link_to(t.single_article.title, single_article_path(t.single_article.id), :method => :get )
+      t.single_article.title
     else
       "- - -"
     end
@@ -49,6 +49,26 @@
 
   g.column name: "Korisnik", attribute: 'name', assoc: :user do |t|
     t.user.name
+  end
+
+  g.column name: "Grad", attribute: 'city', assoc: :user, in_html: false  do |t|
+    t.user.city
+  end
+
+  g.column name: "Adresa", attribute: 'address', assoc: :user, in_html: false  do |t|
+    t.user.address
+  end
+
+  g.column name: "Poštanski kod", attribute: 'postcode', assoc: :user, in_html: false  do |t|
+    t.user.postcode
+  end
+
+  g.column name: "Broj tel/mob", attribute: 'phone', assoc: :user, in_html: false  do |t|
+    t.user.phone
+  end
+
+  g.column name: "e-mail", attribute: 'email', assoc: :user, in_html: false  do |t|
+    t.user.email
   end
 
 end-%>

@@ -6,7 +6,7 @@
 
   g.column name: "Naziv", attribute: 'title', in_html: false ,assoc: :complement do |t|
     if !t.complement.nil?
-      link_to(t.complement.title,complement_path(t.complement.id), :method => :get )
+      t.complement.title
     else
       "- - -"
     end
@@ -39,5 +39,27 @@
   g.column name: "Korisnik", attribute: 'name', assoc: :user do |t|
     t.user.name
   end
+
+
+  g.column name: "Grad", attribute: 'city', assoc: :user, in_html: false  do |t|
+    t.user.city
+  end
+
+  g.column name: "Adresa", attribute: 'address', assoc: :user, in_html: false  do |t|
+    t.user.address
+  end
+
+  g.column name: "Poštanski kod", attribute: 'postcode', assoc: :user, in_html: false  do |t|
+    t.user.postcode
+  end
+
+  g.column name: "Broj tel/mob", attribute: 'phone', assoc: :user, in_html: false  do |t|
+    t.user.phone
+  end
+
+  g.column name: "e-mail", attribute: 'email', assoc: :user, in_html: false  do |t|
+    t.user.email
+  end
+
 
 end-%>

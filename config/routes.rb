@@ -254,8 +254,14 @@ Rails.application.routes.draw do
     get "admin_users/sign_out" => redirect("devise/sessions#new")
 
 
-    resources :home_banners
-    resources :shop_banners
+    resources :home_banners do
+      put :banner_up, on: :collection
+      put :banner_down, on: :collection
+    end
+    resources :shop_banners do
+      put :banner_up, on: :collection
+      put :banner_down, on: :collection
+    end
     resources :purchases
     resources :complements do
       put :complement_set_picture, on: :collection

@@ -51,6 +51,59 @@ class HomeBannersController < ApplicationController
     redirect_to home_banners_index_path
   end
 
+  ################################################ pomicanje redoslijeda banner-a
+
+  def banner_up
+
+    @banner = HomeBanner.find(params[:id])
+
+    if @banner.order-1 > 0
+
+      @banner_change = HomeBanner.find_by(order: @banner.order-1)
+
+      @banner.order -= 1
+
+      @banner_change.order +=1
+
+      @banner.save
+      @banner_change.save
+
+    else
+
+      flash[:notice] = "Banner je prvi po redoslijedu!"
+
+    end
+
+    redirect_to :back
+
+  end
+
+  def banner_down
+    @banner = HomeBanner.find(params[:id])
+
+    if @banner.order+1 <= HomeBanner.maximum("order")
+
+      @banner_change = HomeBanner.find_by(order: @banner.order+1)
+
+      @banner.order += 1
+
+      @banner_change.order -=1
+
+      @banner.save
+      @banner_change.save
+
+    else
+
+      flash[:notice] = "Banner je zadnji po redoslijedu!"
+
+    end
+
+    redirect_to :back
+
+  end
+
+  ################################################
+
   protected
   def banner_params
     params.require(:home_banner).permit(:title ,:order, :image, :active)

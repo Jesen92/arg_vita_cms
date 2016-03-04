@@ -25,3 +25,4 @@ Rails.application.config.assets.precompile += %w( scaffold.coffee )
 Rails.application.config.assets.precompile += %w( gallery_view.js )
 
 
+
