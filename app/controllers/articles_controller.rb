@@ -214,7 +214,7 @@ class ArticlesController < ApplicationController
          if params[:commit] == 'Stavi na Aukciju'
           return  redirect_to set_auction_path(params)
          else
-           @indicator, @selected_ids = BatchActions.new(params).complements_batch_actions
+           @indicator, @selected_ids, flash[:notice] = BatchActions.new(params).complements_batch_actions
          end
 
     else ### batch_actions nad artiklima
@@ -236,7 +236,7 @@ class ArticlesController < ApplicationController
             return redirect_to set_auction_path(params)
 
           else
-            @indicator, @selected_ids = BatchActions.new(params).articles_batch_action
+            @indicator, @selected_ids, flash[:notice] = BatchActions.new(params).articles_batch_action
           end
 
     end

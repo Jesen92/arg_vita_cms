@@ -5,6 +5,7 @@ class BatchActions
 
   def articles_batch_action
     @indicator = false
+    flash = nil
 
       if @params[:articles]
         @art = Article.where(id: @params[:articles][:selected])
@@ -29,42 +30,44 @@ class BatchActions
 
         @art.destroy_all
 
-        flash[:notice] = "Artikli su izbrisani!"
+        flash = "Artikli su izbrisani!"
 
 
       elsif @params[:commit] == 'Stavi na prodaju'
 
         @art.update_all(for_sale: true)
 
-        flash[:notice] = "Artikli su stavljeni na prodaju!"
+        flash = "Artikli su stavljeni na prodaju!"
 
 
       elsif @params[:commit] == 'Makni sa prodaje'
 
         @art.update_all(for_sale: false)
 
-        flash[:notice] = "Artikli su maknuti prodaju!"
-
+        flash = "Artikli su maknuti iz prodaje!"
 
 
       elsif @params[:commit] == 'Stavi u Izdvojene artikle'
 
         @art.update_all(feature_product: true)
 
+        flash = "Artikli stavljeni u izdvojene Artikle!"
+
       elsif @params[:commit] == 'Makni iz Izdvojenih artikla'
 
         @art.update_all(feature_product: false)
 
-
-
+        flash = "Artikli maknuti iz  Izdvojenih artikla!"
 
       elsif @params[:commit] == 'Makni sa popusta'
 
         @art.update_all(discount: 0)
 
+        flash = "Maknuti popusti sa Artikla!"
+
       end
 
-      return @indicator, @art_ids
+      return @indicator, @art_ids, flash
       #############################      #############################
 
   end
@@ -72,12 +75,13 @@ class BatchActions
 
   def complements_batch_actions
     @indicator = false
+    flash = nil
 
       @comp = Complement.where(id: @params[:complements][:selected])
 
       if @params[:commit] == 'Izbriši komplete'
         @comp.destroy_all
-        flash[:notice] = "Kompleti su izbrisani!"
+        flash = "Kompleti su izbrisani!"
 
       elsif @params[:commit] == 'Stavi na prodaju'
         @comp.update_all(for_sale: true)
@@ -95,7 +99,7 @@ class BatchActions
         @comp_ids.push(a.id)
       end
 
-      return @indicator, @comp_ids
+      return @indicator, @comp_ids, flash
 
 
   end
