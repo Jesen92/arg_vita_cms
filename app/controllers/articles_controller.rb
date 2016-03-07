@@ -59,7 +59,6 @@ class ArticlesController < ApplicationController
     end
   end
 
-
   #####################  #####################  #####################  ##################### graficki pogled artikla(sa filterrific filterom)
   def show_pics
     @page_title = "Artikli"
@@ -81,7 +80,6 @@ class ArticlesController < ApplicationController
   end
   #####################  #####################  #####################  #####################
 
-
   def new
     @article = Article.new
     @page_title = "Artikl | New"
@@ -99,34 +97,9 @@ class ArticlesController < ApplicationController
           }
         end
 
+        CreateRelatedArticles.new(params[:article], @article).create_related_articles
+
         @index = 0
-
-        if params[:article][:related_articles]
-          if params[:article][:related_articles][:related_article_ids]
-
-            params[:article][:related_articles][:related_article_ids].each do |art_id|
-
-              if !art_id.empty?
-                RelatedArticle.create(article_id: @article.id, related_article_id: art_id)
-                RelatedArticle.create(article_id: art_id, related_article_id: @article.id)
-              end
-            end
-          end
-
-          if params[:article][:related_articles][:related_article_codes]
-
-            arts = Article.where(code: params[:article][:related_articles][:related_article_codes])
-
-            arts.each do |art|
-
-              if !art.code.blank?
-                RelatedArticle.create(article_id: @article.id, related_article_id: art.id)
-                RelatedArticle.create(article_id: art.id, related_article_id: @article.id)
-              end
-            end
-
-          end
-        end
 
         @article.single_articles.each do |sa|
 
@@ -148,12 +121,7 @@ class ArticlesController < ApplicationController
 
         @article.save
 
-        #single_articles_create
-
-
-
       end
-
 
     flash[:notice] = "Dodan je novi artikl!"
 
@@ -195,40 +163,13 @@ class ArticlesController < ApplicationController
           }
         end
 
+
+ #TODO create_related_articles service object treba ici tu!
+
+    CreateRelatedArticles.new(params[:article], @article).create_related_articles
+
+
     @index = 0
-
-    RelatedArticle.where(article_id: @article.id).destroy_all
-    RelatedArticle.where(related_article_id: @article.id).destroy_all
-
-    if params[:article][:related_articles]
-      if params[:article][:related_articles][:related_article_ids]
-
-          puts "IMA RELATED ARTICLES!!! "
-
-        params[:article][:related_articles][:related_article_ids].each do |art_id|
-
-          if !art_id.empty?
-              RelatedArticle.create(article_id: @article.id, related_article_id: art_id)
-              RelatedArticle.create(article_id: art_id, related_article_id: @article.id)
-          end
-        end
-      end
-
-
-      if params[:article][:related_articles][:related_article_codes]
-
-        arts = Article.where(code: params[:article][:related_articles][:related_article_codes])
-
-          arts.each do |art|
-
-            if !art.code.blank?
-              RelatedArticle.create(article_id: @article.id, related_article_id: art.id)
-              RelatedArticle.create(article_id: art.id, related_article_id: @article.id)
-            end
-          end
-
-      end
-    end
 
     @article.single_articles.each do |sa|
 
@@ -266,168 +207,77 @@ class ArticlesController < ApplicationController
 
     #FIXME uljepsaj kod /service objects
 
-    @indicator = false
+    @codes = Article.select(:code).map(&:code)
 
-    if params[:complements]
+    if params[:complements] ### batch_actions nad kompletima
 
-      @comp = Complement.where(id: params[:complements][:selected])
+         if params[:commit] == 'Stavi na Aukciju'
+          return  redirect_to set_auction_path(params)
+         else
+           @indicator, @selected_ids = BatchActions.new(params).complements_batch_actions
+         end
 
-      if params[:commit] == 'Izbriši komplete'
-        @comp.destroy_all
-        flash[:notice] = "Kompleti su izbrisani!"
+    else ### batch_actions nad artiklima
 
-      elsif params[:commit] == 'Stavi na Aukciju'
-      return  redirect_to set_auction_path(params)
+          if params[:commit] == 'Uredi odabrane artikle'
+            @indicator = true
+            return redirect_to edit_multiple_path(params)
 
-      elsif params[:commit] == 'Stavi na prodaju'
-        @comp.update_all(for_sale: true)
+          elsif params[:commit] == 'Izbriši aukcije'
+            @art.destroy_all
 
-      elsif params[:commit] == 'Makni sa prodaje'
-        @comp.update_all(for_sale: false)
+            flash[:notice] = "Aukcije su izbrisane!"
 
-      elsif params[:commit] == 'Makni sa popusta'
-        @comp.update_all(discount: 0)
-      end
+            return redirect_to index_auction_path
 
-      @comp_ids = []
+          elsif params[:commit] == 'Stavi na Aukciju'
 
-      @comp.each do |a|
-        @comp_ids.push(a.id)
-      end
+            @indicator = true
+            return redirect_to set_auction_path(params)
 
-      if params[:commit] != 'Postavi popust' && params[:commit] != 'Stavi na Aukciju'
-       return redirect_to complements_path
-      end
-    else
-
-
-          if params[:articles]
-            @art = Article.where(id: params[:articles][:selected])
-          elsif params[:raw]
-            @art = Article.where(id: params[:raw][:selected])
-          elsif params[:auction]
-            @art = Auction.where(id: params[:auction][:selected])
+          else
+            @indicator, @selected_ids = BatchActions.new(params).articles_batch_action
           end
 
-        @codes = Article.select(:code).map(&:code)
+    end
 
-        @art_ids = []
-
-          if @art != nil
-            @art.each do |a|
-              @art_ids.push(a.id)
-            end
-          end
-
-        #############################      ############################# odredivanje opcije koja je stisnuta
-       if params[:commit] == 'Izbriši artikle'
-
-         SingleArticle.destroy_all(article_id: @art)
-
-         @art.destroy_all
-
-        flash[:notice] = "Artikli su izbrisani!"
-
-
-       elsif params[:commit] == 'Stavi na prodaju'
-
-         @art.update_all(for_sale: true)
-
-         flash[:notice] = "Artikli su stavljeni na prodaju!"
-
-
-       elsif params[:commit] == 'Makni sa prodaje'
-
-         @art.update_all(for_sale: false)
-
-         flash[:notice] = "Artikli su maknuti prodaju!"
-
-       elsif params[:commit] == 'Uredi odabrane artikle'
-
-         return redirect_to edit_multiple_path(params)
-         @indicator = true
-
-       elsif params[:commit] == 'Stavi u Izdvojene artikle'
-
-         @art.update_all(feature_product: true)
-
-       elsif params[:commit] == 'Makni iz Izdvojenih artikla'
-
-         @art.update_all(feature_product: false)
-
-       elsif params[:commit] == 'Stavi na Aukciju'
-
-          return redirect_to set_auction_path(params)
-          @indicator = true
-
-         flash[:notice] = "Artikli su stavljeni na Aukciju!"
-
-       elsif params[:commit] == 'Izbriši aukcije'
-         @art.destroy_all
-
-         flash[:notice] = "Aukcije su izbrisane!"
-
-        return redirect_to index_auction_path
-
-       elsif params[:commit] == 'Makni sa popusta'
-
-         @art.update_all(discount: 0)
-
-       end
-
+ ########################### redirect-ovi
+    if params[:articles]
       if params[:commit] != 'Postavi popust'
         if params[:articles] && @indicator == false
-         return redirect_to articles_path
+          return redirect_to articles_path
         elsif params[:raw] && @indicator == false
-         return redirect_to raw_index_path
+          return redirect_to raw_index_path
         elsif params[:article]
           return redirect_to index_auction_path
         end
       end
-    #############################      #############################
+    elsif params[:complements]
+      if params[:commit] != 'Postavi popust' && params[:commit] != 'Stavi na Aukciju'
+        return redirect_to complements_path
+      end
     end
+    #########################
+
   end
 
 
   def set_discount #sluzi za postavljanje popusta nad vise artikla/kompleta
 
+    @page_title = "Popust"
+
     if params[:article]
-      articles = Article.where(id: params[:article][:articles])
 
-      if params[:article][:codes].length > 1
-        articles_codes = Article.where(code: params[:article][:codes])
-      end
+      #TODO service object set_discount nad artiklima
 
-
-      @page_title = "Popust"
-
-      start_date = DateTime.new(params[:article]['start_date(1i)'].to_i, params[:article]['start_date(2i)'].to_i, params[:article]['start_date(3i)'].to_i, params[:article]['start_date(4i)'].to_i ,params[:article]['start_date(5i)'].to_i  )
-
-      end_date = DateTime.new(params[:article]['end_date(1i)'].to_i, params[:article]['end_date(2i)'].to_i, params[:article]['end_date(3i)'].to_i, params[:article]['end_date(4i)'].to_i ,params[:article]['end_date(5i)'].to_i  )
-
-
-      if articles != nil
-        articles.update_all(discount: params[:article][:discount], start_date: start_date, end_date: end_date )
-
-        if !articles_codes.nil?
-          articles_codes.update_all(discount: params[:article][:discount], start_date: start_date, end_date: end_date )
-        end
-      end
+      SetDiscount.new(params).article_set_discount
 
       redirect_to articles_path
     else
-      complements = Complement.where(id: params[:complement][:complements])
 
-      @page_title = "Popust"
+      #TODO service object set_discount nad komletima
 
-      start_date = DateTime.new(params[:complement]['start_date(1i)'].to_i, params[:complement]['start_date(2i)'].to_i, params[:complement]['start_date(3i)'].to_i, params[:complement]['start_date(4i)'].to_i ,params[:complement]['start_date(5i)'].to_i  )
-
-      end_date = DateTime.new(params[:complement]['end_date(1i)'].to_i, params[:complement]['end_date(2i)'].to_i, params[:complement]['end_date(3i)'].to_i, params[:complement]['end_date(4i)'].to_i ,params[:complement]['end_date(5i)'].to_i  )
-
-
-      if complements != nil
-        complements.update_all(discount: params[:complement][:discount], start_date: start_date, end_date: end_date )
-      end
+      SetDiscount.new(params).complement_set_discount
 
       redirect_to complements_path
 
@@ -462,6 +312,7 @@ class ArticlesController < ApplicationController
     end
 
 
+
   end
 
 
@@ -475,38 +326,9 @@ class ArticlesController < ApplicationController
 
   def create_auction
 
-      start_date = DateTime.new(params[:article]['start_date(1i)'].to_i, params[:article]['start_date(2i)'].to_i, params[:article]['start_date(3i)'].to_i, params[:article]['start_date(4i)'].to_i ,params[:article]['start_date(5i)'].to_i  )
+      Auction.new(params).create_auction
 
-      end_date = DateTime.new(params[:article]['end_date(1i)'].to_i, params[:article]['end_date(2i)'].to_i, params[:article]['end_date(3i)'].to_i, params[:article]['end_date(4i)'].to_i ,params[:article]['end_date(5i)'].to_i  )
-
-
-      if params[:article][:articles]
-        articles = Article.where(id: params[:article][:articles])
-
-        if params[:article][:codes].length > 1
-          articles_codes = Article.where(code: params[:article][:codes])
-        end
-
-        if articles != nil
-          articles.each do |a|
-            puts "#{a.title}"
-            Auction.create(article_id: a.id, starting_price: params[:article][:starting_price], start_date: start_date, end_date: end_date )
-          end
-        end
-
-        if articles_codes != nil
-          articles_codes.each do |art|
-            Auction.create(article_id: art.id, starting_price: params[:article][:starting_price], start_date: start_date, end_date: end_date )
-          end
-        end
-
-      else
-        complements = Complement.where(id: params[:article][:complements])
-
-        complements.each do |art|
-          Auction.create(complement_id: art.id, starting_price: params[:article][:starting_price], start_date: start_date, end_date: end_date )
-        end
-      end
+      flash[:notice] = "Izrađene nove aukcije!"
 
       redirect_to index_auction_path
   end
@@ -528,7 +350,7 @@ class ArticlesController < ApplicationController
   end
 
 
-  def update_multiple #kada sam ovo pisao samo Bog i ja smo znali kako to funkcionira...sada samo Bog zna...
+  def update_multiple
 
     $art.each do |article|
 
@@ -537,45 +359,7 @@ class ArticlesController < ApplicationController
 
       @articles_mult.each do |art|
 
-        art.title = @param[:title]
-
-        art.title_eng = @param[:title_eng]
-
-        art.color_id = @param[:color_id]
-
-        art.type_id = @param[:type_id]
-
-        if @param[:raw] == false
-          art.material_id = @param[:material_id]
-        else
-          art.subcategory_id = @param[:subcategory_id]
-
-          art.ssubcategory_id =  @param[:ssubcategory_id]
-        end
-
-        art.description = @param[:description]
-
-        art.description_eng = @param[:description_eng]
-
-        art.weight = @param[:weight]
-
-        art.dimension = @param[:dimension]
-
-        art.code = @param[:code]
-
-        art.suppliers_code = @param[:suppliers_code]
-
-        art.amount = @param[:amount]
-
-        art.warning = @param[:warning]
-
-        art.cost = @param[:cost]
-
-        art.discount = @param[:discount]
-
-        art.for_sale = @param[:for_sale]
-
-        art.save
+        UpdateMultipleArticles.new(@param, art).update
 
 #################################################################### postavljanje kategorija
         ArticleCategory.destroy_all(article_id: article.id)
@@ -592,33 +376,8 @@ class ArticlesController < ApplicationController
 
 #################################################################### postavljanje srodnih artikla
 
-        RelatedArticle.where(article_id: article.id).destroy_all
-        RelatedArticle.where(related_article_id: article.id).destroy_all
+        CreateRelatedArticles.new(@param, article).create_related_articles
 
-        if @param[:related_articles][:related_article_ids]
-
-          @param[:related_articles][:related_article_ids].each do |art_rel|
-
-            if !art_rel.empty?
-              RelatedArticle.create(article_id: article.id, related_article_id: art_rel)
-              RelatedArticle.create(article_id: art_rel, related_article_id: article.id)
-            end
-          end
-        end
-
-        if @param[:related_articles][:related_article_codes]
-
-          arts = Article.where(code: @param[:related_articles][:related_article_codes])
-
-          arts.each do |art_rel|
-
-            if !art_rel.code.blank?
-              RelatedArticle.create(article_id: article.id, related_article_id: art_rel.id)
-              RelatedArticle.create(article_id: art_rel.id, related_article_id: article.id)
-            end
-          end
-
-        end
 ####################################################################
 
       end
@@ -628,90 +387,8 @@ class ArticlesController < ApplicationController
       if @single != nil
         @single.each do |s|
 
-          if !s["color_id"].blank?
-            col =  Color.find(s["color_id"])
-          end
+          UpdateMultipleSingleArticles.new(s, article).update
 
-
-        if s["id"] == nil
-
-         sa = SingleArticle.new
-
-############################################################### postavljanje naziva pojedinacnog artikla
-         sa.title = article.title
-         sa.code = article.code
-
-         if s["type_name"] != nil && s["type_name"] != ""
-           sa.title += "/"+s["type_name"].to_s
-           sa.code += "-"+s["type_name"][0,2].upcase
-         end
-
-         if sa.color != nil && sa.color != ""
-           sa.title += "/"+col.title
-           sa.code += "-"+col.title[0,2].upcase
-         end
-
-         if sa.size != nil && sa.size != ""
-           sa.title += "/"+s["size"].to_s
-           sa.code += "-"+s["size"].to_s
-         end
-
-         if s["amont"] == nil || s["amont"] == ""
-           sa.amount = article.amount
-         else
-           sa.amount = s["amont"]
-         end
-
-         if s["warning"] == nil || s["warning"] == ""
-           sa.warning = article.warning
-         else
-           sa.warning = s["warning"]
-         end
-###############################################################
-
-
-         sa.article_id = article.id
-         sa.color_id = col != nil ? col.id : nil
-         sa.size = s["size"]
-         sa.type_name = s["type_name"]
-         sa.save
-
-        else
-         sa = SingleArticle.find( s["id"])
-
-
-         if s["_destroy"] == "1"
-           sa.destroy
-         else
-
-############################################################### postavljanje naziva artikla
-             sa.title = article.title
-             sa.code = article.code
-
-           if sa.size != nil && sa.size != ""
-             sa.title += "/"+s["size"].to_s
-             sa.code += "-"+s["size"].to_s
-           end
-
-             if s["amont"] == nil || s["amont"] == ""
-               sa.amount = article.amount
-             else
-               sa.amount = s["amount"]
-             end
-
-             if s["warning"] == nil || s["warning"] == ""
-               sa.warning = article.warning
-             else
-               sa.warning = s["warning"]
-             end
-###############################################################
-
-           sa.color_id = col != nil ? col.id : nil
-           sa.size = s["size"]
-           sa.type_name = s["type_name"]
-           sa.save
-         end
-          end
         end
       end
 
