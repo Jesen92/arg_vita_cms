@@ -101,10 +101,9 @@ articles.each do |art|
   Article.create(art.to_hash)
 end
 =end
-
 puts "usao je u import"
 # runs through a loop in our CSV data
-    CSV.new(open(file, "r:ISO-8859-1"), {:headers => true, :col_sep => ";", :encoding => 'utf-8'}).each do |row|
+    CSV.new(open(file, "r:ISO-8859-2"), {:headers => true, :col_sep => ";"}).each do |row|
         # creates a user for each row in the CSV file
         puts"ovo je row: #{row}"
         puts "ovo je row.to_hash: #{row.to_hash}"

@@ -241,6 +241,11 @@ class ArticlesController < ApplicationController
 
     end
 
+
+    if params[:commit] = 'Izbriši artikle'
+      return redirect_to :back
+    end
+
  ########################### redirect-ovi
     if params[:articles]
       if params[:commit] != 'Postavi popust'
