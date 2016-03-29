@@ -20,6 +20,10 @@
     t.title
   end
 
+  g.column name: "Opis", attribute: 'short_description' do |t|
+    t.short_description
+  end
+
   g.column name: "Materijal", attribute: 'title', custom_filter: :auto, assoc: :material do |t|
     if t.material != nil
       t.material.title

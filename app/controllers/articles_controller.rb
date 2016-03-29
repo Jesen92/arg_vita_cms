@@ -477,7 +477,7 @@ class ArticlesController < ApplicationController
 
   protected
     def article_params
-      params.require(:article).permit(:title, :raw, :related_articles, :feature_product ,:dimension, :subcategory_id, :ssubcategory_id, {related_article_ids:[]} ,:title_eng, :start_date, :end_date, :description_eng, :discount,  :material_id , {category_ids:[]} , :code,  :weight, :cost, :description, :amount, :suppliers_code, :warning, :for_sale , :color_id, :type_id, single_articles_attributes: [:id, :amount, :warning, :type_name, :color_id, :size, :title, :article_id, :_destroy])
+      params.require(:article).permit(:title, :raw, :short_description, :short_description_eng,:related_articles, :feature_product ,:dimension, :subcategory_id, :ssubcategory_id, {related_article_ids:[]} ,:title_eng, :start_date, :end_date, :description_eng, :discount,  :material_id , {category_ids:[]} , :code,  :weight, :cost, :description, :amount, :suppliers_code, :warning, :for_sale , :color_id, :type_id, single_articles_attributes: [:id, :amount, :warning, :type_name, :color_id, :size, :title, :article_id, :_destroy])
     end
 
     def csv_params

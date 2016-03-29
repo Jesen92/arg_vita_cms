@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160225133112) do
+ActiveRecord::Schema.define(version: 20160329115223) do
 
   create_table "admin_users", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "", null: false
@@ -46,37 +46,38 @@ ActiveRecord::Schema.define(version: 20160225133112) do
   end
 
   create_table "articles", force: :cascade do |t|
-    t.boolean  "raw",                                                    default: false
-    t.string   "title",           limit: 255
-    t.string   "title_eng",       limit: 255
-    t.text     "description",     limit: 65535
-    t.text     "description_eng", limit: 65535
-    t.integer  "picture_id",      limit: 4
-    t.integer  "category_id",     limit: 4
-    t.integer  "material_id",     limit: 4
-    t.integer  "subcategory_id",  limit: 4
-    t.integer  "ssubcategory_id", limit: 4
-    t.string   "suppliers_code",  limit: 255
-    t.string   "code",            limit: 255,                            default: " "
-    t.decimal  "weight",                        precision: 10, scale: 2
-    t.integer  "amount",          limit: 4
-    t.integer  "warning",         limit: 4
-    t.decimal  "cost",                          precision: 10, scale: 2, default: 0.0
-    t.integer  "discount",        limit: 4,                              default: 0
+    t.boolean  "raw",                                                          default: false
+    t.string   "title",                 limit: 255
+    t.string   "title_eng",             limit: 255
+    t.text     "description",           limit: 65535
+    t.text     "description_eng",       limit: 65535
+    t.integer  "picture_id",            limit: 4
+    t.integer  "category_id",           limit: 4
+    t.integer  "material_id",           limit: 4
+    t.integer  "subcategory_id",        limit: 4
+    t.integer  "ssubcategory_id",       limit: 4
+    t.string   "suppliers_code",        limit: 255
+    t.string   "code",                  limit: 255,                            default: " "
+    t.decimal  "weight",                              precision: 10, scale: 2
+    t.integer  "amount",                limit: 4
+    t.integer  "warning",               limit: 4
+    t.decimal  "cost",                                precision: 10, scale: 2, default: 0.0
+    t.integer  "discount",              limit: 4,                              default: 0
     t.datetime "start_date"
     t.datetime "end_date"
-    t.boolean  "for_sale",                                               default: false
-    t.datetime "created_at",                                                             null: false
-    t.datetime "updated_at",                                                             null: false
+    t.boolean  "for_sale",                                                     default: false
+    t.datetime "created_at",                                                                   null: false
+    t.datetime "updated_at",                                                                   null: false
     t.boolean  "feature_product"
     t.boolean  "on_discount"
-    t.integer  "counter",         limit: 4,                              default: 0
-    t.string   "color",           limit: 255
-    t.string   "size",            limit: 255
-    t.string   "type_name",       limit: 255
-    t.string   "dimension",       limit: 255
-    t.integer  "color_id",        limit: 4
-    t.integer  "type_id",         limit: 4
+    t.integer  "counter",               limit: 4,                              default: 0
+    t.string   "size",                  limit: 255
+    t.string   "type_name",             limit: 255
+    t.string   "dimension",             limit: 255
+    t.integer  "color_id",              limit: 4
+    t.integer  "type_id",               limit: 4
+    t.string   "short_description",     limit: 255
+    t.string   "short_description_eng", limit: 255
   end
 
   create_table "auctions", force: :cascade do |t|
@@ -89,16 +90,18 @@ ActiveRecord::Schema.define(version: 20160225133112) do
     t.datetime "created_at",                                        null: false
     t.datetime "updated_at",                                        null: false
     t.integer  "complement_id",  limit: 4
+    t.boolean  "on_auction"
   end
 
   create_table "carts_articles", force: :cascade do |t|
     t.integer  "shopping_cart_id",  limit: 4
     t.integer  "single_article_id", limit: 4
-    t.datetime "created_at",                              null: false
-    t.datetime "updated_at",                              null: false
+    t.datetime "created_at",                                                       null: false
+    t.datetime "updated_at",                                                       null: false
     t.integer  "article_id",        limit: 4
-    t.integer  "amount",            limit: 4, default: 0
+    t.integer  "amount",            limit: 4,                          default: 0
     t.integer  "complement_id",     limit: 4
+    t.decimal  "cost",                        precision: 10, scale: 2
   end
 
   create_table "categories", force: :cascade do |t|
@@ -236,12 +239,12 @@ ActiveRecord::Schema.define(version: 20160225133112) do
   create_table "past_purchases", force: :cascade do |t|
     t.integer  "user_id",           limit: 4
     t.integer  "single_article_id", limit: 4
-    t.datetime "created_at",                                                 null: false
-    t.datetime "updated_at",                                                 null: false
+    t.datetime "created_at",                                                           null: false
+    t.datetime "updated_at",                                                           null: false
     t.integer  "article_id",        limit: 4
     t.integer  "amount",            limit: 4
-    t.boolean  "article_sent",                               default: false
-    t.decimal  "cost",                        precision: 10
+    t.boolean  "article_sent",                                         default: false
+    t.decimal  "cost",                        precision: 10, scale: 2
     t.integer  "complement_id",     limit: 4
   end
 
@@ -277,10 +280,10 @@ ActiveRecord::Schema.define(version: 20160225133112) do
   end
 
   create_table "shopping_carts", force: :cascade do |t|
-    t.decimal  "current_cost",           precision: 10, default: 0
+    t.decimal  "current_cost",           precision: 10, scale: 2, default: 0.0
     t.integer  "user_id",      limit: 4
-    t.datetime "created_at",                                        null: false
-    t.datetime "updated_at",                                        null: false
+    t.datetime "created_at",                                                    null: false
+    t.datetime "updated_at",                                                    null: false
   end
 
   create_table "single_articles", force: :cascade do |t|
@@ -335,19 +338,19 @@ ActiveRecord::Schema.define(version: 20160225133112) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "name",                   limit: 255,                default: "", null: false
+    t.string   "name",                   limit: 255,                          default: "",  null: false
     t.date     "date_of_birth"
-    t.string   "state",                  limit: 255,                default: "", null: false
-    t.string   "city",                   limit: 255,                default: "", null: false
-    t.string   "address",                limit: 255,                default: "", null: false
-    t.string   "postcode",               limit: 255,                default: "", null: false
-    t.string   "phone",                  limit: 255,                default: "", null: false
-    t.string   "email",                  limit: 255,                default: "", null: false
-    t.string   "encrypted_password",     limit: 255,                default: "", null: false
+    t.string   "state",                  limit: 255,                          default: "",  null: false
+    t.string   "city",                   limit: 255,                          default: "",  null: false
+    t.string   "address",                limit: 255,                          default: "",  null: false
+    t.string   "postcode",               limit: 255,                          default: "",  null: false
+    t.string   "phone",                  limit: 255,                          default: "",  null: false
+    t.string   "email",                  limit: 255,                          default: "",  null: false
+    t.string   "encrypted_password",     limit: 255,                          default: "",  null: false
     t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          limit: 4,                  default: 0,  null: false
+    t.integer  "sign_in_count",          limit: 4,                            default: 0,   null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip",     limit: 255
@@ -356,9 +359,9 @@ ActiveRecord::Schema.define(version: 20160225133112) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email",      limit: 255
-    t.datetime "created_at",                                                     null: false
-    t.datetime "updated_at",                                                     null: false
-    t.decimal  "purchase_sum",                       precision: 10, default: 0
+    t.datetime "created_at",                                                                null: false
+    t.datetime "updated_at",                                                                null: false
+    t.decimal  "purchase_sum",                       precision: 10, scale: 2, default: 0.0
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

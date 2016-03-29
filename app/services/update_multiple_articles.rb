@@ -21,6 +21,10 @@ class UpdateMultipleArticles
       @article.ssubcategory_id =  @param[:ssubcategory_id]
     end
 
+    @article.short_description = @param[:short_description]
+
+    @article.short_description_eng = @param[:short_description_eng]
+
     @article.description = @param[:description]
 
     @article.description_eng = @param[:description_eng]
