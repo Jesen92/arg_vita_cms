@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="Rails ArgentumVita_cms: production" uuid="c28a3795-8851-47b8-8560-54d940120506">
+      <first-sync>true</first-sync>
+      <user-name>sql4100881</user-name>
+      <user-password>dffddffcdfcddf9ddfdbdfe1dfdfdf9ddfdddf9d</user-password>
+    </data-source>
+    <data-source name="Rails ArgentumVita_cms: development" uuid="4475007a-5d1a-4874-b7aa-15159d4f57e1">
+      <first-sync>true</first-sync>
+      <user-name>sql4100881</user-name>
+      <user-password>dffddffcdfcddf9ddfdbdfe1dfdfdf9ddfdddf9d</user-password>
+    </data-source>
+  </component>
+</project>

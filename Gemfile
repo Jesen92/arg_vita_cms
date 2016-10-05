@@ -65,6 +65,8 @@ gem 'whenever', :require => false
 
 gem "autoprefixer-rails"
 
+gem 'roo'
+
 # Use ActiveModel has_secure_password
 #gem 'bcrypt', '~> 3.1.7'
 

@@ -113,6 +113,30 @@ puts "usao je u import"
 
   end
 
+  def self.import_xlsx(file)
+    puts "usao je u import_xlsx"
+
+    spreadsheet = open_spreadsheet(file)
+    header = spreadsheet.row(1)
+
+    (2..spreadsheet.last_row).each do |i|
+      row = Hash[[header, spreadsheet.row(i)].transpose]
+      article = new   #find_by_id(row["id"]) || - ako ce se mijenjati vrijednosti preko excel tablica
+      article.attributes = row.to_hash.slice(*row.to_hash.keys)
+      article.save!
+    end
+  end
+
+  def self.open_spreadsheet(file)
+
+    case File.extname(file.original_filename)
+      when ".csv" then Roo::Csv.new(file.path, nil, :ignore)
+      when ".xls" then Roo::Excel.new(file.path, nil, :ignore)
+      when ".xlsx" then Roo::Excelx.new(file.path)
+      else raise "Unknown file type: #{File.extname(file)}"
+    end
+  end
+
   # define ActiveRecord scopes for
   # :search_query, :sorted_by, :with_country_id, and :with_created_at_gte
 

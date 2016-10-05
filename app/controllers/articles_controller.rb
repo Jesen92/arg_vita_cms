@@ -15,7 +15,11 @@ class ArticlesController < ApplicationController
 
     puts "Unutar import-a putanja csv-a je: #{@csv.document.url}"
 
-    Article.import(@csv.document.url)
+    puts "Orginalno ime je: #{params[:csv_upload][:document]}"
+
+    #Article.import(@csv.document.url)
+
+    Article.import_xlsx(params[:csv_upload][:document])
 
     flash[:notice] = "Dodani su artikli iz CSV datoteke"
 
