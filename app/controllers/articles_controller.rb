@@ -34,7 +34,7 @@ class ArticlesController < ApplicationController
   def index
 
     @page_title = "Artikli"
-    @articles = Article.where(raw: false)
+    @articles = Article.where(raw: false).includes(:pictures)
     @articles_grid = initialize_grid(@articles, name: 'articles', include: [ :categories ,:material, :pictures, :color, :type] ,order: 'articles.created_at', order_direction: 'desc', enable_export_to_csv: true, csv_file_name: 'artikli', csv_field_separator: ';' )
 
     export_grid_if_requested
@@ -481,7 +481,7 @@ class ArticlesController < ApplicationController
 
   protected
     def article_params
-      params.require(:article).permit(:title, :raw, :short_description, :short_description_eng,:related_articles, :feature_product ,:dimension, :subcategory_id, :ssubcategory_id, {related_article_ids:[]} ,:title_eng, :start_date, :end_date, :description_eng, :discount,  :material_id , {category_ids:[]} , :code,  :weight, :cost, :description, :amount, :suppliers_code, :warning, :for_sale , :color_id, :type_id, single_articles_attributes: [:id, :amount, :warning, :type_name, :color_id, :size, :title, :article_id, :_destroy])
+      params.require(:article).permit(:title, :color_or_size, :raw, :short_description, :short_description_eng,:related_articles, :feature_product ,:dimension, :subcategory_id, :ssubcategory_id, {related_article_ids:[]} ,:title_eng, :start_date, :end_date, :description_eng, :discount,  :material_id , {category_ids:[]} , :code,  :weight, :cost, :description, :amount, :suppliers_code, :warning, :for_sale , :color_id, :type_id, single_articles_attributes: [:id, :amount, :warning, :type_name, :color_id, :size, :title, :article_id, :_destroy])
     end
 
     def csv_params

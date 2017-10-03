@@ -33,6 +33,8 @@
         <p></p>
       </div>
     </div>
+    <hr>
+    <%= f.input :color_or_size, as: :radio_buttons, :collection => [['Boja', 'Color'],['Veličina', 'Size']], :selected => ['Boja', 'Color'] %>
 
     <div id="single_articles" style="margin-top: 20px">
       <%= f.simple_fields_for :single_articles, html: {multipart: true} do |single_article| %>
@@ -40,7 +42,7 @@
       <% end %>
 
       <div class="links">
-        <%= link_to_add_association 'Dodaj Veličinu', f, :single_articles, class: "btn btn-info" %>
+        <%= link_to_add_association 'Dodaj Veličinu/Boju', f, :single_articles, class: "btn btn-info" %>
       </div>
     </div>
 

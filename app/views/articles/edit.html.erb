@@ -53,13 +53,16 @@
       </div>
     </div>
 
+    <hr>
+    <%= f.input :color_or_size, label: "Veličina ili Boja", as: :radio_buttons, :collection => [['Veličina', 'Size'],['Boja', 'Color']], :checked => ['Veličina', 'Size'] %>
+
     <div id="single_articles" style="margin-top: 20px">
       <%= f.simple_fields_for :single_articles do |single_article| %>
           <%= render 'single_article_fields', :f => single_article  %>
       <% end %>
 
       <div class="links">
-        <%= link_to_add_association 'Dodaj Veličinu', f, :single_articles, class: "btn btn-info" %>
+        <%= link_to_add_association 'Dodaj Veličinu/Boju', f, :single_articles, class: "btn btn-info" %>
       </div>
     </div>
 

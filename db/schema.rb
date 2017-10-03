@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160329115223) do
+ActiveRecord::Schema.define(version: 20171002091854) do
 
   create_table "admin_users", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "", null: false
@@ -78,6 +78,7 @@ ActiveRecord::Schema.define(version: 20160329115223) do
     t.integer  "type_id",               limit: 4
     t.string   "short_description",     limit: 255
     t.string   "short_description_eng", limit: 255
+    t.string   "color_or_size",         limit: 255
   end
 
   create_table "auctions", force: :cascade do |t|
@@ -157,6 +158,15 @@ ActiveRecord::Schema.define(version: 20160329115223) do
     t.boolean  "for_sale"
     t.decimal  "cost",                          precision: 10, scale: 2
     t.integer  "picture_id",      limit: 4
+  end
+
+  create_table "contact_forms", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.string   "email",      limit: 255
+    t.string   "subject",    limit: 255
+    t.text     "message",    limit: 65535
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   create_table "coupons", force: :cascade do |t|
@@ -239,13 +249,21 @@ ActiveRecord::Schema.define(version: 20160329115223) do
   create_table "past_purchases", force: :cascade do |t|
     t.integer  "user_id",           limit: 4
     t.integer  "single_article_id", limit: 4
-    t.datetime "created_at",                                                           null: false
-    t.datetime "updated_at",                                                           null: false
+    t.datetime "created_at",                                                               null: false
+    t.datetime "updated_at",                                                               null: false
     t.integer  "article_id",        limit: 4
     t.integer  "amount",            limit: 4
-    t.boolean  "article_sent",                                         default: false
-    t.decimal  "cost",                        precision: 10, scale: 2
+    t.boolean  "article_sent",                                             default: false
+    t.decimal  "cost",                            precision: 10, scale: 2
     t.integer  "complement_id",     limit: 4
+    t.string   "country",           limit: 255
+    t.string   "city",              limit: 255
+    t.string   "address",           limit: 255
+    t.string   "postal_code",       limit: 255
+    t.string   "phone_num",         limit: 255
+    t.string   "email",             limit: 255
+    t.text     "remark",            limit: 65535
+    t.string   "payment_method",    limit: 255
   end
 
   create_table "pictures", force: :cascade do |t|
@@ -266,6 +284,16 @@ ActiveRecord::Schema.define(version: 20160329115223) do
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
   end
+
+  create_table "sessions", force: :cascade do |t|
+    t.string   "session_id", limit: 255,   null: false
+    t.text     "data",       limit: 65535
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sessions", ["session_id"], name: "index_sessions_on_session_id", unique: true, using: :btree
+  add_index "sessions", ["updated_at"], name: "index_sessions_on_updated_at", using: :btree
 
   create_table "shop_banners", force: :cascade do |t|
     t.string   "title",              limit: 255

@@ -17,7 +17,7 @@
   end
 
   g.column name: "Materijal", attribute: 'title', custom_filter: :auto, assoc: :material, in_html: false do |t|
-    if t.material != nil
+    if t.material
       t.material.title
     else
       "---"
@@ -45,7 +45,7 @@
   g.column name: "Repromaterijal Podkategorija", attribute: 'title', custom_filter: :auto, assoc: :ssubcategory, in_html: false do |t|
 
     if t.subcategory != nil
-      t.ssubcategory.title
+      t.subcategory.title
     else
       "---"
     end
