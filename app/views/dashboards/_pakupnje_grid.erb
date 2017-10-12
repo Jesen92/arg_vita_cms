@@ -30,6 +30,11 @@
     t.created_at.strftime("%d. %m. %Y.")
   end
 
+  g.column name: "Način plaćanja", attribute: 'payment_method', custom_filter: :auto  do |t|
+    t.payment_method unless t.payment_method.nil?
+  end
+
+
   g.column name: "Količina", attribute: 'amount' do |t|
     t.amount
   end

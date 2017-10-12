@@ -1,5 +1,6 @@
 # encoding: utf-8
 class Article < ActiveRecord::Base
+  acts_as_votable
   require 'open-uri'
   require 'csv'
 
