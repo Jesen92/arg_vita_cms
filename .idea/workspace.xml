@@ -4,27 +4,7 @@
     <bookmark url="file://$PROJECT_DIR$/app/controllers/articles_controller.rb" line="17" mnemonic="2" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="53d55cbb-2a7c-4600-9468-56fe54b961d6" name="Default" comment="Dodan kratki opis(u forme i u tablicu; takodjer dodan kratki opis na eng)">
-      <change type="MOVED" beforePath="$PROJECT_DIR$/app/assets/stylesheets/style.css" afterPath="$PROJECT_DIR$/app/assets/stylesheets/style.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/.generators" afterPath="$PROJECT_DIR$/.idea/.generators" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/.rakeTasks" afterPath="$PROJECT_DIR$/.idea/.rakeTasks" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/ArgentumVita_cms.iml" afterPath="$PROJECT_DIR$/.idea/ArgentumVita_cms.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Gemfile" afterPath="$PROJECT_DIR$/Gemfile" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Gemfile.lock" afterPath="$PROJECT_DIR$/Gemfile.lock" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/javascripts/application.js" afterPath="$PROJECT_DIR$/app/assets/javascripts/application.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/assets/stylesheets/application.css.scss" afterPath="$PROJECT_DIR$/app/assets/stylesheets/application.css.scss" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/articles_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/articles_controller.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/models/article.rb" afterPath="$PROJECT_DIR$/app/models/article.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/services/batch_actions.rb" afterPath="$PROJECT_DIR$/app/services/batch_actions.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/services/set_discount.rb" afterPath="$PROJECT_DIR$/app/services/set_discount.rb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/articles/_articles_gallery.erb" afterPath="$PROJECT_DIR$/app/views/articles/_articles_gallery.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/layouts/application.html.erb" afterPath="$PROJECT_DIR$/app/views/layouts/application.html.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/views/layouts/sign_in_devise.erb" afterPath="$PROJECT_DIR$/app/views/layouts/sign_in_devise.erb" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/config/initializers/assets.rb" afterPath="$PROJECT_DIR$/config/initializers/assets.rb" />
-    </list>
+    <list default="true" id="53d55cbb-2a7c-4600-9468-56fe54b961d6" name="Default" comment="Dodan kratki opis(u forme i u tablicu; takodjer dodan kratki opis na eng)" />
     <ignored path="ArgentumVita_cms.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -38,7 +18,7 @@
   </component>
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/ArgentumVita_cms@db_create__ArgentumVita_cms.coverage" NAME="db:create: ArgentumVita_cms Coverage Results" MODIFIED="1447683596252" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="ArgentumVita_cms" />
-    <SUITE FILE_PATH="coverage/ArgentumVita_cms@assets_precompile__ArgentumVita_cms.coverage" NAME="assets:precompile: ArgentumVita_cms Coverage Results" MODIFIED="1519199182826" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="ArgentumVita_cms" />
+    <SUITE FILE_PATH="coverage/ArgentumVita_cms@assets_precompile__ArgentumVita_cms.coverage" NAME="assets:precompile: ArgentumVita_cms Coverage Results" MODIFIED="1519201716322" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="ArgentumVita_cms" />
     <SUITE FILE_PATH="coverage/ArgentumVita_cms@Development__ArgentumVita_cms.coverage" NAME="Development: ArgentumVita_cms Coverage Results" MODIFIED="1519201484433" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="ArgentumVita_cms" />
     <SUITE FILE_PATH="coverage/ArgentumVita_cms@db_migrate__ArgentumVita_cms.coverage" NAME="db:migrate: ArgentumVita_cms Coverage Results" MODIFIED="1506935941966" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="ArgentumVita_cms" />
     <SUITE FILE_PATH="coverage/ArgentumVita_cms@tmp_clear__ArgentumVita_cms.coverage" NAME="tmp:clear: ArgentumVita_cms Coverage Results" MODIFIED="1454587817301" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="ArgentumVita_cms" />
@@ -78,8 +58,8 @@
       <file leaf-file-name="_articles_gallery.erb" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/views/articles/_articles_gallery.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="26" column="26" lean-forward="false" selection-start-line="26" selection-start-column="26" selection-end-line="26" selection-end-column="26" />
+            <state relative-caret-position="435">
+              <caret line="29" column="0" lean-forward="true" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -447,7 +427,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Rails.Development: ArgentumVita_cms">
+  <component name="RunManager" selected="Rake.assets:precompile: ArgentumVita_cms">
     <configuration name="Rails console: ArgentumVita_cms" type="IrbRunConfigurationType" factoryName="IRB console" temporary="true">
       <module name="ArgentumVita_cms" />
       <IRB_RUN_CONFIG NAME="RUBY_ARGS" VALUE="-e $stdout.sync=true;$stderr.sync=true;load($0=ARGV.shift)" />
@@ -820,7 +800,7 @@
       <workItem from="1510580567824" duration="869000" />
       <workItem from="1510651653239" duration="129000" />
       <workItem from="1519197089757" duration="1161000" />
-      <workItem from="1519198606350" duration="3056000" />
+      <workItem from="1519198606350" duration="3106000" />
     </task>
     <task id="LOCAL-00091" summary="4. pokusaj ispravka &quot;CSV upload&quot;-a">
       <created>1454004814718</created>
@@ -1169,7 +1149,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="29505000" />
+    <option name="totallyTimeSpent" value="29555000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1628,8 +1608,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/views/articles/_articles_gallery.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="26" column="26" lean-forward="false" selection-start-line="26" selection-start-column="26" selection-end-line="26" selection-end-column="26" />
+        <state relative-caret-position="435">
+          <caret line="29" column="0" lean-forward="true" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
           <folding />
         </state>
       </provider>
