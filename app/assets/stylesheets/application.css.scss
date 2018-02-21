@@ -13,10 +13,15 @@
  *= require simple-sidebar
  *= require jquery.ui.datepicker
  *= require jquery.countdown
+ *= require chosen
  *= require_tree .
 
 
  */
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+@import "chosen";
 
 @import 'ionicons.scss';
 
@@ -24,10 +29,7 @@
 @import "font-awesome-sprockets";
 @import "font-awesome";
 
-@import "bootstrap-sprockets";
-@import "bootstrap";
-@import "chosen";
-@import "bootstrap-chosen";
+
 
 html {
   overflow: visible;
@@ -93,4 +95,3 @@ html {
 }
 
 .RbtnMargin { margin-left: 5px; }
-

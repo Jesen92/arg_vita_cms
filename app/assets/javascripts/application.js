@@ -27,4 +27,5 @@
 //= require filter
 //= require jquery.countdown.js
 //= require cocoon
+//= require chosen-jquery
 //= require_tree .

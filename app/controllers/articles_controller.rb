@@ -208,7 +208,6 @@ class ArticlesController < ApplicationController
 
   #####################  #####################  #####################  ##################### funkcije za opcije nad vise izabranih artikla
   def batch_actions
-
     #FIXME uljepsaj kod /service objects
 
     @codes = Article.select(:code).map(&:code)
@@ -242,17 +241,15 @@ class ArticlesController < ApplicationController
           else
             @indicator, @selected_ids, flash[:notice] = BatchActions.new(params).articles_batch_action
           end
-
     end
 
-
-    if params[:commit] = 'Izbriši artikle'
+    if params[:commit].include? 'Izbriši artikle'
       return redirect_to :back
     end
 
  ########################### redirect-ovi
     if params[:articles]
-      if params[:commit] != 'Postavi popust'
+      if params[:commit].exclude? 'Postavi popust'
         if params[:articles] && @indicator == false
           return redirect_to articles_path
         elsif params[:raw] && @indicator == false
@@ -262,14 +259,12 @@ class ArticlesController < ApplicationController
         end
       end
     elsif params[:complements]
-      if params[:commit] != 'Postavi popust' && params[:commit] != 'Stavi na Aukciju'
+      if params[:commit].exclude? 'Postavi popust' && params[:commit].exclude?('Stavi na Aukciju')
         return redirect_to complements_path
       end
     end
     #########################
-
   end
-
 
   def set_discount #sluzi za postavljanje popusta nad vise artikla/kompleta
 

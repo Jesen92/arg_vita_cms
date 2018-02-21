@@ -61,7 +61,7 @@ class BatchActions
 
       elsif @params[:commit] == 'Makni sa popusta'
 
-        @art.update_all(discount: 0)
+        @art.update_all(discount: 0, on_discount: false)
 
         flash = "Maknuti popusti sa Artikla!"
 

@@ -24,5 +24,6 @@ Rails.application.config.assets.precompile += %w( menu.js )
 Rails.application.config.assets.precompile += %w( scaffold.coffee )
 Rails.application.config.assets.precompile += %w( gallery_view.js )
 
+Rails.application.config.assets.precompile += %w( filterrific/filterrific-spinner.gif )
 
 

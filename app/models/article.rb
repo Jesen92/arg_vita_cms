@@ -198,7 +198,7 @@ puts "usao je u import"
                        # change the number of OR conditions.
                        num_or_conds = 1
                        where(
-                             "(LOWER(articles.title) LIKE ? OR LOWER(articles.title_eng) LIKE ?)", "%#{terms}%", "%#{terms}%"
+                           "(LOWER(articles.title) LIKE ? OR LOWER(articles.title_eng) LIKE ? OR LOWER(articles.code) LIKE ?)", "%#{terms}%", "%#{terms}%", "%#{terms}%"
                        )
                      }
 

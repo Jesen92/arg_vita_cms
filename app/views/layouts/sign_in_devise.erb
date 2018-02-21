@@ -4,28 +4,15 @@
   <meta charset="UTF-8">
   <title>Login</title>
 
-
-
-
-
   <%= stylesheet_link_tag    'style', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 
   <meta charset="utf-8"/>
-
-
-
 </head>
-
-<body>
-
 <body class="align">
-
 <div class="site__container">
-
   <div class="grid__container">
-
     <form action="" method="post" class="form form--login">
 
       <% if alert %>
@@ -35,22 +22,9 @@
         <%= yield %>
 
     </form>
-
-
-
   </div>
-
 </div>
 
-
-
-
-
 </body>
 
-
-
-
-
-</body>
 </html>

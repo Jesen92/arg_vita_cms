@@ -1,5 +1,7 @@
 source 'http://rubygems.org'
 
+
+ruby '2.3.1'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.4'
 # Use mysql as the database for Active Record
@@ -26,7 +28,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'hermitage'
 
-gem 'filterrific'
+gem 'filterrific', '~> 2.0.5'
 
 gem 'devise'
 gem 'cancancan'
@@ -40,12 +42,12 @@ gem 'jquery-ui-rails', '~> 4.2.1'
 gem "wice_grid", '3.6.0.pre4'
 gem 'font-awesome-sass',  '~> 4.3'
 
-gem 'chosen-rails', '~> 1.4', '>= 1.4.3'
-gem 'bootstrap-chosen-rails'
+gem 'chosen-rails'
+#gem 'bootstrap-chosen-rails'
 
 gem 'awesome_nested_set'
 
-gem 'bootstrap-sass', '~> 3.3.5'
+gem 'bootstrap-sass'
 
 gem "paperclip", "~> 4.3"
 
@@ -55,7 +57,6 @@ gem "gibbon"
 
 gem 'gon'
 
-ruby '2.2.3'
 
 gem 'rails_12factor'
 
@@ -80,6 +81,7 @@ gem "compass-rails", github: "Compass/compass-rails", branch: "master"
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+gem 'pry-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

@@ -16,10 +16,10 @@ class SetDiscount
 
 
     if articles != nil
-      articles.update_all(discount: @params[:article][:discount], start_date: start_date, end_date: end_date )
+      articles.update_all(discount: @params[:article][:discount], start_date: start_date, end_date: end_date, on_discount: true )
 
       if !articles_codes.nil?
-        articles_codes.update_all(discount: @params[:article][:discount], start_date: start_date, end_date: end_date )
+        articles_codes.update_all(discount: @params[:article][:discount], start_date: start_date, end_date: end_date, on_discount: false )
       end
     end
   end
