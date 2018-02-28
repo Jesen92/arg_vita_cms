@@ -57,7 +57,7 @@
     t.suppliers_code
   end
 
-  g.column name: "Izmijenjen", attribute: 'created_at', :filter => :jquery_datepicker do |t|
+  g.column name: "Izmijenjen", attribute: 'updated_at', :filter => :jquery_datepicker do |t|
     t.updated_at.strftime("%d. %m. %Y.")
   end
 

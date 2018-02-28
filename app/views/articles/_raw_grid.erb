@@ -46,9 +46,9 @@
   g.column name: "Kod", attribute: 'code'  do |t|
     t.code
   end
-ß
-  g.column name: "Izmijenjen", attribute: 'created_at' do |t|
-    t.updated_at.strftime("%d. %m. %Y.")
+
+  g.column name: "Izmijenjen", attribute: 'updated_at' do |t|
+    t.updated_at.strftime("%d. %m. %Y.") unless t.updated_at.blank?
   end
 
   g.column name: "Na prodaji", attribute: 'for_sale' do |t|
