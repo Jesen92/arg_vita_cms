@@ -11,17 +11,15 @@ class DashboardsController < ApplicationController
       @single_article_purchases = PastPurchase.where("past_purchases.article_sent = false AND past_purchases.single_article_id IS NOT NULL")
       @complement_purchases = PastPurchase.where("past_purchases.article_sent = false AND past_purchases.complement_id IS NOT NULL")
 
-      @articles_limit_grid = initialize_grid(@articles, include: [:categories, :material], name: 'artiklizalihe', order: 'articles.created_at', order_direction: 'desc', per_page: 5, enable_export_to_csv: true, csv_file_name: 'artikli pred istekom zaliha', csv_field_separator: ';' )
+      @articles_limit_grid = initialize_grid(@articles, include: [:categories, :material, :subcategory, :ssubcategory], name: 'artiklizalihe', order: 'articles.created_at', order_direction: 'desc', per_page: 5, enable_export_to_csv: true, csv_file_name: 'artikli pred istekom zaliha', csv_field_separator: ';' )
 
-      @single_articles_limit_grid = initialize_grid(@single_articles, include: [  :pictures ,:color, :article], name: 'pojedinacniartiklizalihe', order: 'single_articles.created_at', order_direction: 'desc', per_page: 5, enable_export_to_csv: true, csv_file_name: 'pojedinacni artikli pred istekom zaliha', csv_field_separator: ';' )
+      @single_articles_limit_grid = initialize_grid(@single_articles, include: [  :pictures ,:color, {article: [:categories,:material]}], name: 'pojedinacniartiklizalihe', order: 'single_articles.created_at', order_direction: 'desc', per_page: 5, enable_export_to_csv: true, csv_file_name: 'pojedinacni artikli pred istekom zaliha', csv_field_separator: ';' )
 
       @purchases_grid = initialize_grid(@purchases, include: [:user ,:article], name: 'kupnje', order: 'past_purchases.created_at', order_direction: 'desc', per_page: 10, enable_export_to_csv: true, csv_file_name: 'Kupnje', csv_field_separator: ';' )
 
       @single_article_purchases_grid = initialize_grid(@single_article_purchases, include: [ :single_article, :user ], name: 'pakupnje', order: 'past_purchases.created_at', order_direction: 'desc', per_page: 10, enable_export_to_csv: true, csv_file_name: 'Kupnje', csv_field_separator: ';' )
 
       @complement_purchases_grid = initialize_grid(@complement_purchases, include: [ :complement, :user ], name: 'kompkupnje', order: 'past_purchases.created_at', order_direction: 'desc', per_page: 10, enable_export_to_csv: true, csv_file_name: 'Kupnje', csv_field_separator: ';' )
-
-
 
       export_grid_if_requested
     else
@@ -31,7 +29,6 @@ class DashboardsController < ApplicationController
 
   def show
   end
-
 
   def batch_options
     if params[:commit] == 'Izbriši prodaje'

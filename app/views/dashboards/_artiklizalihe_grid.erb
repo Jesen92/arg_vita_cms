@@ -16,41 +16,6 @@
     t.title
   end
 
-  g.column name: "Materijal", attribute: 'title', custom_filter: :auto, assoc: :material, in_html: false do |t|
-    if t.material
-      t.material.title
-    else
-      "---"
-    end
-  end
-
-  g.column name: "Kategorija", attribute: 'title', custom_filter: :auto, assoc: :categories, in_html: false do |t|
-
-    if t.categories != nil
-      t.categories.collect{|cat| cat.title}.to_sentence(last_word_connector: ", ")
-    else
-      "---"
-    end
-  end
-
-  g.column name: "Repromaterijal Kategorija", attribute: 'title', custom_filter: :auto, assoc: :subcategory, in_html: false do |t|
-
-    if t.subcategory != nil
-      t.subcategory.title
-    else
-      "---"
-    end
-  end
-
-  g.column name: "Repromaterijal Podkategorija", attribute: 'title', custom_filter: :auto, assoc: :ssubcategory, in_html: false do |t|
-
-    if t.subcategory != nil
-      t.subcategory.title
-    else
-      "---"
-    end
-  end
-
   g.column name: "Popust", attribute: 'discount', in_html: false do |t|
     t.discount? ? t.discount.to_s+"%" : "---"
   end
@@ -63,7 +28,40 @@
     t.suppliers_code
   end
 
-  g.column name: "Datum kreiranja", attribute: 'created_at' do |t|
+  g.column name: "Materijal", attribute: 'title', custom_filter: :auto, assoc: :material do |t|
+    if t.material != nil
+      t.material.title
+    else
+      "---"
+    end
+  end
+
+  g.column name: "Kategorija", attribute: 'title', custom_filter: :auto, assoc: :categories do |t|
+
+    if !t.categories.empty?
+      t.categories.collect{|cat| cat.title}.to_sentence(two_words_connector:", " ,last_word_connector: ", ")
+    else
+      "---"
+    end
+  end
+
+  g.column name: "Repro Kategorija", attribute: 'title', custom_filter: :auto, assoc: :subcategory do |t|
+    if t.subcategory != nil
+      t.subcategory.title
+    else
+      "---"
+    end
+  end
+
+  g.column name: "Repro Podkategoija", attribute: 'title', custom_filter: :auto, assoc: :ssubcategory do |t|
+    if t.ssubcategory != nil
+      t.ssubcategory.title
+    else
+      "---"
+    end
+  end
+
+  g.column name: "Datum izmjene", attribute: 'created_at' do |t|
     t.created_at.strftime("%d. %m. %Y.")
   end
 
