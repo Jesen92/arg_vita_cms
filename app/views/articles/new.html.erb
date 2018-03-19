@@ -34,7 +34,7 @@
       </div>
     </div>
     <hr>
-    <%= f.input :color_or_size, as: :radio_buttons, :collection => [['Boja', 'Color'],['Veličina', 'Size']], :selected => ['Boja', 'Color'] %>
+    <%= f.input :color_or_size, as: :radio_buttons, :collection => [['Veličina', 'Size'],['Boja', 'Color'], ['Oblik', 'Shape'], ['Broj', 'Number']], :selected => ['Boja', 'Color'] %>
 
     <div id="single_articles" style="margin-top: 20px">
       <%= f.simple_fields_for :single_articles, html: {multipart: true} do |single_article| %>
@@ -42,7 +42,7 @@
       <% end %>
 
       <div class="links">
-        <%= link_to_add_association 'Dodaj Veličinu/Boju', f, :single_articles, class: "btn btn-info" %>
+        <%= link_to_add_association 'Dodaj Veličinu/Boju/Oblik/Broj', f, :single_articles, class: "btn btn-info" %>
       </div>
     </div>
 
@@ -54,17 +54,29 @@
 
     <%= f.input :description_eng, label: "Opis na Engleskom" %>
 
-    <%= f.input :weight, label: "Težina" %>
+    <div class="row">
+      <div class="col-md-4">
+        <%= f.input :weight, label: "Težina" %>
+      </div>
+      <div class="col-md-4">
+        <%= f.input :code, label: "Kod" %>
+      </div>
+      <div class="col-md-4">
+        <%= f.input :suppliers_code, label: "Kod Dobavljača" %>  
+      </div>
+    </div>
 
-    <%= f.input :dimension, label: "Dimenzije" %>
-
-    <%= f.input :code, label: "Kod" %>
-
-    <%= f.input :suppliers_code, label: "Kod Dobavljača" %>
-
-    <%= f.input :amount, label: "Količina" %>
-
-    <%= f.input :warning, label: "Limit za upozorenje" %>
+    <div class="row">
+      <div class="col-md-4">
+        <%= f.input :dimension, label: "Dimenzije" %>
+      </div>
+      <div class="col-md-4">
+        <%= f.input :amount, label: "Količina" %>      
+      </div>
+      <div class="col-md-4">
+        <%= f.input :warning, label: "Limit za upozorenje" %>
+      </div>
+    </div>
 
     <%= f.input :cost, label: "Cijena" %>
 

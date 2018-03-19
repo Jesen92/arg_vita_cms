@@ -6,6 +6,8 @@ class Article < ActiveRecord::Base
 
   belongs_to :color
   belongs_to :type
+  belongs_to :shape
+  belongs_to :picture_numbers
 
   has_many :related_articles
   has_many :related_articles, :through => :related_articles

@@ -10,9 +10,14 @@
 
     <%= f.input :title_eng, label: "Naziv na Engleskom" %>
 
-    <%= f.input :subcategory_id, label: "Kategorija", :collection => Subcategory.all %>
-
-    <%= f.input :ssubcategory_id , label: "Podkategorija" , :collection => Subcategory.all, as: :grouped_select, group_method: :ssubcategories %>
+    <div class="row">
+      <div class="col-md-6">
+        <%= f.input :subcategory_id, label: "Kategorija", :collection => Subcategory.all %>
+      </div>
+      <div class="col-md-6">
+        <%= f.input :ssubcategory_id , label: "Podkategorija" , :collection => Subcategory.all, as: :grouped_select, group_method: :ssubcategories %>
+      </div>
+    </div>
 
     <%= f.simple_fields_for :related_articles do |r| %>
         <%= f.label "Srodni artikli" %>
@@ -20,11 +25,21 @@
         <%= r.input :related_article_codes, required: false, label: false, collection: Article.where(raw: true).pluck(:code), input_html: {class: 'chosen-select', multiple: true} %>
     <% end %>
 
-    <%= f.label "Boja" %>
-    <%= f.input :color_id, collection: Color.all , label: false %>
-
     <%= f.label "Tip" %>
     <%= f.input :type_id, collection: Type.all , label: false %>
+
+    <div class="row">
+      <div class="col-md-6">
+          <%= f.label "Boja" %>
+          <%= f.input :color_id, collection: Color.all , label: false %>
+      </div>
+      <div class="col-md-6"></div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6"></div>
+      <div class="col-md-6"></div>
+    </div>
 
     <div class="control-group">
       <%= f.label :pictures, label: "Slike", :class => 'control-label' %>
@@ -35,7 +50,7 @@
       </div>
     </div>
     <hr>
-    <%= f.input :color_or_size, label: "Veličina ili Boja", as: :radio_buttons, :collection => [['Veličina', 'Size'],['Boja', 'Color']], :checked => ['Veličina', 'Size'] %>
+    <%= f.input :color_or_size, label: "Veličina ili Boja", as: :radio_buttons, :collection => [['Veličina', 'Size'],['Boja', 'Color'], ['Oblik', 'Shape'], ['Broj', 'Number']], :checked => ['Veličina', 'Size'] %>
 
     <div id="single_articles" style="margin-top: 20px">
       <%= f.simple_fields_for :single_articles, html: {multipart: true} do |single_article| %>
@@ -43,7 +58,7 @@
       <% end %>
 
       <div class="links">
-        <%= link_to_add_association 'Dodaj Veličinu/Boju', f, :single_articles, class: "btn btn-info" %>
+        <%= link_to_add_association 'Dodaj Veličinu/Boju/Oblik/Broj', f, :single_articles, class: "btn btn-info" %>
       </div>
     </div>
 
@@ -55,15 +70,26 @@
 
     <%= f.input :description_eng, label: "Opis na Engleskom" %>
 
-    <%= f.input :weight, label: "Težina" %>
+    <div class="row">
+      <div class="col-md-4">
+        <%= f.input :weight, label: "Težina" %>
+      </div>
+      <div class="col-md-4">
+        <%= f.input :code, label: "Kod" %>
+      </div>
+      <div class="col-md-4">
+        <%= f.input :suppliers_code, label: "Kod Dobavljača" %>  
+      </div>
+    </div>
 
-    <%= f.input :code, label: "Kod" %>
-
-    <%= f.input :suppliers_code, label: "Kod Dobavljača" %>
-
-    <%= f.input :amount, label: "Količina" %>
-
-    <%= f.input :warning, label: "Limit za upozorenje" %>
+    <div class="row">
+      <div class="col-md-6">
+        <%= f.input :amount, label: "Količina" %>      
+      </div>
+      <div class="col-md-6">
+        <%= f.input :warning, label: "Limit za upozorenje" %>
+      </div>
+    </div>
 
     <%= f.input :cost, label: "Cijena" %>
 

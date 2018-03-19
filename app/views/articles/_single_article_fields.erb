@@ -5,7 +5,7 @@
     </div>
 <!--    <%= f.input :type_name, label: 'Tip' %>
     <%= f.input :color_id, label: 'Boja', collection: Color.all  %>-->
-    <%= f.input :size, label: 'Veličina/Boja' %>
+    <%= f.input :size, label: 'Veličina/Boja/Oblik/Broj' %>
     <%= f.input :amount, label: 'Količina' %>
     <%= f.input :warning, label: 'Limit za upozorenje' %>
 
@@ -26,9 +26,7 @@
           </div>
         </div>-->
         <p></p>
-
-
-
+        
     <%= link_to_remove_association "Remove", f, class: "btn btn-danger" %>
   </div>
 </div>

@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :picture_numbers
+  resources :shapes
   get 'types/index'
 
   get 'types/show'
@@ -250,9 +252,10 @@ Rails.application.routes.draw do
       root :to => 'admin_users/sessions#new', as: :unauthenticated_root
     end
 
-
     get "admin_users/sign_out" => redirect("devise/sessions#new")
 
+    resources :shapes
+    resources :picture_numbers
 
     resources :home_banners do
       put :banner_up, on: :collection
