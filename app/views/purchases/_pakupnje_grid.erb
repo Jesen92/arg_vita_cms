@@ -1,4 +1,4 @@
-<%= grid( @single_article_purchases_grid, show_filters: :always) do |g|
+<%= grid(@single_article_purchases_grid, show_filters: :always) do |g|
 
   g.action_column do |t|
     t.id
@@ -44,31 +44,6 @@
 
   g.column name: "Cijena(ukupno)", attribute: 'cost' do |t|
     number_to_currency(t.cost*t.amount, :unit => 'Kn', :format => "%n %u")
-  end
-
-
-  g.column name: "Korisnik", attribute: 'name', assoc: :user do |t|
-    t.user.name unless t.user.nil?
-  end
-
-  g.column name: "Grad", attribute: 'city', assoc: :user, in_html: false  do |t|
-    t.user.city unless t.user.nil?
-  end
-
-  g.column name: "Adresa", attribute: 'address', assoc: :user, in_html: false  do |t|
-    t.user.address unless t.user.nil?
-  end
-
-  g.column name: "Poštanski kod", attribute: 'postcode', assoc: :user, in_html: false  do |t|
-    t.user.postcode unless t.user.nil?
-  end
-
-  g.column name: "Broj tel/mob", attribute: 'phone', assoc: :user, in_html: false  do |t|
-    t.user.phone unless t.user.nil?
-  end
-
-  g.column name: "e-mail", attribute: 'email', assoc: :user, in_html: false  do |t|
-    t.user.email unless t.user.nil?
   end
 
 end-%>

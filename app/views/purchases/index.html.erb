@@ -2,42 +2,7 @@
   <h1>Prodaje</h1>
 </div>
 
+  <%= render partial: 'purchases/sve_kupnje_grid' %>
 
 
-<% if @purchases != nil || @single_article_purchases != nil %>
 
-    <%= form_tag batch_options_path, :method => :put do |f| %>
-
-        <div style="margin-bottom: 5px;" >
-
-          <div class="dropdown" >
-            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" style="width: 105px;">
-              Opcije
-              <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu">
-
-              <li><a><%= submit_tag "Artikli poslani!", data: {confirm: 'Jeste li sigurni da su artikli poslani?'},style: "background: white;" %></a></li>
-              <li><a><%= submit_tag "Artikli nisu poslani!", data: {confirm: 'Jeste li sigurni da artikli nisu poslani?'},style: "background: white;" %></a></li>
-
-
-            </ul>
-
-            <%= submit_tag "Izbriši artikle",data: { confirm: 'Jeste li sigurni da želite obrisati odabrane artikle?' }, class: "btn btn-danger"%>
-          </div>
-        </div>
-
-        <% if @purchases != nil%>
-            <%= render partial: 'purchases/kupnje_grid' %>
-        <% end %>
-
-        <% if @single_article_purchases != nil %>
-            <%= render partial: 'purchases/pakupnje_grid' %>
-        <% end %>
-
-        <% if @complement_purchases != nil %>
-            <%= render partial: 'purchases/kompkupnje_grid' %>
-        <% end %>
-
-    <% end %>
-<% end %>

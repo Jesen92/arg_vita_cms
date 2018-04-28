@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  get 'purchases/index'
+
+  get 'purchases/show'
+
   resources :picture_numbers
   resources :shapes
   get 'types/index'
