@@ -20,14 +20,6 @@
         t.id
       end
 
-      g.column name: "Artikl", attribute: 'title', assoc: :article  do |t|
-        if t.article != nil
-          t.article.title
-        else
-          "- Svi Artikli -"
-        end
-      end
-
       g.column name: "Kod", attribute: 'code' do |t|
         t.code
       end
@@ -36,12 +28,12 @@
         t.discount? ? t.discount.to_s+"%" : "---"
       end
 
-      g.column name: "Iskorišten", attribute: 'used' do |t|
-        t.used? ? "Iskorišten" : "Nije Iskorišten"
-      end
-
-      g.column name: "Kreiran", attribute: 'created_at' do |t|
-        t.created_at.strftime("%d. %m. %Y.")
+      g.column name: "Preostao broj korištenja", attribute: 'number_of_uses' do |t|
+        if (t.infinite_uses)
+          " - Neograničeno -"
+        else
+          t.number_of_uses if t.number_of_uses.present?
+        end
       end
 
       g.column do |t|

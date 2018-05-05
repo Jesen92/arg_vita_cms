@@ -62,7 +62,7 @@ class CouponsController < ApplicationController
 
   protected
   def coupon_params
-    params.require(:coupon).permit(:title, :article_id, :discount, :code)
+    params.require(:coupon).permit(:title, :article_id, :discount, :code, :infinite_uses, :number_of_uses)
   end
 end
 

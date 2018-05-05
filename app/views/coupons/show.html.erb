@@ -1,19 +1,5 @@
 <%= link_to "Uredi Kupon", edit_coupon_path(@coupon.id), class: "btn btn-primary" %> <%= link_to 'Delete',  @coupon,  method: :delete, data: { confirm: 'Jeste li sigurni?' },class: "btn btn-danger" %> <%= link_to "Svi Kuponi", coupons_path, class: "btn btn-default RbtnMargin pull-right" %>  <% if !@coupon.article.nil? %> <%= link_to @coupon.article.title, article_path(@coupon.article.id), class: "btn btn-default pull-right" %> <% end %>
-<div class="page-header head-page">
-  <h1>Kupon za <%= @coupon.article != nil ? @coupon.article.title : "- sve artikle -" %></h1>
-</div>
 
-<% if @coupon.article != nil %>
-<div class="row">
-  <div class="col-xs-6 col-md-2">
-    <% if @coupon.article.pictures.nil? %>
-      <%= link_to image_tag(@coupon.article.pictures.first.image.url(:gallery)) ,article_path(@coupon.article.id), class: 'thumbnail' %>
-    <% else %>
-      <%= image_tag('placeholder.png') %>
-    <% end %>
-  </div>
-</div>
-<% end %>
 
 <div class="panel panel-info" style="margin-top: 10px">
   <div class="panel-heading">
@@ -27,10 +13,6 @@
 
       <div class="col-xs-6 col-md-2" >
         <strong>Popust:</strong><p> <%= @coupon.discount.to_s+"%"  %> </p>
-      </div>
-
-      <div class="col-xs-6 col-md-2" >
-        <strong>Kod:</strong> <p><%= @coupon.used? ? "Iskorišten" : "Nije iskorišten" %></p>
       </div>
 
     </div>

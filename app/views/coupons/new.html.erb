@@ -6,12 +6,9 @@
     <%= f.label "Artikli" %>
     <p>Ako se ne odabere artikl, kupon će služiti za cijelu narudžbu.</p>
 
-    <%= f.association :article, label: false, collection: Article.all, multiple: true, :include_blank => true, :input_html => {class: 'chosen-select'} %>
-
-
-
     <%= f.input :discount, label: "Popust(%)" %>
-
+    <%= f.input :number_of_uses, label: "Broj korištenja"%>
+    <%= f.input :infinite_uses, label: "Neograničeno korištenje"%>
 
     <%= f.button :submit, "Izradi kupon", class: "btn btn-success" %>
     <%= link_to "Cancel", coupons_path, class: "btn btn-default" %>
