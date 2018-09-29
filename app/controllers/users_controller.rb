@@ -67,8 +67,20 @@ class UsersController < ApplicationController
     redirect_to users_index_path
   end
 
+  def set_personal_discount
+    @user = User.find(params[:id]).update(personal_discount: discount_params[:personal_discount])
+
+    respond_to do |format|
+      format.js
+    end
+  end
+
   protected
   def user_params
     params.require(:user).permit(:title, :article_id, :discount, :code)
+  end
+
+  def discount_params
+    params.require(:user).permit(:personal_discount)
   end
 end

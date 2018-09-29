@@ -76,6 +76,8 @@ Rails.application.routes.draw do
 
   get 'users/destroy'
 
+  post 'users/set_personal_discount' => "users#set_personal_discount", :as => 'set_personal_discount'
+
   get 'purchases/index'
 
   get 'purchases/show'
