@@ -1,5 +1,5 @@
 <%= grid(@users_grid, show_filters: :always) do |g|
-  g.column name: "Id", attribute: 'id', filter: false do |t|
+  g.column name: "Id", attribute: 'id', in_csv: false , filter: false do |t|
     t.id
   end
 
@@ -11,27 +11,23 @@
     t.email
   end
 
-  g.column name: "Država", attribute: 'state' do |t|
+  g.column name: "Država", attribute: 'state', in_csv: false  do |t|
     t.state
   end
 
-  g.column name: "City", attribute: 'city' do |t|
-    t.city
+  g.column name: "Artikli Newsletter", attribute: 'articles_newsletter', in_csv: false  do |t|
+    t.articles_newsletter ? '+' : '-'
   end
 
-  g.column name: "Adresa", attribute: 'address' do |t|
-    t.address
+  g.column name: "Repromaterijal Newsletter", attribute: 'raw_articles_newsletter', in_csv: false  do |t|
+    t.raw_articles_newsletter ? '+' : '-'
   end
 
-  g.column name: "Poštanski broj", attribute: 'postcode' do |t|
-    t.postcode
-  end
-
-  g.column name: "Suma kupnje", attribute: 'purchase_sum' do |t|
+  g.column name: "Suma kupnje", attribute: 'purchase_sum', in_csv: false  do |t|
     number_to_currency(t.purchase_sum, :unit => 'Kn', :format => "%n %u")
   end
 
-  g.column name: "Kreiran", attribute: 'created_at' do |t|
+  g.column name: "Kreiran", attribute: 'created_at', in_csv: false  do |t|
     t.created_at.strftime("%d. %m. %Y.")
   end
 

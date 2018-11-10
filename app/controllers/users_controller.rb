@@ -4,7 +4,16 @@ class UsersController < ApplicationController
   def index
     @page_title = "Korisnici"
     @users = User.all
-    @users_grid = initialize_grid(@users, order: 'users.created_at', order_direction: 'desc' )
+    @users_grid = initialize_grid(
+        @users,
+        name: 'users',
+        order: 'users.created_at',
+        order_direction: 'desc',
+        enable_export_to_csv: true,
+        csv_field_separator: ';'
+    )
+
+    export_grid_if_requested
   end
 
   def show
