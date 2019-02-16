@@ -1,0 +1,16 @@
+<h3>Novi Kupon</h3>
+<hr>
+
+<%= simple_form_for @sum_discount, html: {class: 'form-horizontal'} do |f| %>
+    <div class="row">
+      <div class="col-md-2">
+        <%= f.input :sum, label: "Suma (Kn)" %>
+      </div>
+      <div class="col-md-2" style="margin-left:10px">
+        <%= f.input :discount, label: "Popust (%)" %>
+      </div>
+    </div>
+<hr>
+    <%= f.button :submit, "Izradi kupon", class: "btn btn-success" %>
+    <%= link_to "Cancel", sum_discounts_path, class: "btn btn-default" %>
+<% end %>

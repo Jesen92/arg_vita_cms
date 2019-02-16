@@ -304,6 +304,7 @@ Rails.application.routes.draw do
     resources :coupons do
       put :coupon_batch_actions, on: :collection
     end
+    resources :sum_discounts
 
   end
 

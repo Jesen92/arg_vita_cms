@@ -1,0 +1,35 @@
+<%= link_to "Novi Popust", new_sum_discount_path, class: "btn btn-success" %>
+<div class="page-header head-page">
+  <h1>Popusti</h1>
+</div>
+
+<%= grid(@sum_discounts_grid, show_filters: :always) do |g|
+  g.column name: "Id", attribute: 'id', filter: false do |t|
+    t.id
+  end
+
+  g.column name: "Suma", attribute: 'sum' do |t|
+    t.sum.to_s + " Kn"
+  end
+
+  g.column name: "Popust", attribute: 'discount' do |t|
+    t.discount? ? t.discount.to_s+"%" : "---"
+  end
+
+  g.column name: "Kreiran", attribute: 'created_at' do |t|
+    t.created_at.strftime("%d.%m.%Y. %H:%M")
+  end
+
+  g.column name: "Ažuriran", attribute: 'updated_at' do |t|
+    t.updated_at.strftime("%d.%m.%Y. %H:%M")
+  end
+
+  g.column do |t|
+    link_to("Uredi popust", edit_sum_discount_path(t.id))
+  end
+
+  g.column do |t|
+    link_to("Izbriši popust", sum_discount_path(t.id), :method => :delete, data: {confirm: 'Da li ste sigurni?'})
+  end
+
+end-%>

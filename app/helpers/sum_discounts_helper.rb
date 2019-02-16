@@ -1,0 +1,2 @@
+module SumDiscountsHelper
+end

@@ -83,6 +83,9 @@
       <li class="<%= params[:controller] == 'articles' && params[:action] == 'raw_index' ? 'selected-menu' : '' %>">
         <%= link_to "Repromaterijal", raw_index_path %>
       </li>
+      <li class="<%= params[:controller] == 'sum_discounts' ? 'selected-menu' : '' %>">
+        <%= link_to "Popusti", sum_discounts_path %>
+      </li>
       <li class="<%= params[:controller] == 'materials' ? 'selected-menu' : '' %>">
         <%= link_to "Materijali", materials_index_path %>
       </li>
