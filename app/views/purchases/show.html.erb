@@ -1,5 +1,5 @@
 <div class="page-header head-page">
-  <h1>Prodaja - <%= @purchase_info.user.name %></h1>
+  <h1>Prodaja - <%= @purchase_info.user.name unless @purchase_info.user.nil? %></h1>
   <h3><%= @purchase_info.created_at %></h3>
 </div>
 

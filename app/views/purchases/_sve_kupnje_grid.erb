@@ -9,7 +9,7 @@
   end
 
   g.column name: "Korisnik", attribute: 'name', assoc: :user do |t|
-    t.user.name unless t.nil?
+    t.user.name unless t.user.nil? && t.nil?
   end
   
   g.column name: "Država", attribute: 'country' do |t|
